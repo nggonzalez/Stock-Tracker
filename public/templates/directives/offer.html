@@ -1,0 +1,14 @@
+<div class="offer">
+  <h2 class="shares text-center">{{offerData.shares}} <small>shares</small></h2>
+  <p class="lead">{{offerData.company}}</p>
+  <p class="lead">{{offerData.ceo}}</p>
+  <p>{{offerData.offerDate | date}}</p>
+  <div class="button-wrapper clearfix" ng-if="offerData.new">
+    <div class="btn btn-default offer-decision accept">
+      <span class="glyphicon glyphicon-ok text-center"></span>
+    </div>
+    <div class="btn btn-default offer-decision decline">
+      <span class="glyphicon glyphicon-remove"></span>
+    </div>
+  </div>
+</div>

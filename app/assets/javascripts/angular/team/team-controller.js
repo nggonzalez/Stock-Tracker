@@ -1,0 +1,1 @@
+var team = angular.module('team', []);
