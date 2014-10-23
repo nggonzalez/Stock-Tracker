@@ -8,7 +8,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="stockTrackerApp">
-  <div class="nav-wrapper"></div>
+  <div class="nav-wrapper">
+    <ul class="nav nav-stacked">
+      <li>
+        <a ui-sref="equity">
+          <span class="nav-icon flaticon-equity"></span>
+          <span class="nav-text">Equity</span>
+        </a>
+      </li>
+
+      <li>
+        <a ui-sref="offers">
+          <span class="nav-icon flaticon-offers"></span>
+          <span class="nav-text">Offers</span>
+        </a>
+      </li>
+
+      <li>
+        <a ui-sref="team">
+          <span class="nav-icon flaticon-team"></span>
+          <span class="nav-text">Team</span>
+        </a>
+      </li>
+    </ul>
+  </div>
   <div class="content-wrapper">
     <%= yield %>
   </div>
