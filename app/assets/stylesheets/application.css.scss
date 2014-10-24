@@ -5,12 +5,13 @@
 @import "nav";
 @import "equity";
 @import "offers";
+@import "team";
 @import "../javascripts/angular/components/offer/offer";
 
 body {
   height: 100%;
   margin: 0;
-  padding: 0 0 0 50px;
+  padding: 0 0 0 60px;
 }
 
 .content-wrapper {

@@ -1,5 +1,5 @@
 <div class="offer">
-  <h2 class="shares text-center">{{offerData.shares}} <small>shares</small></h2>
+  <h2 class="shares text-center">{{offerData.shares | number:0}} <small>shares</small></h2>
   <p class="lead">{{offerData.company}}</p>
   <p class="lead">{{offerData.ceo}}</p>
   <p>{{offerData.offerDate | date}}</p>

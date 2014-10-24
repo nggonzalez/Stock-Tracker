@@ -1,17 +1,19 @@
-<div class="page-header">
-  <h1>Open Offers</h1>
-</div>
-
-<div class="row">
-  <div class="col-md-3" ng-repeat="offer in offers.offers">
-    <offer offer-data="offer"></offer>
+<div class="container-fluid offers-page-wrapper">
+  <div class="page-header">
+    <h1>Open Offers</h1>
   </div>
-</div>
 
-<div class="page-header">
-  <h1>Accepted Offers</h1>
-</div>
+  <div class="row">
+    <div class="col-md-3" ng-repeat="offer in offers.offers">
+      <offer offer-data="offer"></offer>
+    </div>
+  </div>
 
-<div class="page-header">
-  <h1>Declined Offers</h1>
+  <div class="page-header">
+    <h1>Accepted Offers</h1>
+  </div>
+
+  <div class="page-header">
+    <h1>Declined Offers</h1>
+  </div>
 </div>

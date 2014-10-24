@@ -1,7 +1,9 @@
-.page-header:first-of-type {
-  margin-top: 0;
+.offers-page-wrapper {
+  .page-header:first-of-type {
+    margin-top: 0;
 
-  h1 {
-    margin-top: 0px;
+    h1 {
+      margin-top: 0px;
+    }
   }
 }

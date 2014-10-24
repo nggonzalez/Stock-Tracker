@@ -1,12 +1,14 @@
-nvd3-line-chart.shares > svg {
-  height: 450px;
-}
+.equity-page-wrapper {
+  nvd3-line-chart.shares > svg {
+    height: 450px;
+  }
 
 
-.equity-stats {
-  padding: 10px 0 20px 0;
-}
+  .equity-stats {
+    padding: 10px 0 20px 0;
+  }
 
-.company-shares {
-  padding: 20px 0;
+  .company-shares {
+    padding: 20px 0;
+  }
 }
