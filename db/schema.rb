@@ -11,9 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20141026005303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "employees", id: false, force: true do |t|
+    t.string   "netid"
+    t.integer  "company_id"
+    t.boolean  "current",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "student_id"
+    t.integer  "team_id"
+  end
+
+  create_table "offers", id: false, force: true do |t|
+    t.string   "netid"
+    t.integer  "company_id"
+    t.integer  "shares"
+    t.date     "cliff_date"
+    t.datetime "offer_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "signed"
+    t.datetime "date_signed"
+    t.integer  "student_id"
+    t.integer  "team_id"
+  end
+
+  create_table "students", force: true do |t|
+    t.string  "netid"
+    t.string  "name"
+    t.boolean "admin"
+  end
+
+  create_table "students_teams", id: false, force: true do |t|
+    t.integer "student_id"
+    t.integer "team_id"
+  end
+
+  create_table "teams", force: true do |t|
+    t.integer  "company_id"
+    t.integer  "total_shares"
+    t.integer  "shares_distributed"
+    t.string   "ceo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

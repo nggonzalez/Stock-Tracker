@@ -1,4 +1,2 @@
-module API  
-  class OffersController < ApplicationController
-  end
+class API::OffersController < ApplicationController
 end

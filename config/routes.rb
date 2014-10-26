@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  namespace :api, path: '/', constraints: {subdomain: 'api'} do
-    resources :students, only: [:index, :update, :show]
+  namespace :api, path: '/api' do # constraints: {subdomain: 'api'} do
+    resources :students, only: [:index, :show]
+    resources :shares, only: [:index, :update, :show]
     resources :offers, only: [:index, :create]
-    resources :companies, only: [:show]
+    resources :teams, only: [:show]
   end
 
   root 'main#index'
