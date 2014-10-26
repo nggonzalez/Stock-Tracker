@@ -1,5 +1,5 @@
 class API::SharesController < ApplicationController
-  def show
+  def index
     shares = Offer.includes(:team).where(student_id: session[:cas_user], signed: true).all
     sharesData = {}
     sharesData[:aggregateTotalShares] = 0;
@@ -7,6 +7,7 @@ class API::SharesController < ApplicationController
     sharesData[:dailyIncrease] = 0
     sharesData[:daysRemaining] = (due_date - Date.current).to_i;
     sharesData[:shares] = []
+    sharesData[:formattedEquity] = []
 
     shares.each do |share|
       singleShareData = {}
@@ -25,22 +26,12 @@ class API::SharesController < ApplicationController
       i = 1
 
       while startingDate < Date.current.tomorrow
-        singleShareData[:formattedEquity][:values].push([startingDate.to_time.to_i, dailyShareIncrease*i])
+        singleShareData[:formattedEquity][:values].push([startingDate.strftime("%F"), dailyShareIncrease*i])
         startingDate = startingDate.tomorrow
         i = i + 1
       end
-
+      sharesData[:formattedEquity].push(singleShareData[:formattedEquity])
       sharesData[:shares].push(singleShareData)
-      # share.formattedEquity = formattedEquity
-      # formattedEquity.each do |entry|
-      #   print entry
-      #   puts
-      # end
-
-      # share.each do |key, value|
-      #   print key + ' ' + value
-      #   puts
-      # end
     end
 
 

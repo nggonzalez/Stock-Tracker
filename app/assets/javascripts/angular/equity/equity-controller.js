@@ -1,7 +1,8 @@
 var equity = angular.module('equity', ['nvd3ChartDirectives', 'sharesService']);
-equity.controller('EquityCtrl', ['Shares', function (Shares) {
+equity.controller('EquityCtrl', ['$scope', 'Shares', function ($scope, Shares) {
   this.dateTicks = function () {
     return function (d) {
+      console.log(d);
       return d3.time.format('%x')(new Date(d));
     }
   };
@@ -18,9 +19,9 @@ equity.controller('EquityCtrl', ['Shares', function (Shares) {
   //   console.log(error.status);
   // });
 
-  Shares.get().$promise.then(function(sharesData) {
+  Shares.query().$promise.then(function(sharesData) {
     console.log(sharesData);
-    this.sharesData = sharesData;
+    $scope.sharesData = sharesData;
   }, function (error) {
     console.log(error.status);
   });
