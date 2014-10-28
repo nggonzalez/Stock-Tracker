@@ -11,4 +11,9 @@
   .company-shares {
     padding: 20px 0;
   }
+
+  .table th, .table td {
+     border-top: none;
+     text-align: center;
+ }
 }

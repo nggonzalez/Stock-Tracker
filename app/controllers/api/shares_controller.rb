@@ -11,11 +11,14 @@ class API::SharesController < ApplicationController
 
     shares.each do |share|
       singleShareData = {}
-      singleShareData[:cliffDate] = share.cliff_date
+      singleShareData[:offerDate] = share.created_at
+      singleShareData[:company] = share.team_id
+      singleShareData[:cliffDate] = share.created_at + 14.days
       singleShareData[:daysVested] = (Date.current - Time.at(share.created_at).to_date).to_i
       singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.created_at).to_date).to_i
+      singleShareData[:totalShares] = share.shares
       singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
-      singleShareData[:formattedEquity] = {:key => share.team_id , :values => []}
+      singleShareData[:formattedEquity] = {:key => "Company #{share.team_id}", :values => []}
 
       sharesData[:dailyIncrease] += dailyShareIncrease
       sharesData[:aggregateEarnedShares] += singleShareData[:earnedShares]
@@ -26,7 +29,7 @@ class API::SharesController < ApplicationController
       i = 1
 
       while startingDate < Date.current.tomorrow
-        singleShareData[:formattedEquity][:values].push([startingDate.strftime("%F"), dailyShareIncrease*i])
+        singleShareData[:formattedEquity][:values].push([startingDate.strftime('%Y-%m-%d %H:%M:%S'), dailyShareIncrease*i])
         startingDate = startingDate.tomorrow
         i = i + 1
       end
