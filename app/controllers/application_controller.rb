@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   # Add this before filter to set a local variable for the current user from CAS session
   before_filter :get_student
-
   after_filter :set_csrf_cookie_for_ng
 
 

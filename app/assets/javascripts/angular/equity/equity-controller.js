@@ -27,7 +27,6 @@ equity.controller('EquityCtrl', ['$scope', 'Shares', function ($scope, Shares) {
   Shares.get().$promise.then(function (sharesData) {
     console.log(sharesData);
     $scope.sharesData = sharesData;
-    $scope.api.refresh();
     var shares = sharesData.shares,
       sharesLength = shares.length,
       companies = {},

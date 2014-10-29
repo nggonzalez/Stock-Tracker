@@ -1,4 +1,6 @@
 class API::OffersController < ApplicationController
+  # before_create/update_action => calc totalShares - distributed
+
   def index
     student = get_student
     offers = Offer.includes(:team).where(student_id: student.id).load
@@ -22,9 +24,8 @@ class API::OffersController < ApplicationController
   end
 
   def update
-    offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
+    offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], created_at: request.POST[:createdDate], shares: request.POST[:shares]).first
     if offer
-      puts offer
       offer.answered = true
       offer.signed = request.POST[:signed]
       offer.date_signed = Date.current

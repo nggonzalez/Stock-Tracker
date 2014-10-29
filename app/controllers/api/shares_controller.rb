@@ -16,8 +16,8 @@ class API::SharesController < ApplicationController
       singleShareData[:offerDate] = share.created_at
       singleShareData[:company] = share.team.company_name
       singleShareData[:cliffDate] = share.cliff_date
-      singleShareData[:daysVested] = (Date.current - Time.at(share.created_at).to_date).to_i
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.created_at).to_date).to_i
+      singleShareData[:daysVested] = (Date.current - Time.at(share.offer_date).to_date).to_i
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.offer_date).to_date).to_i
       singleShareData[:totalShares] = share.shares
       singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
       singleShareData[:formattedEquity] = {:key => share.team.company_name, :values => []}
