@@ -1,5 +1,5 @@
 var stockTrackerApp = angular.module('stockTrackerApp', ['ui.router',
-  'ui.bootstrap', 'equity', 'offers', 'team']);
+  'ui.bootstrap', 'app', 'equity', 'offers', 'team']);
 
 stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
   '$locationProvider',

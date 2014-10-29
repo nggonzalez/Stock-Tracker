@@ -13,11 +13,14 @@ class API::TeamsController < ApplicationController
       totalShares = 0
       earnedShares = 0
       shares.each do |offer|
+        daysVested = (Date.current - Time.at(offer.created_at).to_date).to_i
+        dailyIncrease = offer.shares / (due_date - Time.at(offer.created_at).to_date).to_i
         totalShares += offer.shares
         if company.current
-          earnedShares += (offer.shares/(due_date - Time.at(offer.created_at).to_date).to_i) * (Date.current - Time.at(offer.created_at).to_date).to_i
+          earnedShares += dailyIncrease * daysVested
         elsif company.updated_at >= offer.cliff_date
-          earnedShares += (offer.shares/(due_date - Time.at(offer.created_at).to_date).to_i) * (Time.at(offer.updated_at) - Time.at(offer.created_at).to_date).to_i
+          daysVested = (Time.at(offer.updated_at).to_date - Time.at(offer.created_at).to_date).to_i
+          earnedShares += dailyIncrease * daysVested
         end
       end
 

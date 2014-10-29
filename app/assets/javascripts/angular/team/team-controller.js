@@ -7,4 +7,6 @@ team.controller('TeamCtrl', ['$scope', 'Team', function ($scope, Team) {
   }, function (error) {
     console.log(error.status);
   });
+
+  $scope.student = $scope.$parent.student;
 }]);

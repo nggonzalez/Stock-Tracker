@@ -9,10 +9,10 @@
   <p class="lead employee-name" ng-repeat="employee in currentCompany.employees">{{employee.name}}</p>
   <p class="lead employee-name"><b>{{student}}</b></p>
 
-  <div class="page-header">
+  <div class="page-header" ng-if="student.admin == 'false'">
     <h3>Previous Companies</h3>
   </div>
-  <table class="table">
+  <table class="table" ng-if="student.admin == 'false'">
     <tr class="lead">
       <th>Company</th>
       <th>Start Date</th>

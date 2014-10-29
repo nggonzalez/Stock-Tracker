@@ -11,7 +11,7 @@
     Declined: {{offerData.dateSigned | date}}
   </p>
 
-  <div class="button-wrapper clearfix" ng-if="!offerData.responded">
+  <div class="button-wrapper clearfix" ng-if="!offerData.responded && !ceo">
     <div class="btn btn-default offer-decision accept" ng-click="accept()">
       <span class="glyphicon glyphicon-thumbs-up text-center"></span>
     </div>

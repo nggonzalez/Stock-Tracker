@@ -1,6 +1,6 @@
 class API::StudentsController < ApplicationController
   def show
-    student = Student.where(netid: params[:id]).first
+    student = Student.where(netid: session[:cas_user]).first
     if student
       render json: {student: student}, status: :ok
     else

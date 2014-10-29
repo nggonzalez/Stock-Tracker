@@ -5,7 +5,8 @@ offerDirective.directive('offer', ['Offers', function (Offers) {
     restrict: 'E',
     replace: true,
     scope: {
-      offerData: '='
+      offerData: '=',
+      ceo: '@'
     },
     templateUrl: '/templates/directives/offer.html',
     link: function(scope) {
