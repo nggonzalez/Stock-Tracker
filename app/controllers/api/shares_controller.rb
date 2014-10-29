@@ -1,6 +1,7 @@
 class API::SharesController < ApplicationController
-  def index
-    shares = Offer.includes(:team).where(student_id: session[:cas_user], signed: true).all
+  def show
+    student = get_student
+    shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).all
     sharesData = {}
     sharesData[:aggregateTotalShares] = 0;
     sharesData[:aggregateEarnedShares] = 0
@@ -8,29 +9,30 @@ class API::SharesController < ApplicationController
     sharesData[:daysRemaining] = (due_date - Date.current).to_i;
     sharesData[:shares] = []
     sharesData[:formattedEquity] = []
+    sharesData[:axisDates] = {:max=> due_date, :min => start_date}
 
     shares.each do |share|
       singleShareData = {}
       singleShareData[:offerDate] = share.created_at
-      singleShareData[:company] = share.team_id
-      singleShareData[:cliffDate] = share.created_at + 14.days
+      singleShareData[:company] = share.team.company_name
+      singleShareData[:cliffDate] = share.cliff_date
       singleShareData[:daysVested] = (Date.current - Time.at(share.created_at).to_date).to_i
       singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.created_at).to_date).to_i
       singleShareData[:totalShares] = share.shares
       singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
-      singleShareData[:formattedEquity] = {:key => "Company #{share.team_id}", :values => []}
+      singleShareData[:formattedEquity] = {:key => share.team.company_name, :values => []}
 
       sharesData[:dailyIncrease] += dailyShareIncrease
       sharesData[:aggregateEarnedShares] += singleShareData[:earnedShares]
       sharesData[:aggregateTotalShares] += share.shares
 
 
-      startingDate = Time.at(share.created_at).to_date
+      startingDate = share.created_at
       i = 1
 
-      while startingDate < Date.current.tomorrow
-        singleShareData[:formattedEquity][:values].push([startingDate.strftime('%Y-%m-%d %H:%M:%S'), dailyShareIncrease*i])
-        startingDate = startingDate.tomorrow
+      while Time.at(startingDate).to_date < Date.current.tomorrow
+        singleShareData[:formattedEquity][:values].push([startingDate, dailyShareIncrease*i])
+        startingDate = startingDate + 1.day
         i = i + 1
       end
       sharesData[:formattedEquity].push(singleShareData[:formattedEquity])
@@ -41,12 +43,5 @@ class API::SharesController < ApplicationController
 
     render json: sharesData, status: :ok
   end
-
-  protected
-
-  def due_date
-    return Date.new(2014, 12, 17)
-  end
-
 end
 

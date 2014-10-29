@@ -1,13 +1,29 @@
 <div class="container-fluid team-page-wrapper">
-  <h1 class="company">Company Name <small>current company</small></h1>
-  <p class="ceo lead">CEO: Student Name</p>
-  <p class="shares lead">Shares Earned: xxxxxxx / total</p>
+  <h1 class="company">{{currentCompany.company}} <small>current company</small></h1>
+  <p class="ceo lead">CEO: {{currentCompany.ceo}}</p>
+  <p class="shares lead">Shares Earned: {{currentCompany.earnedShares | number}} / {{currentCompany.totalShares | number}}</p>
 
   <div class="page-header">
     <h3>Team</h3>
   </div>
+  <p class="lead employee-name" ng-repeat="employee in currentCompany.employees">{{employee.name}}</p>
+  <p class="lead employee-name"><b>{{student}}</b></p>
 
   <div class="page-header">
-    <h3>Previous Team(s)</h3>
+    <h3>Previous Companies</h3>
   </div>
+  <table class="table">
+    <tr class="lead">
+      <th>Company</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Earned / Total</th>
+    </tr>
+    <tr ng-repeat="company in previousCompanies" class="lead">
+      <td>{{company.company}}</td>
+      <td>{{company.startDate | date}}</td>
+      <td>{{company.endDate | date}}</td>
+      <td>{{company.earnedShares | number}} / {{company.totalShares | number}}</td>
+    </tr>
+  </table>
 </div>

@@ -1,26 +1,26 @@
-var offerDirective = angular.module('offerDirective', []);
+var offerDirective = angular.module('offerDirective', ['offersService']);
 
-offerDirective.directive('offer', [function () {
-  var link = function (scope, element, attrs, offerCtrl) {
-    var acceptButton = angular.element(element[0].querySelector('.accept'));
-    var declineButton = angular.element(element[0].querySelector('.decline'));
-
-    acceptButton.bind('click', function () {
-      console.log('accept');
-    });
-
-    declineButton.bind('click', function () {
-      console.log('decline');
-    });
-  };
-
+offerDirective.directive('offer', ['Offers', function (Offers) {
   return {
     restrict: 'E',
     replace: true,
     scope: {
       offerData: '='
     },
-    link: link,
     templateUrl: '/templates/directives/offer.html',
+    link: function(scope) {
+      scope.accept = function() {
+        scope.offerData.responded = true;
+        scope.offerData.signed = true;
+        scope.offerData.dateSigned = new Date();
+        Offers.update({}, scope.offerData);
+      };
+      scope.decline = function() {
+        scope.offerData.responded = true;
+        scope.offerData.signed = false;
+        scope.offerData.dateSigned = new Date();
+        Offers.update({}, scope.offerData);
+      };
+    }
   };
 }]);

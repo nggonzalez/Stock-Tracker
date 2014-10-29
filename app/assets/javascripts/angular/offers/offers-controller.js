@@ -1,5 +1,9 @@
-var offers = angular.module('offers', ['offerDirective']);
+var offers = angular.module('offers', ['offerDirective', 'offersService']);
 
-offers.controller('OffersCtrl', [function () {
-  this.offers = [{shares: 10000, company: "Team 1", ceo: "Student", offerDate: new Date(), new: true}];
+offers.controller('OffersCtrl', ['$scope', 'Offers', function ($scope, Offers) {
+  Offers.get().$promise.then(function (offersData) {
+    $scope.offers = offersData.offers;
+  }, function (error) {
+    console.log(error.status);
+  });
 }]);

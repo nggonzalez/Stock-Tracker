@@ -2,6 +2,8 @@
   <nvd3-line-chart
       class="shares"
       data="sharesData.formattedEquity"
+      xAxisTickFormat="xAxisTickFormatFunction()"
+      objectequality="true"
       showXAxis="true"
       showYAxis="true"
       forcey="[{{sharesData.aggregateTotalShares}}]"
@@ -38,7 +40,7 @@
       <accordion close-others="false">
         <accordion-group is-open="company.open" ng-repeat="company in companies">
             <accordion-heading>
-                Company {{company.company}}
+                {{company.company}}
                 <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': company.open, 'glyphicon-chevron-right': !company.open}"></i>
             </accordion-heading>
             <table class="table">
