@@ -9,7 +9,7 @@ class API::StudentsController < ApplicationController
   end
 
   def index
-    students = Student.includes(:teams).all
+    students = Student.where(admin: true).select('name, id').load
     render json: {students: students}, status: :ok
   end
 end

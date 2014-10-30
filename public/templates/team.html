@@ -3,27 +3,30 @@
   <p class="ceo lead">CEO: {{currentCompany.ceo}}</p>
   <p class="shares lead">Shares Earned: {{currentCompany.earnedShares | number}} / {{currentCompany.totalShares | number}}</p>
 
-  <div class="page-header">
+  <div class="page-header clearfix">
     <h3>Team</h3>
+    <button ng-click="recruitEmployee()" ng-if="admin" class="btn btn-primary recruit"><span class="glyphicon glyphicon-plus"></span> Recruit New Employee</button>
   </div>
-  <p class="lead employee-name" ng-repeat="employee in currentCompany.employees">{{employee.name}}</p>
+  <p class="lead employee-name" ng-repeat="employee in currentCompany.employees">{{employee.name}} <button ng-if="admin" class="btn btn-default see-shares"><span class="glyphicon glyphicon-plus"></span> See/Add Shares</button></p>
   <p class="lead employee-name"><b>{{student}}</b></p>
 
-  <div class="page-header" ng-if="!student.admin">
-    <h3>Previous Companies</h3>
+  <div class="previous-work-history-wrapper" ng-if="!admin">
+    <div class="page-header">
+      <h3>Previous Companies</h3>
+    </div>
+    <table class="table">
+      <tr class="lead">
+        <th>Company</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Earned / Total</th>
+      </tr>
+      <tr ng-repeat="company in previousCompanies" class="lead">
+        <td>{{company.company}}</td>
+        <td>{{company.startDate | date}}</td>
+        <td>{{company.endDate | date}}</td>
+        <td>{{company.earnedShares | number}} / {{company.totalShares | number}}</td>
+      </tr>
+    </table>
   </div>
-  <table class="table" ng-if="!student.admin">
-    <tr class="lead">
-      <th>Company</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Earned / Total</th>
-    </tr>
-    <tr ng-repeat="company in previousCompanies" class="lead">
-      <td>{{company.company}}</td>
-      <td>{{company.startDate | date}}</td>
-      <td>{{company.endDate | date}}</td>
-      <td>{{company.earnedShares | number}} / {{company.totalShares | number}}</td>
-    </tr>
-  </table>
 </div>

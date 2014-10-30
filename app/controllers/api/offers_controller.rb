@@ -13,7 +13,7 @@ class API::OffersController < ApplicationController
         :companyName => offer.team.company_name,
         :shares => offer.shares,
         :ceo => companyCeo,
-        :responded => offer.answered,
+        :answered => offer.answered,
         :signed => offer.signed,
         :dateSigned => offer.date_signed,
         :offerDate => offer.offer_date,
@@ -24,7 +24,7 @@ class API::OffersController < ApplicationController
   end
 
   def update
-    offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], created_at: request.POST[:createdDate], shares: request.POST[:shares]).first
+    offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
     if offer
       offer.answered = true
       offer.signed = request.POST[:signed]

@@ -1,5 +1,5 @@
-var team = angular.module('team', ['teamService']);
-team.controller('TeamCtrl', ['$scope', 'Team', function ($scope, Team) {
+var team = angular.module('team', ['teamService', 'modalService']);
+team.controller('TeamCtrl', ['$scope', 'Team', 'Modal', function ($scope, Team, Modal) {
   Team.get().$promise.then(function (teamData) {
     $scope.currentCompany = teamData.currentCompany;
     $scope.student = teamData.student;
@@ -8,5 +8,13 @@ team.controller('TeamCtrl', ['$scope', 'Team', function ($scope, Team) {
     console.log(error.status);
   });
 
-  $scope.student = $scope.$parent.student;
+  $scope.admin = $scope.$parent.student.admin;
+
+  $scope.recruitEmployee = function () {
+    Modal.open('templates/modals/newoffer.html', 'SendOfferCtrl');
+  };
+
+  $scope.seeShares = function () {
+    Modal.open('templates/modals/seeshares.html', 'SeeSharesCtrl');
+  };
 }]);

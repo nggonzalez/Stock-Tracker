@@ -12,16 +12,28 @@
   }
 
   .page-header {
+    position: relative;
+
     h3 {
       margin-bottom: 0;
+    }
+
+    .recruit {
+      position: absolute;
+      right: 0;
+      top: 12px;
     }
   }
 
   .employee-name {
     margin: 0 0 10px 0;
+
+    .see-shares {
+      margin-left: 0 0 0 40px;
+    }
   }
 
   .table th, .table td {
-     border-top: none;
- }
+    border-top: none;
+  }
 }

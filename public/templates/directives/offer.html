@@ -3,15 +3,15 @@
   <p class="company lead">{{offerData.companyName}}</p>
   <p class="ceo lead">CEO: {{offerData.ceo}}</p>
 
-  <p class="offer-date lead" ng-if="!offerData.responded">{{offerData.offerDate | date}}</p>
-  <p class="offer-date lead" ng-if="offerData.responded && offerData.signed">
+  <p class="offer-date lead" ng-if="!offerData.answered">{{offerData.offerDate | date}}</p>
+  <p class="offer-date lead" ng-if="offerData.answered && offerData.signed">
     Accepted: {{offerData.dateSigned | date}}
   </p>
-  <p class="offer-date lead" ng-if="offerData.responded && !offerData.signed">
+  <p class="offer-date lead" ng-if="offerData.answered && !offerData.signed">
     Declined: {{offerData.dateSigned | date}}
   </p>
 
-  <div class="button-wrapper clearfix" ng-if="!offerData.responded && ceo == 'false'">
+  <div class="button-wrapper clearfix" ng-if="!offerData.answered && ceo == 'false'">
     <div class="btn btn-default offer-decision accept" ng-click="accept()">
       <span class="glyphicon glyphicon-thumbs-up text-center"></span>
     </div>

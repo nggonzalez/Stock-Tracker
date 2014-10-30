@@ -4,7 +4,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3" ng-repeat="offer in offers | filter: {responded: 'false'}">
+    <div class="col-md-3" ng-repeat="offer in offers | filter: {answered: 'false'}">
       <offer offer-data="offer" ceo="{{student.admin}}"></offer>
     </div>
   </div>
@@ -13,7 +13,7 @@
     <h1>Accepted Offers</h1>
   </div>
   <div class="row">
-    <div class="col-md-3" ng-repeat="offer in offers | filter: {responded: 'true', signed:'true' }">
+    <div class="col-md-3" ng-repeat="offer in offers | filter: {answered: 'true', signed:'true' }">
       <offer offer-data="offer"></offer>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <h1>Declined Offers</h1>
   </div>
   <div class="row">
-    <div class="col-md-3" ng-repeat="offer in offers | filter: {responded: 'true', signed:'false'}">
+    <div class="col-md-3" ng-repeat="offer in offers | filter: {answered: 'true', signed:'false'}">
       <offer offer-data="offer"></offer>
     </div>
   </div>
