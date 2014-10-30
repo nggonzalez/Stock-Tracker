@@ -26,11 +26,18 @@ class API::OffersController < ApplicationController
   def update
     offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
     if offer
+      offer.update!(offer_params)
       offer.answered = true
-      offer.signed = request.POST[:signed]
       offer.date_signed = Date.current
       offer.save
     end
     head :no_content
   end
+
+  private
+
+  def offer_params
+    params.require(:offer).permit(:signed)
+  end
+
 end
