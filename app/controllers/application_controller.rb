@@ -37,14 +37,27 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  protected
-
   def due_date
-    return Date.new(2014, 12, 17)
+    return Date.new(2014, 12, 11)
   end
 
   def start_date
     return Date.new(2014, 10, 27)
+  end
+
+  def eligible_for_offer(lastOffer)
+    offerTimeDelta = (Date.current - Time.at(lastOffer.offer_date).to_date).to_i
+    if lastOffer.answered
+      if lastOffer.signed || offerTimeDelta > 14
+        true
+      else
+        false
+      end
+    elsif offerTimeDelta < 14
+      false
+    else
+      true
+    end
   end
 
 end

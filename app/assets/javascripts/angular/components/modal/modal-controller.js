@@ -28,8 +28,8 @@ modal.factory('Modal', ['$modal', function ($modal) {
 
 
 modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
-  'employeeId', 'teamId',
-  function ($scope, $modalInstance, Shares, employeeId, teamId) {
+  'Offers', 'employeeId', 'teamId',
+  function ($scope, $modalInstance, Shares, Offers, employeeId, teamId) {
     // Get shares
     Shares.getEmployeeShares({}, {employee: employeeId, team:teamId}).$promise.then(function (employee) {
       $scope.shares = employee.offers.shares;
@@ -41,8 +41,8 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
 
     $scope.newOffer = false;
     $scope.offer = {
-      team: 0,
-      employeeId: employeeId
+      team: teamId,
+      student: employeeId
     };
 
     $scope.toggleNewOffer = function () {
@@ -50,7 +50,13 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
     };
 
     $scope.send = function () {
-      $modalInstance.close($scope.offer);
+      Offers.save({}, $scope.offer).$promise.then(function () {
+        // add success alert
+      }, function (error) {
+        console.log(error);
+        // add danger error
+      });
+      $modalInstance.close();
     };
 
     $scope.close = function () {
@@ -75,7 +81,14 @@ modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Studen
     };
 
     $scope.send = function () {
-      console.log($scope.offer);
+      var offer = $scope.offer;
+      offer.student = offer.student.id
+      Offers.save({}, $scope.offer).$promise.then(function () {
+        // add success alert
+      }, function (error) {
+        // add danger error
+        console.log(error)
+      });
       $modalInstance.close($scope.offer);
     };
 

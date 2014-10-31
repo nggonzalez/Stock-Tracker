@@ -1,7 +1,20 @@
-.ng-invalid.ng-dirty {
-  border-color: #FA787E;
-}
+form {
 
-.ng-valid.ng-dirty {
-  border-color: #78FA89;
+  .ng-invalid.ng-dirty {
+    border-color: #FA787E;
+  }
+
+  .ng-valid.ng-dirty {
+    border-color: #78FA89;
+  }
+
+  .form-control {
+    margin: 0 0 40px 0;
+  }
+
+  .control-label {
+    line-height: 46px;
+    padding-top: 0 !important;
+  }
+
 }

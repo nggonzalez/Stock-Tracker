@@ -78,23 +78,5 @@ class API::SharesController < ApplicationController
     render json: employee, status: :ok
   end
 
-
-  private
-
-  def eligible_for_offer(lastOffer)
-    offerTimeDelta = (Date.current - Time.at(lastOffer.offer_date).to_date).to_i
-    if lastOffer.answered
-      if lastOffer.signed || offerTimeDelta > 14
-        true
-      else
-        false
-      end
-    elsif offerTimeDelta > 2 && offerDate < 14
-      false
-    else
-      true
-    end
-  end
-
 end
 

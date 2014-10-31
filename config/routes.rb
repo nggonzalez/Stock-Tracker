@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   post '/logout', to: 'main#logout'
 
   get '/equity', to: 'main#index'
-  get "/*path", to: "main#index", format: false
+  get "*path", to: "main#index", format: false
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -31,13 +31,42 @@ class API::OffersController < ApplicationController
       offer.date_signed = Date.current
       offer.save
     end
-    head :no_content
+  end
+
+  def create
+    student_id = request.POST[:student]
+    team_id = request.POST[:team]
+    shares = request.POST[:shares]
+
+    if Offer.where(student_id: student_id, team_id: params[:team]).present?
+      lastOffer = Offer.where(student_id: student_id, team_id: params[:team]).last
+      if !eligible_for_offer(lastOffer)
+        render json: {}, status: :unauthorized
+        return
+      end
+    end
+
+    offer = Offer.new(new_offer_params)
+    offer.student_id = student_id
+    offer.team_id = team_id
+    offer.shares = shares
+    offer.offer_date = Date.current
+    offer.cliff_date = Date.current + 14.days
+    if offer.save
+      head :no_content
+    else
+      render json: offer.errors, status: :unprocessable_entity
+    end
   end
 
   private
 
   def offer_params
     params.require(:offer).permit(:signed)
+  end
+
+  def new_offer_params
+    params.require(:offer).permit(:student_id, :team_id, :shares, :offer_date, :cliff_date)
   end
 
 end

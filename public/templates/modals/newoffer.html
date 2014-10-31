@@ -5,15 +5,26 @@
   </div>
   <div class="modal-body">
     <p class="lead">Send New Offer</p>
-    <form name="newOfferForm" novalidate>
+    <form name="newOfferForm" class="form-horizontal" novalidate>
       <alert type="danger" ng-if="selectedStudent && newOfferForm.student.$dirty && newOfferForm.student.$invalid">
         Must choose a student from the autocomplete/dropdown list.
       </alert>
-      <input type="text" ng-blur="selectedStudent = true" ng-model="offer.student" name="student" placeholder="Student Name" typeahead="student as student.name for student in students | filter:{name:$viewValue} | limitTo: 8" typeahead-editable="false" class="form-control input-lg" required>
+      <div class="form-group">
+        <label for="student" class="col-sm-2 control-label">Recruit</label>
+        <div class="col-sm-10">
+          <input type="text" ng-blur="selectedStudent = true" ng-model="offer.student" name="student" placeholder="Student Name" typeahead="student as student.name for student in students | filter:{name:$viewValue} | limitTo: 8" typeahead-editable="false" class="form-control input-lg" required>
+        </div>
+      </div>
+
       <alert type="danger" ng-if="(newOfferForm.shares.$error.min || newOfferForm.shares.$error.max || newOfferForm.shares.$error.pattern)">
         The number of shares being offered must be an integer between 100 and {{maxSharesOfferable}}.
       </alert>
-      <input type="number" ng-model="offer.shares" name="shares" placeholder="Shares" class="form-control input-lg" min="100" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
+      <div class="form-group">
+        <label for="shares" class="col-sm-2 control-label">Offer</label>
+        <div class="col-sm-10">
+          <input type="number" ng-model="offer.shares" name="shares" placeholder="Shares" class="col-sm-10 form-control input-lg" min="100" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
+        </div>
+      <div class="form-group">
     </form>
   </div>
   <div class="modal-footer">
