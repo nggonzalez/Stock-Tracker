@@ -26,8 +26,9 @@ class API::TeamsController < ApplicationController
 
       if company.current
         companyCeo = Student.where(netid: company.team.ceo_id).select('name').first.name
-        companyEmployees = Team.find(company.team_id).students.where.not(id: student.id).select('students.name')
+        companyEmployees = Team.find(company.team_id).students.where.not(id: student.id).select('id, name').load
         companyData[:currentCompany] = {
+          :companyId => company.team_id,
           :company => company.team.company_name,
           :ceo => companyCeo,
           :employees => companyEmployees,

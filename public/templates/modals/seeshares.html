@@ -1,0 +1,35 @@
+<div class="see-shares-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">{{employee.name}}'s Shares</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <tr>
+        <th>Offers</th>
+        <th>Shares Earned</th>
+        <th>Total Shares</th>
+        <th>Cliff Date</th>
+      </tr>
+      <tr ng-repeat="offer in shares | orderBy: 'offerDate'">
+        <td>{{$index + 1}}</td>
+        <td>{{offer.earnedShares | number}}</td>
+        <td>{{offer.totalShares | number}}</td>
+        <td>{{offer.cliffDate | date}}</td>
+      </tr>
+    </table>
+    <button ng-if="eligibleForOffer" ng-show="!newOffer" ng-click="toggleNewOffer()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Give More Shares</button>
+    <form name="newOfferForm" novalidate>
+      <alert type="danger" ng-if="(newOfferForm.shares.$error.min || newOfferForm.shares.$error.max || newOfferForm.shares.$error.pattern)">
+        The number of shares being offered must be an integer between 100 and {{maxSharesOfferable}}.
+      </alert>
+      <input type="number"  ng-show="newOffer" ng-model="offer.shares" name="shares" placeholder="New Shares" class="form-control input-lg" min="100" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button ng-if="!newOffer" class="btn btn-info" ng-click="close()">Done</button>
+    <button ng-if="newOffer" class="btn btn-default" ng-click="close()">Discard</button>
+    <button ng-if="newOffer" class="btn btn-info" ng-click="send()" ng-disabled="newOfferForm.$invalid">Send</button>
+  </div>
+</div>

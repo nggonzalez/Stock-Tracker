@@ -7,8 +7,17 @@
     <h3>Team</h3>
     <button ng-click="recruitEmployee()" ng-if="admin" class="btn btn-primary recruit"><span class="glyphicon glyphicon-plus"></span> Recruit New Employee</button>
   </div>
-  <p class="lead employee-name" ng-repeat="employee in currentCompany.employees">{{employee.name}} <button ng-if="admin" class="btn btn-default see-shares"><span class="glyphicon glyphicon-plus"></span> See/Add Shares</button></p>
-  <p class="lead employee-name"><b>{{student}}</b></p>
+
+  <div class="employee-wrapper row" ng-repeat="employee in currentCompany.employees">
+    <div class="col-xs-6 col-sm-5">
+      <p class="lead employee-name">{{employee.name}}</p>
+    </div>
+    <div class="col-xs-6 col-sm-7">
+      <button ng-click="seeShares(employee)" ng-if="admin" class="btn btn-default see-shares"><span class="glyphicon glyphicon-eye-open"></span> See Shares</button>
+    </div>
+  </div>
+
+  <p class="lead employee-name"><b>{{studentName}}</b></p>
 
   <div class="previous-work-history-wrapper" ng-if="!admin">
     <div class="page-header">

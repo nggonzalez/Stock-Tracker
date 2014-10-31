@@ -1,12 +1,23 @@
-<div class="modal-header">
-  <button type="button" class="close" ng-click="discard()" aria-hidden="true">&times;</button>
-  <h3 class="modal-title">I'm a modal!</h3>
-</div>
-<div class="modal-body">
-  <p class="lead">Send New Offer</p>
-  <input type="text" ng-model="offer.student" placeholder="Student Name" typeahead="student as student.name for student in students | filter:{name:$viewValue} | limitTo: 8" typeahead-editable="true" class="form-control input-lg">
-</div>
-<div class="modal-footer">
-  <button class="btn btn-info" ng-click="discard()">Discard</button>
-  <button class="btn btn-danger" ng-click="send()">Send</button>
+<div class="new-offer-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="discard()" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">Recruit New Employees</h3>
+  </div>
+  <div class="modal-body">
+    <p class="lead">Send New Offer</p>
+    <form name="newOfferForm" novalidate>
+      <alert type="danger" ng-if="selectedStudent && newOfferForm.student.$dirty && newOfferForm.student.$invalid">
+        Must choose a student from the autocomplete/dropdown list.
+      </alert>
+      <input type="text" ng-blur="selectedStudent = true" ng-model="offer.student" name="student" placeholder="Student Name" typeahead="student as student.name for student in students | filter:{name:$viewValue} | limitTo: 8" typeahead-editable="false" class="form-control input-lg" required>
+      <alert type="danger" ng-if="(newOfferForm.shares.$error.min || newOfferForm.shares.$error.max || newOfferForm.shares.$error.pattern)">
+        The number of shares being offered must be an integer between 100 and {{maxSharesOfferable}}.
+      </alert>
+      <input type="number" ng-model="offer.shares" name="shares" placeholder="Shares" class="form-control input-lg" min="100" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" ng-click="discard()">Discard</button>
+    <button class="btn btn-info" ng-click="send()" ng-disabled="newOfferForm.$invalid">Send</button>
+  </div>
 </div>

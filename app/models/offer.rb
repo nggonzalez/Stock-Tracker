@@ -20,7 +20,7 @@ class OfferValidator
     @team = Team.where(:id => @offer.team_id).first
     @student = Student.where(:id => @offer.student_id).first
   end
- 
+
   def validate
     if @team.blank? || @student.blank?
       @offer.errors[:base] << "Team or student does not exist"
@@ -28,5 +28,5 @@ class OfferValidator
       @offer.errors[:base] << "Insufficient shares"
     end
   end
- 
+
  end

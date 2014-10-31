@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     #resources :students, only: [:index, :show]
     get '/student/all', to: 'students#index'
     get '/student', to: 'students#show'
+    get '/shares/:employee/:team', to: 'shares#employeeShares'
     get '/shares', to: 'shares#show'
     # resources :offers, only: [:index, :create, :update]
     get '/offers', to: 'offers#index'
