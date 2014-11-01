@@ -1,15 +1,15 @@
 class API::TeamsController < ApplicationController
   def show
     student = Student.where(netid: session[:cas_user]).first
-    studentEmployment = student.employees.includes(:team).all
-    studentShares = Offer.where(signed: true, student_id: student.id).all
+    studentEmployment = student.employees.includes(:team).load
+    studentShares = Offer.where(signed: true, student_id: student.id).load
     companyData = {}
     companyData[:student] = student.firstname + ' ' + student.lastname
     companyData[:previousCompanies] = []
 
     studentEmployment.each do |company|
       shares = studentShares.select { |share| share.team_id == company.team_id }
-      studentShares.delete(shares)
+      # studentShares.delete(shares)
       totalShares = 0
       earnedShares = 0
       shares.each do |offer|

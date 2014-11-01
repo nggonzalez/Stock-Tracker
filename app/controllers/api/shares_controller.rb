@@ -43,7 +43,7 @@ class API::SharesController < ApplicationController
   end
 
   def employeeShares
-    student = Student.where(id: params[:employee]).select('name, id').first
+    student = Student.where(id: params[:employee]).select("CONCAT_WS(' ', firstname, lastname) as name, id").first
     shares = Offer.where(student_id: student.id, team_id: params[:team], answered: true, signed: true).all
     lastOffer = Offer.where(student_id: student.id, team_id: params[:team]).last
     employee = {}
