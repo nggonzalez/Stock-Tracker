@@ -24,8 +24,8 @@ class OfferValidator
   def validate
     if @team.blank? || @student.blank?
       @offer.errors[:base] << "Team or student does not exist"
-    # elsif @offer.shares > @team.total_shares - @team.shares_distributed
-    #   @offer.errors[:base] << "Insufficient shares"
+    elsif @offer.shares > @team.total_shares - @team.shares_distributed
+      @offer.errors[:base] << "Insufficient shares"
     end
   end
 

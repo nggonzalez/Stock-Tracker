@@ -41,7 +41,6 @@ gem 'rails-observers'
 
 gem 'net-ldap'
 gem 'rubycas-client'
-gem 'mechanize'
 gem 'rails_12factor', group: :production
 gem 'rails_on_heroku'
 gem 'unicorn'
