@@ -22,7 +22,9 @@ class OfferValidator
   end
 
   def validate
-    if @team.blank? || @student.blank?
+    if (Date.current - Date.new(2014, 10, 27)).to_i < 14
+      @offer.errors[:base] << "Offers cannot be made before Nov. 10"
+    elsif @team.blank? || @student.blank?
       @offer.errors[:base] << "Team or student does not exist"
     elsif @offer.shares > @team.total_shares - @team.shares_distributed - @team.held_shares
       @offer.errors[:base] << "Insufficient shares"

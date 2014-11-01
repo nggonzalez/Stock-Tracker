@@ -3,15 +3,14 @@ namespace :update do
   task :expired_offers => :environment do
     Offer.includes(:team).where('answered = false AND created_at <= ?', 2.days.ago).each do |model|
       team = model.team
-      team.total_shares = team.total_shares + model.shares
-      team.held_shares = team.total_shares - model.shares
-      team.save
+      team.held_shares -= model.shares
+      team.save!
 
       model.expired = true
       model.answered = true
       model.signed = false
       model.date_signed = Date.current
-      model.save
+      model.save!
     end
   end
 end

@@ -28,9 +28,18 @@ class API::OffersController < ApplicationController
     if student.admin
       render status: :unauthorized
     end
-    offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
+    offer = Offer.includes(:team)where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
     if offer
       offer.update!(offer_params)
+
+      # Update share count for team
+      team = offer.team
+      if request.POST[:signed]
+        team.shares_distributed += offer.shares
+      end
+      team.held_shares -= offer.shares
+      team.save!
+
       offer.answered = true
       offer.date_signed = Date.current
       offer.save
@@ -63,6 +72,9 @@ class API::OffersController < ApplicationController
     offer.offer_date = Date.current
     offer.cliff_date = Date.current + 14.days
     if offer.save
+      team = Team.find(team_id)
+      team.held_shares += shares
+      team.save!
       head :no_content
     else
       render json: offer.errors, status: :unprocessable_entity
