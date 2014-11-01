@@ -9,7 +9,7 @@ class API::StudentsController < ApplicationController
   end
 
   def index
-    students = Student.where(admin: false).select('name, id').load
+    students = Student.where(admin: false).select("CONCAT_WS(' ', firstname, lastname) as name, id").load
     render json: {students: students}, status: :ok
   end
 end

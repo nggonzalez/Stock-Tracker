@@ -47,7 +47,9 @@ class ApplicationController < ActionController::Base
 
   def eligible_for_offer(lastOffer)
     offerTimeDelta = (Date.current - Time.at(lastOffer.offer_date).to_date).to_i
-    if lastOffer.answered
+    if lastOffer.expired && offerTimeDelta < 14
+      false
+    elsif lastOffer.answered
       if lastOffer.signed || offerTimeDelta > 14
         true
       else

@@ -4,7 +4,7 @@ class API::TeamsController < ApplicationController
     studentEmployment = student.employees.includes(:team).all
     studentShares = Offer.where(signed: true, student_id: student.id).all
     companyData = {}
-    companyData[:student] = student.name
+    companyData[:student] = student.firstname + ' ' + student.lastname
     companyData[:previousCompanies] = []
 
     studentEmployment.each do |company|
@@ -25,8 +25,8 @@ class API::TeamsController < ApplicationController
       end
 
       if company.current
-        companyCeo = Student.where(netid: company.team.ceo_id).select('name').first.name
-        companyEmployees = Team.find(company.team_id).students.where.not(id: student.id).select('id, name').load
+        companyCeo = Student.where(netid: company.team.ceo_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
+        companyEmployees = Team.find(company.team_id).students.where.not(id: student.id).select("id, CONCAT_WS(' ', firstname, lastname) as name").load
         companyData[:currentCompany] = {
           :companyId => company.team_id,
           :company => company.team.company_name,

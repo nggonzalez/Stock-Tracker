@@ -6,7 +6,7 @@ class API::OffersController < ApplicationController
     offers = Offer.includes(:team).where(student_id: student.id).load
     offerArray = []
     offers.each do |offer|
-      companyCeo = Student.where(netid: offer.team.ceo_id).select('name').first.name
+      companyCeo = Student.where(netid: offer.team.ceo_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
       offerArray.push({
         :student => offer.student_id,
         :company => offer.team_id,
@@ -24,16 +24,26 @@ class API::OffersController < ApplicationController
   end
 
   def update
+    student = get_student
+    if student.admin
+      render status: :unauthorized
+    end
     offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
     if offer
       offer.update!(offer_params)
       offer.answered = true
       offer.date_signed = Date.current
       offer.save
+      head :no_content
     end
+    render status: :unprocessable_entity
   end
 
   def create
+    student = get_student
+    if !student.admin
+      render status: :unauthorized
+    end
     student_id = request.POST[:student]
     team_id = request.POST[:team]
     shares = request.POST[:shares]
