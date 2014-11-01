@@ -2,30 +2,39 @@ var equity = angular.module('equity', ['nvd3ChartDirectives', 'sharesService']);
 equity.controller('EquityCtrl', ['$scope', 'Shares', function ($scope, Shares) {
   // $scope.xAttributeFunction = function() {
   //   var minDate = new Date(2014, 10, 27);
-  //   var maxDate = new Date(2014, 12, 17);
+  //   var maxDate = new Date(2014, 12, 11);
   //   return function(d){
-  //     return d3.time.scale().domain([minDate, maxDate]).range([0, 60]);
+  //     return d3.time.scale().domain([minDate, maxDate]).range([0, d]);
   //   };
   // };
-  var xAxisTickMarks = [];
-  var currDate = new Date(2014, 10, 27);
-  var maxDate = new Date();
-  while(currDate < maxDate) {
-    xAxisTickMarks.push(currDate);
-    currDate.setDate(currDate.getDate() + 1);
-  }
-  $scope.xAxisTickMarks = xAxisTickMarks;
-
+  // var xAxisTickMarks = [];
+  // var currDate = new Date(2014, 10, 27);
+  // var maxDate = new Date();
+  // while(currDate < maxDate) {
+  //   xAxisTickMarks.push(currDate);
+  //   currDate.setDate(currDate.getDate() + 1);
+  // }
+  // $scope.xAxisTickMarks = xAxisTickMarks;
 
   $scope.xAxisTickFormatFunction = function(){
-    return function(d){
-      console.log(d, new Date(d));
-      return d3.time.format('%x')(new Date(d)); //uncomment for date format
+    return function(d) {
+      var startDate = new Date(2014, 9, 27);
+      if(d % 1 === 0) {
+        console.log(d);
+        return d3.time.format('%x')(new Date(startDate.setDate(startDate.getDate() + d)));//uncomment for date format
+      }
+      return;
     };
   };
 
+  // $scope.xAxisTickFormatFunction = function(){
+  //   return function(d){
+  //     console.log(d);
+  //     return d3.format('%x')(new Date(d)); //uncomment for date format
+  //   };
+  // };
+
   Shares.get().$promise.then(function (sharesData) {
-    console.log(sharesData);
     $scope.sharesData = sharesData;
     var shares = sharesData.shares,
       sharesLength = shares.length,
