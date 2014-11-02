@@ -1,0 +1,2 @@
+secret = Rails.env.production? ? ENV['SECRET_TOKEN'] : 'af48304ce87ed45a72068dfb97589d787e0d600c21b2f3a9cbefa3200b4f8aada764c8df9c2cb8d03c3547e2e75359058e99dc4662d42b597e94de8600074fdb'
+StockTrader::Application.config.secret_key_base = secret
