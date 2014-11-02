@@ -28,7 +28,7 @@ class API::OffersController < ApplicationController
     if student.admin
       render status: :unauthorized
     end
-    offer = Offer.includes(:team)where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
+    offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
     if offer
       offer.update!(offer_params)
 
