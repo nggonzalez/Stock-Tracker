@@ -28,9 +28,12 @@ class API::SharesController < ApplicationController
 
 
       startingDate = Time.at(share.date_signed).to_date
-      i = (startingDate - start_date).to_i + 1;
+      i = (startingDate - start_date).to_i;
+      if i < 0
+        i = 0
+      end
 
-      while startingDate < Date.current.tomorrow
+      while startingDate < Date.today
         singleShareData[:formattedEquity][:values].push([i, dailyShareIncrease*i])
         startingDate = startingDate + 1.day
         i = i + 1
