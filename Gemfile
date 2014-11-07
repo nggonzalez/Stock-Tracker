@@ -39,6 +39,7 @@ gem 'jasmine-rails'
 # Rails 4 compatibility
 gem 'rails-observers'
 
+gem 'nokogiri'
 gem 'net-ldap'
 gem 'rubycas-client'
 gem 'rails_12factor', group: :production

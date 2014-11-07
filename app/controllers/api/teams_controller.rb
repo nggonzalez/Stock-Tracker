@@ -1,6 +1,6 @@
 class API::TeamsController < ApplicationController
   def show
-    student = Student.where(netid: session[:cas_user]).first
+    student = get_student
     studentEmployment = student.employees.includes(:team).load
     studentShares = Offer.where(signed: true, student_id: student.id).load
     companyData = {}

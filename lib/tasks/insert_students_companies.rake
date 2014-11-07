@@ -40,7 +40,14 @@ namespace :insert do
         ceoOffer.offer_date = startDate
         ceoOffer.cliff_date = startDate
         ceoOffer.created_at = startDate
+        ceoOffer.date_signed = startDate
         ceoOffer.save!
+
+        e = Employee.new
+        e.team_id = t.id
+        e.current = true
+        e.student_id = ceo.id
+        e.save!
 
         employees.each do |employee|
           employeeData = Student.where(netid: employee.attr('netid').to_s).first
