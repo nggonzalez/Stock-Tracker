@@ -50,11 +50,17 @@
       }
 
       .nav-icon {
-        box-sizing: border-box;
-        display: block;
+        box-sizing: border-box !important;
+        display: block !important;
         font-size: 24px;
-        text-align: center;
-        width: 40px;
+        height: 34px !important;
+        text-align: center !important;
+        width: 40px !important;
+
+        &.glyphicon {
+          font-size: 20px;
+          padding: 5px !important;
+        }
       }
 
       .nav-text {

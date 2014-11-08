@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <h1>Your Teams</h1>
+  <accordion close-others="false">
+    <accordion-group is-open="group.open" ng-repeat="group in groups">
+      <accordion-heading>
+        {{group.name}}
+        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': group.open, 'glyphicon-chevron-right': !group.open}"></i>
+      </accordion-heading>
+      <table class="table">
+        <tr>
+          <th>Student</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+        <tr ng-repeat="employee in group.employees | orderBy: ['admin', 'name']" ng-class="{'text-bold': employee.admin}">
+          <td>{{employee.name}}</td>
+          <td>{{employee.email}}</td>
+          <td>
+            <button ng-click="seeShares(employee)" class="btn btn-default see-shares">
+              <span class="glyphicon glyphicon-eye-open"></span> See Shares
+            </button>
+          </td>
+        </tr>
+      </table>
+    </accordion-group>
+  </accordion>
+</div>

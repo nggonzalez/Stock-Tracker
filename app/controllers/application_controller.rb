@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter CASClient::Frameworks::Rails::Filter, :unless => :skip_login?
 
   # Add this before filter to set a local variable for the current user from CAS session
-  before_filter :get_student
+  before_filter :get_user
   after_filter :set_csrf_cookie_for_ng
 
 
@@ -21,14 +21,29 @@ class ApplicationController < ActionController::Base
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end
 
-  def get_student
-    me = Student.where(netid: session[:cas_user]).first
-    if !me
+  def get_user
+    @user = get_fellow || get_student
+    if !@user
       redirect_to :root
       return false
     end
+    return @user
+  end
 
-    return me
+  def get_fellow
+    if Fellow.where(netid: session[:cas_user]).present?
+      me = Fellow.where(netid: session[:cas_user]).first
+      return me
+    end
+    nil
+  end
+
+  def get_student
+    if Student.where(netid: session[:cas_user]).present?
+      me = Student.where(netid: session[:cas_user]).first
+      return me
+    end
+    nil
   end
 
   # hack for skip_before_filter with CAS

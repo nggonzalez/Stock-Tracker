@@ -9,10 +9,12 @@ Rails.application.routes.draw do
     put '/offers', to: 'offers#update'
     patch '/offers', to: 'offers#update'
     get '/teams', to: 'teams#show'
+    get '/fellows/prof', to: 'mentor#prof'
+    get '/fellows/groups', to: 'mentor#groups'
   end
 
   root 'main#index'
-  post '/logout', to: 'main#logout'
+  get '/logout', to: 'main#logout'
 
   get '/equity', to: 'main#index'
   get "*path", to: "main#index", format: false
