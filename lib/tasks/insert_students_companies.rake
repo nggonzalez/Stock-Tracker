@@ -41,6 +41,7 @@ namespace :insert do
         ceoOffer.cliff_date = startDate
         ceoOffer.created_at = startDate
         ceoOffer.date_signed = startDate
+        ceoOffer.end_date = Date.new(2014, 12, 11)
         ceoOffer.save!
 
         e = Employee.new
@@ -65,6 +66,7 @@ namespace :insert do
           o.answered = true
           o.signed = true
           o.date_signed = startDate
+          o.end_date = Date.new(2014, 12, 11)
           o.student_id = employeeData.id
           o.team_id = t.id
           o.save!

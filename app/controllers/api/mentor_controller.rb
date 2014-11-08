@@ -2,7 +2,6 @@ class API::MentorController < ApplicationController
   def groups
     user = get_user
     if user && user.class.name == 'Fellow'
-    # if user.class.name == 'Student'
       teams = user.teams
       groups = []
       teams.each do |team|
@@ -21,8 +20,8 @@ class API::MentorController < ApplicationController
 
   def prof
     user = get_user
-    # if user.class.name == 'Fellow' && user.prof
-    if user.class.name == 'Student'
+    if user.class.name == 'Fellow' && user.prof
+    # if user.class.name == 'Fellow'
       # Get all students and there team
       # For each student, calculate equity
       students = Student.all
@@ -41,10 +40,10 @@ class API::MentorController < ApplicationController
           # START OF COPIED
           shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).load
           shares.each do |share|
-            daysVested = (Date.current - Time.at(share.date_signed).to_date).to_i
-            studentData[:dailyEquityIncrease] += dailyIncrease = share.shares / (due_date - Time.at(share.date_signed).to_date).to_i
+            singleShareData = calculateEquityData(share)
+            studentData[:dailyEquityIncrease] += singleShareData[:dailyIncrease]
             studentData[:totalEquity] += share.shares
-            studentData[:earnedEquity] += daysVested * dailyIncrease
+            studentData[:earnedEquity] += singleShareData[:earnedShares]
           end
           studentsData.push(studentData);
         else

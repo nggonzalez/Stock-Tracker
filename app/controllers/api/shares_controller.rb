@@ -12,29 +12,24 @@ class API::SharesController < ApplicationController
     sharesData[:axisDates] = {:max=> due_date, :min => start_date}
 
     shares.each do |share|
-      singleShareData = {}
-      singleShareData[:offerDate] = share.created_at
-      singleShareData[:company] = share.team.company_name
-      singleShareData[:cliffDate] = share.cliff_date
-      singleShareData[:daysVested] = (Date.current - Time.at(share.date_signed).to_date).to_i
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.date_signed).to_date).to_i
-      singleShareData[:totalShares] = share.shares
-      singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
+      singleShareData = calculateEquityData(share)
       singleShareData[:formattedEquity] = {:key => share.team.company_name, :values => []}
 
-      sharesData[:dailyIncrease] += dailyShareIncrease
+
+      sharesData[:dailyIncrease] += singleShareData[:dailyIncrease]
       sharesData[:aggregateEarnedShares] += singleShareData[:earnedShares]
       sharesData[:aggregateTotalShares] += share.shares
 
 
       startingDate = Time.at(share.date_signed).to_date
+      endDate = Time.at(share.end_date).to_date
       i = (startingDate - start_date).to_i;
       if i < 0
         i = 0
       end
 
-      while startingDate < Date.today
-        singleShareData[:formattedEquity][:values].push([i, dailyShareIncrease*i])
+      while startingDate < endDate
+        singleShareData[:formattedEquity][:values].push([i, singleShareData[:dailyIncrease]*i])
         startingDate = startingDate + 1.day
         i = i + 1
       end
@@ -60,16 +55,9 @@ class API::SharesController < ApplicationController
     sharesData[:shares] = []
 
     shares.each do |share|
-      singleShareData = {}
-      singleShareData[:offerDate] = share.created_at
-      singleShareData[:company] = share.team.company_name
-      singleShareData[:cliffDate] = share.cliff_date
-      singleShareData[:daysVested] = (Date.current - Time.at(share.offer_date).to_date).to_i
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.offer_date).to_date).to_i
-      singleShareData[:totalShares] = share.shares
-      singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
+      singleShareData = calculateEquityData(share)
 
-      sharesData[:dailyIncrease] += dailyShareIncrease
+      sharesData[:dailyIncrease] += singleShareData[:dailyIncrease]
       sharesData[:aggregateEarnedShares] += singleShareData[:earnedShares]
       sharesData[:aggregateTotalShares] += share.shares
 

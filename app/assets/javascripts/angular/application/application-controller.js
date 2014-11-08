@@ -1,10 +1,13 @@
-var appCtrl = angular.module('app', ['studentService']);
+var appCtrl = angular.module('app', ['studentService', 'alertsService']);
 
-appCtrl.controller('AppCtrl', ['$scope', 'Student', function ($scope, Student) {
-  Student.get().$promise.then(function (student) {
-    $scope.student = student.student;
-  }, function (error) {
-    console.log(error.status);
-    $scope.student = null;
-  });
+appCtrl.controller('AppCtrl', ['$scope', 'Student', 'Alerts',
+  function ($scope, Student, Alerts) {
+    Student.get().$promise.then(function (student) {
+      $scope.student = student.student;
+    }, function (error) {
+      if(error.status !== 404) {
+        Alerts.showAlert('danger', 'Could not load your information, please refresh the page.');
+      }
+      $scope.student = null;
+    });
 }]);

@@ -1,5 +1,5 @@
-var team = angular.module('team', ['teamService', 'modalService']);
-team.controller('TeamCtrl', ['$scope', 'Team', 'Modal', function ($scope, Team, Modal) {
+var team = angular.module('team', ['teamService', 'modalService', 'alertsService']);
+team.controller('TeamCtrl', ['$scope', 'Team', 'Modal', 'Alerts', function ($scope, Team, Modal, Alerts) {
   var teamId = undefined;
   Team.get().$promise.then(function (teamData) {
     teamId = teamData.currentCompany.companyId;
@@ -7,7 +7,7 @@ team.controller('TeamCtrl', ['$scope', 'Team', 'Modal', function ($scope, Team, 
     $scope.studentName = teamData.student;
     $scope.previousCompanies = teamData.previousCompanies;
   }, function (error) {
-    console.log(error.status);
+    Alerts.showAlert('danger', 'Error loading team data.');
   });
 
   $scope.admin = $scope.$parent.student.admin;

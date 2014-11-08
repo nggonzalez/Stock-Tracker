@@ -71,6 +71,7 @@ class API::OffersController < ApplicationController
     offer.shares = shares
     offer.offer_date = Date.current
     offer.cliff_date = Date.current + 14.days
+    offer.end_date = due_date
     if offer.save
       team = Team.find(team_id)
       team.held_shares += shares

@@ -41,6 +41,9 @@
     </ul>
   </div>
   <div class="content-wrapper">
+    <div class="container-fluid" ng-show="alert">
+      <alert ng-show="alert.alert.type" type="{{alert.alert.type}}" close="alert.closeAlert()">{{alert.alert.msg}}</alert>
+    </div>
     <%= yield %>
   </div>
   <%= javascript_include_tag 'application' %>

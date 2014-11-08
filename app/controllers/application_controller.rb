@@ -77,4 +77,28 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def calculateEquityData(share)
+    singleShareData = {}
+    singleShareData[:offerDate] = share.created_at
+    singleShareData[:company] = share.team.company_name
+    singleShareData[:cliffDate] = share.cliff_date
+    singleShareData[:dailyIncrease] = 0
+    singleShareData[:totalShares] = share.shares
+    singleShareData[:earnedShares] = 0
+    puts share.end_date
+    if !share.end_date
+      singleShareData[:daysVested] = (Date.current - Time.at(share.date_signed).to_date).to_i
+    elsif share.end_date < due_date
+      return singleShareData
+    else
+      singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
+    end
+    singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.offer_date).to_date).to_i
+    singleShareData[:totalShares] = share.shares
+    singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
+
+    return singleShareData
+  end
+
 end

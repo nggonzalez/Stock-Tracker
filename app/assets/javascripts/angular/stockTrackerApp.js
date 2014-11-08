@@ -1,5 +1,6 @@
 var stockTrackerApp = angular.module('stockTrackerApp', ['ui.router',
-  'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'mentor']);
+  'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'mentor',
+  'alertsService']);
 
 stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
   '$locationProvider',
@@ -48,3 +49,7 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
     $locationProvider.html5Mode(true); // Allows # routing
     $urlRouterProvider.otherwise('/equity'); // Default route
   }]);
+
+stockTrackerApp.run(['$rootScope', 'Alerts', function ($rootScope, Alerts) {
+  $rootScope.alert = Alerts;
+}]);

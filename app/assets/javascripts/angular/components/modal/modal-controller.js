@@ -1,4 +1,4 @@
-var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService']);
+var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService']);
 modal.factory('Modal', ['$modal', function ($modal) {
   var Modal = {
     open: function (modalTemplate, modalCtrl, teamId, employeeId) {
@@ -28,8 +28,8 @@ modal.factory('Modal', ['$modal', function ($modal) {
 
 
 modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
-  'Offers', 'employeeId', 'teamId',
-  function ($scope, $modalInstance, Shares, Offers, employeeId, teamId) {
+  'Offers', 'employeeId', 'teamId', 'Alerts',
+  function ($scope, $modalInstance, Shares, Offers, employeeId, teamId, Alerts) {
     // Get shares
     Shares.getEmployeeShares({}, {employee: employeeId, team:teamId}).$promise.then(function (employee) {
       $scope.shares = employee.offers.shares;
@@ -51,10 +51,9 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
 
     $scope.send = function () {
       Offers.save({}, $scope.offer).$promise.then(function () {
-        // add success alert
+        Alerts.showAlert('success', 'Successfully sent offer.');
       }, function (error) {
-        console.log(error);
-        // add danger error
+        Alerts.showAlert('danger', 'Error sending offer.');
       });
       $modalInstance.close();
     };
@@ -66,14 +65,13 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
 
 
 modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Student',
-  'teamId', function ($scope, $modalInstance, Offers, Student, teamId) {
+  'teamId', 'Alerts', function ($scope, $modalInstance, Offers, Student, teamId, Alerts) {
     // Setup new offer
     // Send it
     Student.query({all: 'all'}).$promise.then(function (students) {
       $scope.students = students.students;
-      console.log(students);
     }, function (error) {
-      console.log(error.status);
+      Alerts.showAlert('danger', 'Error loading students.');
     });
 
     $scope.offer = {
@@ -84,10 +82,9 @@ modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Studen
       var offer = $scope.offer;
       offer.student = offer.student.id
       Offers.save({}, $scope.offer).$promise.then(function () {
-        // add success alert
+        Alerts.showAlert('success', 'Successfully sent offer.');
       }, function (error) {
-        // add danger error
-        console.log(error)
+        Alerts.showAlert('danger', 'Error sending offer.');
       });
       $modalInstance.close($scope.offer);
     };
