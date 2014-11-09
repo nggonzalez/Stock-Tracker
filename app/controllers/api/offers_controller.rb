@@ -26,10 +26,10 @@ class API::OffersController < ApplicationController
   def update
     student = get_student
     if student.admin
-      render status: :unauthorized
+      render json: {}, status: :unauthorized
     end
-    offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], offer_date: request.POST[:offerDate], shares: request.POST[:shares]).first
-    if offer
+    if Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).present?
+      offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offer.update!(offer_params)
 
       team = offer.team
@@ -65,9 +65,23 @@ class API::OffersController < ApplicationController
       offer.answered = true
       offer.date_signed = Date.current
       offer.save
+
+      ceo = Student.where(netid: team.ceo_id).first
+      mentor = Mentor.includes(:fellow).where(team_id: team.id).first
+      fellow = mentor.fellow
+
+      if request.POST[:signed]
+        OfferUpdates.offer_accepted_email(student, team, student.email).deliver
+        OfferUpdates.offer_accepted_email(student, team, ceo.email).deliver
+        OfferUpdates.offer_accepted_email(student, team, fellow.email).deliver
+      else
+        OfferUpdates.offer_rejected_email(student, team, student.email).deliver
+        OfferUpdates.offer_rejected_email(student, team, ceo.email).deliver
+        OfferUpdates.offer_rejected_email(student, team, fellow.email).deliver
+      end
       head :no_content
     else
-      render status: :unprocessable_entity
+      render json: {}, status: :unprocessable_entity
     end
   end
 
@@ -99,6 +113,16 @@ class API::OffersController < ApplicationController
       team = Team.find(team_id)
       team.held_shares += shares
       team.save!
+
+      recruit = Student.where(student_id: student_id).select("CONCAT_WS(' ', firstname, lastname) as name, email").first
+      ceo = Student.where(netid: team.ceo_id).first
+      mentor = Mentor.includes(:fellow).where(team_id: team.id).first
+      fellow = mentor.fellow
+
+      OfferUpdates.new_offer_email(recruit, team, recruit.email).deliver
+      OfferUpdates.new_offer_email(recruit, team, ceo.email).deliver
+      OfferUpdates.new_offer_email(recruit, team, fellow.email).deliver
+
       head :no_content
     else
       render json: offer.errors, status: :unprocessable_entity
