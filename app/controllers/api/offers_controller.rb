@@ -32,10 +32,32 @@ class API::OffersController < ApplicationController
     if offer
       offer.update!(offer_params)
 
-      # Update share count for team
       team = offer.team
       if request.POST[:signed]
         team.shares_distributed += offer.shares
+        # If new team
+          # then create new employee record
+          # Mark all other employee records as not current
+          # Update all offers without the matching team id
+        currentTeam = Employee.where(student_id: student.id, current: true).first
+        if currentTeam.team_id != team.id
+          currentTeam.current = false
+          currentTeam.save!
+
+          # new Employee Record
+          e = Employee.new
+          e.student_id = student.id
+          e.team_id = team.id
+          e.current = true
+          e.save!
+
+          # update old active offers
+          offers = Offer.where(student_id: student.id, team_id: currentTeam.team_id).load
+          offers.each do |offer|
+            offer.end_date = Date.current
+            offer.save!
+          end
+        end
       end
       team.held_shares -= offer.shares
       team.save!
