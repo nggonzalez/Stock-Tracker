@@ -48,6 +48,7 @@ namespace :insert do
         e.team_id = t.id
         e.current = true
         e.student_id = ceo.id
+        e.created_at = startDate
         e.save!
 
         employees.each do |employee|
@@ -56,6 +57,7 @@ namespace :insert do
           e.team_id = t.id
           e.current = true
           e.student_id = employeeData.id
+          e.created_at = startDate
           e.save!
 
           o = Offer.new
