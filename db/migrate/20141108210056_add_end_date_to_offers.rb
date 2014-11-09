@@ -1,5 +1,5 @@
 class AddEndDateToOffers < ActiveRecord::Migration
   def change
-    add_column :offers, :end_date, :datetimera
+    add_column :offers, :end_date, :datetime
   end
 end
