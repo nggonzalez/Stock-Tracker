@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     put '/offers', to: 'offers#update'
     patch '/offers', to: 'offers#update'
     get '/teams', to: 'teams#show'
+    get '/teams/shares/:team', to: 'teams#shares'
     get '/fellows/prof', to: 'mentor#prof'
     get '/fellows/groups', to: 'mentor#groups'
   end

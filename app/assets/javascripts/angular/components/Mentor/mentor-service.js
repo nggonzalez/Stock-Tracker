@@ -9,6 +9,6 @@ shares.factory('Mentor', ['$resource', function ($resource) {
     groups: {
       method: 'GET',
       params: {type: 'groups'}
-    },
+    }
   });
 }]);

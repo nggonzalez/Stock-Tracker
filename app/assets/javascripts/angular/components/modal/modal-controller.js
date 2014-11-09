@@ -1,4 +1,4 @@
-var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService']);
+var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService']);
 modal.factory('Modal', ['$modal', function ($modal) {
   var Modal = {
     open: function (modalTemplate, modalCtrl, teamId, employeeId) {
@@ -35,8 +35,9 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
       $scope.shares = employee.offers.shares;
       $scope.employee = employee.employee;
       $scope.eligibleForOffer = employee.eligibleForOffer;
+      $scope.maxSharesOfferable = employee.distributableShares;
     }, function (error) {
-      console.log(error.status);
+      Alerts.showAlert('danger', 'Error loading employee shares.');
     });
 
     $scope.newOffer = false;
@@ -64,14 +65,20 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
 }]);
 
 
-modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Student',
-  'teamId', 'Alerts', function ($scope, $modalInstance, Offers, Student, teamId, Alerts) {
+modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Student', 'Team',
+  'teamId', 'Alerts', function ($scope, $modalInstance, Offers, Student, Team, teamId, Alerts) {
     // Setup new offer
     // Send it
     Student.query({all: 'all'}).$promise.then(function (students) {
       $scope.students = students.students;
     }, function (error) {
       Alerts.showAlert('danger', 'Error loading students.');
+    });
+
+    Team.shares({}, {id: teamId}).$promise.then(function (shares) {
+      $scope.maxSharesOfferable = shares.shares;
+    }, function (error) {
+      Alerts.showAlert('danger', 'Error loading maxSharesOfferable.');
     });
 
     $scope.offer = {

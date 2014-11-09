@@ -49,7 +49,9 @@ class API::SharesController < ApplicationController
     student = Student.where(id: params[:employee]).select("CONCAT_WS(' ', firstname, lastname) as name, id").first
     shares = Offer.where(student_id: student.id, team_id: params[:team], answered: true, signed: true).all
     lastOffer = Offer.where(student_id: student.id, team_id: params[:team]).last
+    teamData = Team.where(id: params[:team]).first
     employee = {}
+    employee[:distributableShares] = calculateDistributableShares(teamData)
     employee[:employee] = student
     employee[:eligibleForOffer] = eligible_for_offer(lastOffer)
     sharesData = {}

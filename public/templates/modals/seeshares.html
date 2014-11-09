@@ -21,9 +21,9 @@
     <button ng-if="eligibleForOffer" ng-show="!newOffer" ng-click="toggleNewOffer()" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Give More Shares</button>
     <form name="newOfferForm" novalidate>
       <alert type="danger" ng-if="(newOfferForm.shares.$error.min || newOfferForm.shares.$error.max || newOfferForm.shares.$error.pattern)">
-        The number of shares being offered must be an integer between 100 and {{maxSharesOfferable}}.
+        The number of shares being offered must be an integer between 0 and {{maxSharesOfferable}}.
       </alert>
-      <input type="number" ng-show="newOffer" ng-model="offer.shares" name="shares" placeholder="New Shares" class="form-control input-lg" min="100" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
+      <input type="number" ng-show="newOffer" ng-model="offer.shares" name="shares" placeholder="New Shares" class="form-control input-lg" min="0" max="{{maxSharesOfferable}}" ng-pattern="/^\d+$/" required>
     </form>
 
   </div>

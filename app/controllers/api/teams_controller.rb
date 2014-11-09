@@ -44,4 +44,9 @@ class API::TeamsController < ApplicationController
 
     render json: companyData
   end
+
+  def shares
+    team = Team.where(id: params[:team]).first
+    render json: {shares: calculateDistributableShares(team)}, status: :ok
+  end
 end

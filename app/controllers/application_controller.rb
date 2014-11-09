@@ -77,6 +77,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def calculateDistributableShares(team)
+    return team.total_shares - team.shares_distributed - team.held_shares
+  end
 
   def calculateEquityData(share)
     singleShareData = {}
