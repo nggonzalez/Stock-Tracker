@@ -8,8 +8,8 @@ namespace :insert do
         s = Student.new
         s.firstname = node.attr('firstname').to_s
         s.lastname = node.attr('lastname').to_s
-        s.email = node.attr('email').to_s
-        s.netid = node.attr('netid').to_s
+        s.email = node.attr('email').to_s.downcase
+        s.netid = node.attr('netid').to_s.downcase
         s.save!
 
       elsif node.node_name.eql? 'Team'

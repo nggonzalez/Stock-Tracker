@@ -1,0 +1,57 @@
+<root>
+  <Professor email="daniel.abadi@yale.edu" firstname="Daniel" lastname="Abadi" netid="dja2" />
+
+  <Fellow email="nicholas.gonzalez@yale.edu" firstname="Nicholas" lastname="Gonzalez" netid="ngg23">
+    <Mentor email="benjamin.rodriquez-vars@yale.edu" />
+    <Mentor email="kaity.hsieh@yale.edu" />
+    <Mentor email="ragini.luthra@yale.edu" />
+    <Mentor email="wissem.gamra@yale.edu" />
+    <Mentor email="timur.guler@yale.edu" />
+  </Fellow>
+
+  <Fellow email="hongda.xiao@yale.edu" firstname="Hongda" lastname="Xiao" netid="hx38">
+    <Mentor email="efstathios.zlatis@yale.edu" />
+    <Mentor email="grace.jansen@yale.edu" />
+    <Mentor email="sean.hamlin@yale.edu" />
+    <Mentor email="tristan.sechrest@yale.edu" />
+    <Mentor email="timur.guler@yale.edu" />
+  </Fellow>
+
+  <Fellow email="john.maheswaran@yale.edu" firstname="John" lastname="Maheswaran" netid="jrm95">
+    <Mentor email="daniel.shao@yale.edu" />
+    <Mentor email="michael.lebwohl@yale.edu" />
+    <Mentor email="nicole.cai@yale.edu" />
+    <Mentor email="david.hobbs@yale.edu" />
+    <Mentor email="alexander.mendelsohn@yale.edu" />
+  </Fellow>
+
+  <Fellow email="joshua.lockerman@yale.edu" firstname="Josh" lastname="Lockerman" netid="jzl6">
+    <Mentor email="daniel.bond@yale.edu" />
+    <Mentor email="jessica.leao@yale.edu" />
+    <Mentor email="patrick.buehler@yale.edu" />
+    <Mentor email="luc.ryan-schreiber@yale.edu" />
+    <Mentor email="katherine.lin@yale.edu" />
+  </Fellow>
+
+  <Fellow email="kun.ren@yale.edu" firstname="Kun" lastname="Ren" netid="kr358">
+    <Mentor email="davis.nguyen@yale.edu" />
+    <Mentor email="mahrukh.shahid@yale.edu" />
+    <Mentor email="yumiko.nakamura@yale.edu" />
+    <Mentor email="jessica.e.lee@yale.edu" />
+  </Fellow>
+
+  <Fellow email="mark.santolucito@yale.edu" firstname="Mark" lastname="Santolucito" netid="mps57">
+    <Mentor email="francesca.casalino@yale.edu" />
+    <Mentor email="julie.chang@yale.edu" />
+    <Mentor email="mark.fedronic@yale.edu" />
+    <Mentor email="tiffany.oche@yale.edu" />
+    <Mentor email="jack.weinberger@yale.edu" />
+  </Fellow>
+
+  <Fellow email="faiaz.khan@yale.edu" firstname="Rafi" lastname="Khan" netid="fak23">
+    <Mentor email="erika.hairston@yale.edu" />
+    <Mentor email="joseph.lanzone@yale.edu" />
+    <Mentor email="karen.tian@yale.edu" />
+    <Mentor email="abdel.morsy@yale.edu" />
+  </Fellow>
+</root>
