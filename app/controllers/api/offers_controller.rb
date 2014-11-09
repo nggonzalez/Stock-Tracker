@@ -32,6 +32,7 @@ class API::OffersController < ApplicationController
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offer.update!(offer_params)
 
+      oldTeam = -1
       team = offer.team
       if request.POST[:signed]
         team.shares_distributed += offer.shares
@@ -41,6 +42,7 @@ class API::OffersController < ApplicationController
           # Update all offers without the matching team id
         currentTeam = Employee.where(student_id: student.id, current: true).first
         if currentTeam.team_id != team.id
+          oldTeam = currentTeam.team_id
           currentTeam.current = false
           currentTeam.save!
 
@@ -74,6 +76,14 @@ class API::OffersController < ApplicationController
         OfferUpdates.offer_accepted_email(student, team, student.email).deliver
         OfferUpdates.offer_accepted_email(student, team, ceo.email).deliver
         OfferUpdates.offer_accepted_email(student, team, fellow.email).deliver
+        if oldTeam != -1 && oldTeam != team.id
+          oldCompany = Team.where(id: oldTeam).first
+          ceo = Student.where(netid: oldCompany.ceo_id).first
+          mentor = Mentor.includes(:fellow).where(team_id: oldTeam).first
+          fellow = mentor.fellow
+          OfferUpdates.offer_accepted_email(student, team, ceo.email).deliver
+          OfferUpdates.offer_accepted_email(student, team, fellow.email).deliver
+        end
       else
         OfferUpdates.offer_rejected_email(student, team, student.email).deliver
         OfferUpdates.offer_rejected_email(student, team, ceo.email).deliver
