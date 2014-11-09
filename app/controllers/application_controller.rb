@@ -87,9 +87,10 @@ class ApplicationController < ActionController::Base
     singleShareData[:totalShares] = share.shares
     singleShareData[:earnedShares] = 0
     puts share.end_date
-    if !share.end_date
+    puts due_date
+    if Time.at(share.end_date).to_date == due_date
       singleShareData[:daysVested] = (Date.current - Time.at(share.date_signed).to_date).to_i
-    elsif share.end_date < due_date
+    elsif Time.at(share.end_date).to_date < due_date
       return singleShareData
     else
       singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i

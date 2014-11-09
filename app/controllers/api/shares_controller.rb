@@ -22,16 +22,21 @@ class API::SharesController < ApplicationController
 
 
       startingDate = Time.at(share.date_signed).to_date
-      endDate = Time.at(share.end_date).to_date
-      i = (startingDate - start_date).to_i;
-      if i < 0
-        i = 0
+      endDate = Date.current + 1.day
+      if Time.at(share.end_date).to_date != due_date
+        endDate = Time.at(share.end_date).to_date
       end
+      dateOffset = (startingDate - start_date).to_i;
+      if dateOffset < 0
+        dateOffset = 0
+      end
+      i = 0
 
       while startingDate < endDate
-        singleShareData[:formattedEquity][:values].push([i, singleShareData[:dailyIncrease]*i])
+        singleShareData[:formattedEquity][:values].push([dateOffset, singleShareData[:dailyIncrease]*i])
         startingDate = startingDate + 1.day
-        i = i + 1
+        dateOffset = dateOffset + 1
+        i += 1
       end
       sharesData[:formattedEquity].push(singleShareData[:formattedEquity])
       sharesData[:shares].push(singleShareData)
