@@ -66,8 +66,9 @@ class API::OffersController < ApplicationController
       offer.date_signed = Date.current
       offer.save
       head :no_content
+    else
+      render status: :unprocessable_entity
     end
-    render status: :unprocessable_entity
   end
 
   def create
