@@ -10,9 +10,9 @@ CASClient::Frameworks::Rails::Filter.configure(
   :extra_attributes_session_key => :cas_extra_attributes
 )
 
-credentials = YAML.load_file("#{Rails.root}/config/credentials.yml")
-ENV['SENDGRID_USERNAME'] = credentials['username']
-ENV['SENDGRID_PASSWORD'] = credentials['password']
+# credentials = YAML.load_file("#{Rails.root}/config/credentials.yml")
+# ENV['SENDGRID_USERNAME'] = credentials['username']
+# ENV['SENDGRID_PASSWORD'] = credentials['password']
 
 ActionMailer::Base.smtp_settings = {
   :user_name => ENV['SENDGRID_USERNAME'],
