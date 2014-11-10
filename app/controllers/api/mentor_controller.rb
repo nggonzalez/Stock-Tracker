@@ -46,8 +46,6 @@ class API::MentorController < ApplicationController
             studentData[:earnedEquity] += singleShareData[:earnedShares]
           end
           studentsData.push(studentData);
-        else
-          puts student.netid
         end
         # END OF COPIED
       end
