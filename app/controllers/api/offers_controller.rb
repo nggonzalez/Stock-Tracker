@@ -128,7 +128,7 @@ class API::OffersController < ApplicationController
       team.held_shares += shares
       team.save!
 
-      recruit = Student.where(student_id: student_id).select("CONCAT_WS(' ', firstname, lastname) as name, email").first
+      recruit = Student.where(id: student_id).select("CONCAT_WS(' ', firstname, lastname) as name, email").first
       ceo = Student.where(netid: team.ceo_id).first
       mentor = Mentor.includes(:fellow).where(team_id: team.id).first
       fellow = mentor.fellow
