@@ -44,6 +44,10 @@ namespace :insert do
         ceoOffer.end_date = Date.new(2014, 12, 11)
         ceoOffer.save!
 
+        t.total_shares += 1000000
+        t.shares_distributed += 1000000
+        t.save!
+
         e = Employee.new
         e.team_id = t.id
         e.current = true
@@ -72,6 +76,10 @@ namespace :insert do
           o.student_id = employeeData.id
           o.team_id = t.id
           o.save!
+
+          t.total_shares += 300000
+          t.shares_distributed += 300000
+          t.save!
         end
       end
     end

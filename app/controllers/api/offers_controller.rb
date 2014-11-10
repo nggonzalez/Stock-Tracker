@@ -55,9 +55,13 @@ class API::OffersController < ApplicationController
 
           # update old active offers
           offers = Offer.where(student_id: student.id, team_id: currentTeam.team_id).load
-          offers.each do |offer|
-            offer.end_date = Date.current
-            offer.save!
+          oldTeam = Team.where(id: currentTeam.team_id).first
+          offers.each do |oldOffer|
+            oldOffer.end_date = Date.current
+            oldOffer.save!
+            offerData = calculateEquityData(oldOffer)
+            oldTeam.shares_distributed -= (offerData[:totalShares] - offerData[:earnedShares])
+            oldTeam.save!
           end
         end
       end
