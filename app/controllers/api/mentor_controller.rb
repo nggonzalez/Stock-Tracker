@@ -8,8 +8,8 @@ class API::MentorController < ApplicationController
         group = {}
         group[:teamId] = team.id
         group[:name] = team.company_name
-        #group[:employees] = team.students.where("employees.current = true").select("id, email, admin, CONCAT_WS(' ', firstname, lastname) as name").load
-        group[:employees] = team.students.select("id, email, admin, CONCAT_WS(' ', firstname, lastname) as name").load
+        group[:employees] = team.students.where("employees.current = true").select("id, email, admin, CONCAT_WS(' ', firstname, lastname) as name").load
+        # group[:employees] = team.students.select("id, email, admin, CONCAT_WS(' ', firstname, lastname) as name").load
         groups.push(group)
       end
       puts groups
