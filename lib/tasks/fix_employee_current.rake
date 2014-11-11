@@ -5,16 +5,18 @@ namespace :fix do
 
     students = Student.all
     students.each do |student|
-      lastOffer = student.offers.where(signed: true).last
-      employment = student.employees
+      if Offer.where(student_id: student.id).present?
+        lastOffer = student.offers.where(signed: true).last
+        employment = student.employees
 
-      employment.each do |job|
-        if job.team_id != lastOffer.team_id
-          job.current = false
-          job.save!
-        elsif job.team_id == lastOffer.team_id
-          job.current = true
-          job.save!
+        employment.each do |job|
+          if job.team_id != lastOffer.team_id
+            job.current = false
+            job.save!
+          elsif job.team_id == lastOffer.team_id
+            job.current = true
+            job.save!
+          end
         end
       end
     end
