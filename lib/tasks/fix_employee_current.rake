@@ -11,6 +11,7 @@ namespace :fix do
           employment = Employee.where(student_id: student.id).load
 
           employment.each do |job|
+            puts job.team_id != lastOffer.team_id
             if job.team_id != lastOffer.team_id
               job.current = false
               job.save

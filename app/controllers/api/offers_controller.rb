@@ -40,7 +40,7 @@ class API::OffersController < ApplicationController
           # then create new employee record
           # Mark all other employee records as not current
           # Update all offers without the matching team id
-        currentTeam = Employee.where(student_id: student.id, current: true).first
+        currentTeam = Employee.where(student_id: student.id, current: true).last
         if currentTeam.team_id != team.id
           oldTeamId = currentTeam.team_id
           currentTeam.current = false
