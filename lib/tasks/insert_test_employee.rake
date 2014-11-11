@@ -12,7 +12,7 @@ namespace :insert do
     startDate = Date.new(2014, 10, 27)
 
     e = Employee.new
-    e.team_id = 216
+    e.team_id = 259
     e.current = true
     e.student_id = s.id
     e.save!
@@ -26,7 +26,7 @@ namespace :insert do
     o.signed = true
     o.date_signed = startDate
     o.student_id = s.id
-    o.team_id = 216
+    o.team_id = 259
     o.end_date = Date.new(2014, 12, 11)
     o.save!
   end
