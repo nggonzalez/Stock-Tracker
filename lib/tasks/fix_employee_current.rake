@@ -7,15 +7,15 @@ namespace :fix do
     students.each do |student|
       if Offer.where(student_id: student.id).present?
         lastOffer = student.offers.where(signed: true).last
-        employment = student.employees
+        employment = student.employees.load
 
         employment.each do |job|
           if job.team_id != lastOffer.team_id
             job.current = false
-            job.save!
+            job.save
           elsif job.team_id == lastOffer.team_id
             job.current = true
-            job.save!
+            job.save
           end
         end
       end
