@@ -77,9 +77,31 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   def calculateDistributableShares(team)
     return team.total_shares - team.shares_distributed - team.held_shares
   end
+
+
+  def getCurrentTeam(student_id)
+    offer = Offer.where(student_id: student_id, signed: true).last
+    return offer.team_id
+  end
+
+
+  def getTeamEmployees(team_id, student_id=-1)
+    employees = []
+    teamOffers = Offer.includes(:student).where(team_id: team_id, signed: true).where.not(student_id: student_id).load
+    teamOffers.each do |offer|
+      if offer.end_date.to_date != due_date.to_date
+        next
+      end
+
+      employees.push(offer.student)
+    end
+    return employees
+  end
+
 
   def calculateEquityData(share)
     singleShareData = {}

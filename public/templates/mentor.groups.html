@@ -8,7 +8,7 @@
       </accordion-heading>
       <table class="table">
         <tr ng-repeat="employee in group.employees | orderBy: ['-admin', 'name']" ng-class="{'text-bold': employee.admin}">
-          <td>{{employee.name}}</td>
+          <td>{{employee.firstname}} {{employee.lastname}}</td>
           <td>{{employee.email}}</td>
           <td>
             <button ng-hide="true" ng-click="seeShares(employee)" class="btn btn-default see-shares">

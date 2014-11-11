@@ -12,7 +12,7 @@
     </tr>
 
     <tr ng-repeat="student in students | orderBy: ['currentCompany', '-earnedEquity']">
-      <td>{{student.name}}</td>
+      <td>{{student.firstname}} {{student.lastname}}</td>
       <td>{{student.netid}}</td>
       <td>{{student.currentCompany}}</td>
       <td>{{student.dailyEquityIncrease | number}}</td>

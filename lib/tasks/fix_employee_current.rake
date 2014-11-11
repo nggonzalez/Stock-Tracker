@@ -13,11 +13,16 @@ namespace :fix do
           employment.each do |job|
             puts job.team_id != lastOffer.team_id
             if job.team_id != lastOffer.team_id
-              job.current = false
-              job.save
-            else
-              job.current = true
-              job.save
+              teamId = job.team_id
+              startDate = job.created_at
+              job.delete
+
+              e = Employee.new
+              e.student_id = student.id
+              e.team_id = teamId
+              e.current = false
+              e.created_at = startDate
+              e.save!
             end
           end
         end

@@ -10,7 +10,7 @@
 
   <div class="employee-wrapper row" ng-repeat="employee in currentCompany.employees">
     <div class="col-xs-6 col-sm-5">
-      <p class="lead employee-name">{{employee.name}}</p>
+      <p class="lead employee-name">{{employee.firstname}} {{employee.lastname}}</p>
     </div>
     <div class="col-xs-6 col-sm-7">
       <button ng-click="seeShares(employee)" ng-if="admin" class="btn btn-default see-shares"><span class="glyphicon glyphicon-eye-open"></span> See Shares</button>

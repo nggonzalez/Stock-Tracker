@@ -25,6 +25,7 @@ class API::OffersController < ApplicationController
 
   def update
     student = get_student
+    currentTeamId = getCurrentTeam(student.id)
     if student.admin
       render json: {}, status: :unauthorized
     end
@@ -32,30 +33,21 @@ class API::OffersController < ApplicationController
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offer.update!(offer_params)
 
-      oldTeamId = -1
       team = offer.team
       if request.POST[:signed]
         team.shares_distributed += offer.shares
         # If new team
-          # then create new employee record
-          # Mark all other employee records as not current
           # Update all offers without the matching team id
-        currentTeam = Employee.where(student_id: student.id, current: true).last
-        if currentTeam.team_id != team.id
-          oldTeamId = currentTeam.team_id
-          currentTeam.current = false
-          currentTeam.save!
-
-          # new Employee Record
+        if currentTeamId != team.id
           e = Employee.new
-          e.student_id = student.id
-          e.team_id = team.id
           e.current = true
+          e.team_id = team.id
+          e.student_id = student.id
           e.save!
 
           # update old active offers
-          offers = Offer.where(student_id: student.id, team_id: oldTeamId).load
-          oldTeam = Team.where(id: oldTeamId).first
+          offers = Offer.where(student_id: student.id, team_id: currentTeamId).load
+          oldTeam = Team.where(id: currentTeamId).first
           offers.each do |oldOffer|
             oldOffer.end_date = Date.current
             oldOffer.save!
@@ -80,10 +72,10 @@ class API::OffersController < ApplicationController
         OfferUpdates.offer_accepted_email(student, team, student.email).deliver
         OfferUpdates.offer_accepted_email(student, team, ceo.email).deliver
         OfferUpdates.offer_accepted_email(student, team, fellow.email).deliver
-        if oldTeam != -1 && oldTeam != team.id
-          oldCompany = Team.where(id: oldTeam).first
+        if currentTeamId != team.id
+          oldCompany = Team.where(id: currentTeamId).first
           ceo = Student.where(netid: oldCompany.ceo_id).first
-          mentor = Mentor.includes(:fellow).where(team_id: oldTeam).first
+          mentor = Mentor.includes(:fellow).where(team_id: currentTeamId).first
           fellow = mentor.fellow
           OfferUpdates.offer_accepted_email(student, team, ceo.email).deliver
           OfferUpdates.offer_accepted_email(student, team, fellow.email).deliver
