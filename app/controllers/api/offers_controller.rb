@@ -32,7 +32,7 @@ class API::OffersController < ApplicationController
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offer.update!(offer_params)
 
-      oldTeam = -1
+      oldTeamId = -1
       team = offer.team
       if request.POST[:signed]
         team.shares_distributed += offer.shares
@@ -42,7 +42,7 @@ class API::OffersController < ApplicationController
           # Update all offers without the matching team id
         currentTeam = Employee.where(student_id: student.id, current: true).first
         if currentTeam.team_id != team.id
-          oldTeam = currentTeam.team_id
+          oldTeamId = currentTeam.team_id
           currentTeam.current = false
           currentTeam.save!
 
@@ -54,8 +54,8 @@ class API::OffersController < ApplicationController
           e.save!
 
           # update old active offers
-          offers = Offer.where(student_id: student.id, team_id: currentTeam.team_id).load
-          oldTeam = Team.where(id: currentTeam.team_id).first
+          offers = Offer.where(student_id: student.id, team_id: oldTeamId).load
+          oldTeam = Team.where(id: oldTeamId).first
           offers.each do |oldOffer|
             oldOffer.end_date = Date.current
             oldOffer.save!
