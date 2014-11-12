@@ -1,7 +1,8 @@
 <div class="offer text-center">
   <h2 class="shares">{{offerData.shares | number:0}} <small>shares</small></h2>
   <p class="company lead">{{offerData.companyName}}</p>
-  <p class="ceo lead">CEO: {{offerData.ceo}}</p>
+  <p class="ceo lead" ng-if="ceo == 'true'">Employee: {{offerData.ceo}}</p>
+  <p class="ceo lead" ng-if="ceo == 'false'">CEO: {{offerData.ceo}}</p>
 
   <p class="offer-date lead" ng-if="!offerData.answered">{{offerData.offerDate | date}}</p>
   <p class="offer-date lead" ng-if="offerData.answered && offerData.signed">

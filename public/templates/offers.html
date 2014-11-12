@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div class="col-md-3" ng-repeat="offer in offers | filter: {answered: 'true', signed:'true' }">
-      <offer offer-data="offer"></offer>
+      <offer offer-data="offer" ceo="{{student.admin}}"></offer>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
   </div>
   <div class="row">
     <div class="col-md-3" ng-repeat="offer in offers | filter: {answered: 'true', signed:'false'}">
-      <offer offer-data="offer"></offer>
+      <offer offer-data="offer" ceo="{{student.admin}}"></offer>
     </div>
   </div>
 </div>

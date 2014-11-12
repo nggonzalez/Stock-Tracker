@@ -3,10 +3,19 @@ class API::OffersController < ApplicationController
 
   def index
     student = get_student
-    offers = Offer.includes(:team).where(student_id: student.id).load
+    if student.admin
+      currentTeamId = getCurrentTeam(student.id)
+      offers = Offer.includes(:team).where(team_id: currentTeamId).load
+    else
+      offers = Offer.includes(:team).where(student_id: student.id).load
+    end
     offerArray = []
     offers.each do |offer|
-      companyCeo = Student.where(netid: offer.team.ceo_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
+      if student.admin
+        companyCeo = Student.where(id: offer.student_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
+      else
+        companyCeo = Student.where(netid: offer.team.ceo_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
+      end
       offerArray.push({
         :student => offer.student_id,
         :company => offer.team_id,
