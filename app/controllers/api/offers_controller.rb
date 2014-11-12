@@ -32,7 +32,6 @@ class API::OffersController < ApplicationController
 
     if Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).present?
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
-      binding.pry
       offer.update!(offer_params)
 
       team = offer.team
@@ -50,7 +49,6 @@ class API::OffersController < ApplicationController
           # update old active offers
           offers = Offer.where(student_id: student.id, team_id: currentTeamId).load
           oldTeam = Team.where(id: currentTeamId).first
-          binding.pry
           offers.each do |oldOffer|
             oldOffer.end_date = Date.current
             oldOffer.save!
