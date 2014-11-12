@@ -35,6 +35,7 @@ gem 'rails-assets-angularjs-nvd3-directives'
 # Testing
 gem 'rspec-rails'
 gem 'jasmine-rails'
+gem 'pry-debugger'
 
 # Rails 4 compatibility
 gem 'rails-observers'
