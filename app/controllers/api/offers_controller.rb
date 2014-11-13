@@ -118,6 +118,12 @@ class API::OffersController < ApplicationController
       end
     end
 
+    team = Team.where(id: team_id).first
+    if shares > team.total_shares - team.shares_distributed - team.held_shares
+      render json: {}, status: :unauthorized
+      return
+    end
+
     offer = Offer.new(new_offer_params)
     offer.student_id = student_id
     offer.team_id = team_id
