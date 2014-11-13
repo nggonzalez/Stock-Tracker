@@ -1,7 +1,12 @@
 <div class="container-fluid team-page-wrapper">
   <h1 class="company">{{currentCompany.company}} <small>current company</small></h1>
   <p class="ceo lead">CEO: {{currentCompany.ceo}}</p>
-  <p class="shares lead">Shares Earned: {{currentCompany.earnedShares | number}} / {{currentCompany.totalShares | number}}</p>
+  <p class="shares lead" ng-if="!admin">Shares Earned: {{currentCompany.earnedShares | number}} / {{currentCompany.totalShares | number}}</p>
+  <p class="shares lead" ng-if="admin">
+    Total Shares: {{currentCompany.totalShares | number}}<br/>
+    Shares To Give: {{currentCompany.sharesToGive | number}}<br />
+    Shares Distributed: {{currentCompany.distributedShares | number}} | Shares in Holding: {{currentCompany.heldShares | number}}
+  </p>
 
   <div class="page-header clearfix">
     <h3>Team</h3>
