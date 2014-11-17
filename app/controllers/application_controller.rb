@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
 
       employees.push(offer.student)
     end
-    return employees
+    return employees.uniq
   end
 
 
