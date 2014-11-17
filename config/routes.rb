@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get '/teams/shares/:team', to: 'teams#shares'
     get '/fellows/prof', to: 'mentor#prof'
     get '/fellows/groups', to: 'mentor#groups'
+    get '/fellows/shares/:student', to: 'mentor#studentShares'
   end
 
   root 'main#index'

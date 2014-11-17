@@ -2,7 +2,6 @@ class API::MentorController < ApplicationController
   def groups
     user = get_user
     if user && user.class.name == 'Fellow'
-    # if user && user.class.name == 'Fellow'
       teams = user.teams
       groups = []
       teams.each do |team|
@@ -10,7 +9,6 @@ class API::MentorController < ApplicationController
         group[:teamId] = team.id
         group[:name] = team.company_name
         group[:employees] = getTeamEmployees(team.id)
-        # group[:employees] = team.students.select("id, email, admin, CONCAT_WS(' ', firstname, lastname) as name").load
         groups.push(group)
       end
       render json: groups, status: :ok
@@ -56,4 +54,37 @@ class API::MentorController < ApplicationController
       render status: :unauthorized
     end
   end
+
+  def studentShares
+    if user.class.name != 'Fellow'
+      render json: {}, status: :unauthorized
+      return
+    end
+
+    student = Student.where(id: params[:student]).select("CONCAT_WS(' ', firstname, lastname) as name, id").first
+    teams = student.teams
+    sharesData = {}
+    sharesData[:aggregateTotalShares] = 0;
+    sharesData[:aggregateEarnedShares] = 0
+    sharesData[:dailyIncrease] = 0
+    sharesData[:shares] = []
+
+    teams.each do |team|
+      teamData = {}
+      teamData[:name] = team.company_name
+      teamData[:shares] = []
+      offers = Offer.where(student_id: student.id, team_id: team.id, signed: true).load
+      offers.each do |offer|
+        offerData = calculateEquityData(offer)
+        sharesData[:dailyIncrease] += offerData[:dailyIncrease]
+        sharesData[:aggregateEarnedShares] += offerData[:earnedShares]
+        sharesData[:aggregateTotalShares] += offer.shares
+        teamData[:shares].push(offerData)
+      end
+      sharesData[:shares].push(offerData)
+    end
+
+    render json: sharesData, status: :ok
+  end
+
 end
