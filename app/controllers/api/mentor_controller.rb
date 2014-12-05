@@ -19,7 +19,7 @@ class API::MentorController < ApplicationController
 
   def prof
     user = get_user
-    if user.class.name == 'Fellow' && user.prof
+    if user.class.name == 'Fellow' && user.professor
     # if user.class.name == 'Fellow'
       # Get all students and there team
       # For each student, calculate equity
