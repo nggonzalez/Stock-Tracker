@@ -43,6 +43,10 @@ class API::OffersController < ApplicationController
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offer.update!(offer_params)
 
+      offer.answered = true
+      offer.date_signed = Date.current
+      offer.save!
+
       team = offer.team
       if request.POST[:signed]
         team.shares_distributed += offer.shares
@@ -69,10 +73,6 @@ class API::OffersController < ApplicationController
       end
       team.held_shares -= offer.shares
       team.save!
-
-      offer.answered = true
-      offer.date_signed = Date.current
-      offer.save
 
       ceo = Student.where(netid: team.ceo_id).first
       mentor = Mentor.includes(:fellow).where(team_id: team.id).first
@@ -154,7 +154,7 @@ class API::OffersController < ApplicationController
   private
 
   def offer_params
-    params.require(:offer).permit(:signed)
+    params.require(:offer).permit(:signed, :answered)
   end
 
   def new_offer_params

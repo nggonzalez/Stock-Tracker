@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def get_user
     @user = get_fellow || get_student
-    # @user = get_student
+    #@user = get_student
     if !@user
       redirect_to :root
       return false
