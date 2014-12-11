@@ -4,6 +4,7 @@
     <h3 class="modal-title">{{student.name}}'s Shares</h3>
   </div>
   <div class="modal-body">
+    <p class="lead">Total shares: {{aggregateEarned}} / {{aggregateTotal}}</p>
     <accordion close-others="false">
       <accordion-group is-open="company.open" ng-repeat="company in shares">
           <accordion-heading>
@@ -24,7 +25,7 @@
               <td>{{offer.cliffDate | date}}</td>
             </tr>
           </table>
-          <p class="lead text-center">Aggregate Shares: {{company.aggregateEarnedShares | number}} / {{company.aggregateTotalShares | number}}</p>
+          <!-- <p class="lead text-center">Aggregate Shares: {{company.earnedShares | number}} / {{company.totalShares | number}}</p> -->
       </accordion-group>
     </accordion>
 

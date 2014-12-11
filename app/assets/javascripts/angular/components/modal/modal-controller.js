@@ -14,7 +14,6 @@ modal.factory('Modal', ['$modal', function ($modal) {
           }
         }
       });
-      console.log(modalTemplate, modalCtrl);
 
       modalInstance.result.then(function (selectedItem) {
         //
@@ -108,6 +107,8 @@ modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'em
     // Get shares
     Mentor.shares({}, {student: employeeId}).$promise.then(function (student) {
       $scope.shares = student.shares;
+      $scope.aggregateTotal = student.aggregateTotalShares;
+      $scope.aggregateEarned = student.aggregateEarnedShares;
       $scope.student = student.student;
       console.log(student);
     }, function (error) {
