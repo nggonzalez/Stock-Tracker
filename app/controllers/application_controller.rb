@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def get_user
     @user = get_fellow || get_student
-    #@user = get_student
+    # @user = get_student
     if !@user
       redirect_to :root
       return false
@@ -85,6 +85,7 @@ class ApplicationController < ActionController::Base
 
 
   def getCurrentTeam(student_id)
+    puts student_id
     offer = Offer.where(student_id: student_id, signed: true).last
     return offer.team_id
   end
@@ -120,7 +121,11 @@ class ApplicationController < ActionController::Base
     else
       singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
     end
-    singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / (due_date - Time.at(share.offer_date).to_date).to_i
+    if Time.at(share.offer_date).to_date != due_date
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / ((due_date - Time.at(share.offer_date).to_date).to_i)
+    else
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / 1
+    end
     singleShareData[:totalShares] = share.shares
     singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
 
