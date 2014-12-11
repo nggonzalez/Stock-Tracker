@@ -27,22 +27,22 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         url: '/team',
         templateUrl: '/templates/team'
       })
-      .state('mentor', {
-        controller: 'MentorCtrl',
-        controllerAs: 'mentor',
-        url: '/mentor',
-        templateUrl: '/templates/mentor'
-      })
-      .state('mentor.groups', {
+      // .state('mentor', {
+      //   controller: 'MentorCtrl',
+      //   controllerAs: 'mentor',
+      //   url: '/mentor',
+      //   templateUrl: '/templates/mentor'
+      // })
+      .state('mentorGroups', {
         controller: 'GroupsCtrl',
         controllerAs: 'groups',
-        url: '/groups',
+        url: '/mentor/groups',
         templateUrl: '/templates/mentor.groups'
       })
-      .state('mentor.professor', {
+      .state('mentorProfessor', {
         controller: 'ProfessorCtrl',
         controllerAs: 'prof',
-        url: '/prof',
+        url: '/mentor/prof',
         templateUrl: '/templates/mentor.prof'
       });
 

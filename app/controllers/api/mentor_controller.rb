@@ -56,6 +56,7 @@ class API::MentorController < ApplicationController
   end
 
   def studentShares
+    user = get_user
     if user.class.name != 'Fellow'
       render json: {}, status: :unauthorized
       return
@@ -64,6 +65,7 @@ class API::MentorController < ApplicationController
     student = Student.where(id: params[:student]).select("CONCAT_WS(' ', firstname, lastname) as name, id").first
     teams = student.teams
     sharesData = {}
+    sharesData[:student] = student
     sharesData[:aggregateTotalShares] = 0;
     sharesData[:aggregateEarnedShares] = 0
     sharesData[:dailyIncrease] = 0
@@ -81,9 +83,10 @@ class API::MentorController < ApplicationController
         sharesData[:aggregateTotalShares] += offer.shares
         teamData[:shares].push(offerData)
       end
-      sharesData[:shares].push(offerData)
+      sharesData[:shares].push(teamData)
     end
 
+    puts sharesData
     render json: sharesData, status: :ok
   end
 

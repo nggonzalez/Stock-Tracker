@@ -1,4 +1,4 @@
-var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService']);
+var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService', 'mentorService']);
 modal.factory('Modal', ['$modal', function ($modal) {
   var Modal = {
     open: function (modalTemplate, modalCtrl, teamId, employeeId) {
@@ -14,6 +14,7 @@ modal.factory('Modal', ['$modal', function ($modal) {
           }
         }
       });
+      console.log(modalTemplate, modalCtrl);
 
       modalInstance.result.then(function (selectedItem) {
         //
@@ -100,3 +101,21 @@ modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Studen
       $modalInstance.dismiss('cancel');
     };
 }]);
+
+
+modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'employeeId', 'Alerts',
+  function ($scope, $modalInstance, Mentor, employeeId, Alerts) {
+    // Get shares
+    Mentor.shares({}, {student: employeeId}).$promise.then(function (student) {
+      $scope.shares = student.shares;
+      $scope.student = student.student;
+      console.log(student);
+    }, function (error) {
+      Alerts.showAlert('danger', 'Error loading student shares.');
+    });
+
+    $scope.close = function () {
+      $modalInstance.dismiss('cancel');
+    };
+}]);
+
