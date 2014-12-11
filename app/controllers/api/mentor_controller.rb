@@ -63,7 +63,7 @@ class API::MentorController < ApplicationController
     end
 
     student = Student.where(id: params[:student]).select("CONCAT_WS(' ', firstname, lastname) as name, id").first
-    teams = student.teams
+    teams = student.teams.uniq
     sharesData = {}
     sharesData[:student] = student
     sharesData[:aggregateTotalShares] = 0;
