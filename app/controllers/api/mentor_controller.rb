@@ -26,6 +26,9 @@ class API::MentorController < ApplicationController
       students = Student.all
       studentsData = []
       students.each do |student|
+        if student.offers.empty?
+          next
+        end
         currentTeamId = getCurrentTeam(student.id)
         studentData = {}
         studentData[:name] = student.firstname + ' ' + student.lastname
