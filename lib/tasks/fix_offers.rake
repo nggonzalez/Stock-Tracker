@@ -7,6 +7,9 @@ namespace :fix do
       if offer.signed && !offer.answered
         offer.answered = true
         offer.save!
+      elsif offer.signed && offer.date_signed.nil?
+        offer.date_signed = offer.updated_at.to_date
+        offer.save!
       end
     end
 
