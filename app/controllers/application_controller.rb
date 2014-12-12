@@ -85,7 +85,6 @@ class ApplicationController < ActionController::Base
 
 
   def getCurrentTeam(student_id)
-    puts student_id
     offer = Offer.where(student_id: student_id, signed: true).last
     return offer.team_id
   end
