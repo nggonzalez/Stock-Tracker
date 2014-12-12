@@ -41,6 +41,8 @@ class API::OffersController < ApplicationController
 
     if Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).present?
       offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
+      offerWasSignedButNotAnswered = offer.signed && !offer.answered;
+
       offer.update!(offer_params)
 
       offer.answered = true
@@ -48,7 +50,7 @@ class API::OffersController < ApplicationController
       offer.save!
 
       team = offer.team
-      if request.POST[:signed]
+      if request.POST[:signed] && !offerWasSignedButNotAnswered
         team.shares_distributed += offer.shares
         # If new team
           # Update all offers without the matching team id
