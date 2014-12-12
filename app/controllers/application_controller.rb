@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user
-    @user = get_fellow #|| get_student
+    @user = get_fellow || get_student
     # @user = get_student
     if !@user
       redirect_to :root
@@ -121,13 +121,17 @@ class ApplicationController < ActionController::Base
     else
       singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
     end
-    if Time.at(share.offer_date).to_date != due_date
+    if Time.at(share.offer_date).to_date != due_date && Time.at(share.offer_date).to_date < due_date
       singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / ((due_date - Time.at(share.offer_date).to_date).to_i)
     else
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / 1
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares
     end
     singleShareData[:totalShares] = share.shares
-    singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
+    if Date.current != due_date && Date.current < due_date
+      singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
+    else
+      singleShareData[:earnedShares] = share.shares
+    end
 
     return singleShareData
   end
