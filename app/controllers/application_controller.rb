@@ -133,6 +133,8 @@ class ApplicationController < ActionController::Base
       singleShareData[:earnedShares] = share.shares
     end
 
+    singleShareData[:dailyIncrease] = dailyShareIncrease.ceil
+
     return singleShareData
   end
 
