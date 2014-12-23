@@ -3,6 +3,7 @@ class API::SharesController < ApplicationController
     student = get_student
     shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).all
     sharesData = {}
+    sharesData[:maxOffer] = 0;
     sharesData[:aggregateTotalShares] = 0;
     sharesData[:aggregateEarnedShares] = 0
     sharesData[:dailyIncrease] = 0
@@ -67,6 +68,9 @@ class API::SharesController < ApplicationController
       sharesData[:dailyIncrease] += singleShareData[:dailyIncrease]
       sharesData[:aggregateEarnedShares] += singleShareData[:earnedShares]
       sharesData[:aggregateTotalShares] += share.shares
+      if sharesData[:maxOffer] < share.shares
+        sharesData[:maxOffer] = share.shares
+      end
 
       sharesData[:shares].push(singleShareData)
     end
