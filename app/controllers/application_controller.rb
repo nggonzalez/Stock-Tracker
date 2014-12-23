@@ -122,14 +122,12 @@ class ApplicationController < ActionController::Base
     end
 
     if Time.at(share.offer_date).to_date < due_date && Time.at(share.date_signed).to_date < due_date
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares / ((due_date - Time.at(share.date_signed).to_date).to_i)
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares.to_f / ((due_date - Time.at(share.date_signed).to_date).to_i)
     else
-      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares
+      singleShareData[:dailyIncrease] = dailyShareIncrease = share.shares.to_f
     end
 
-    singleShareData[:totalShares] = share.shares
-
-    if Time.at(share.offer_date).to_date < due_date && Time.at(share.offer_date).to_date < due_date
+    if Time.at(share.offer_date).to_date < due_date && Time.at(share.date_signed).to_date < due_date
       singleShareData[:earnedShares] = singleShareData[:daysVested] * dailyShareIncrease
     elsif Time.at(share.offer_date).to_date >= due_date
       singleShareData[:earnedShares] = share.shares
