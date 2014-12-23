@@ -8,7 +8,7 @@ namespace :fix do
         next
       end
       current_team = Offer.where(student_id: student.id, signed: true).last
-      offers = Offer.where(student_id: student.id, team_id: current_team.team_id).all
+      offers = Offer.where(student_id: student.id, team_id: current_team.team_id).order(:created_at).all
       offers.each do |offer|
         if offer.end_date.to_date != Date.new(2014, 12, 11)
           offer.end_date = Date.new(2014, 12, 11)
