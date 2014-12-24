@@ -6,6 +6,7 @@ lastname, firstname, netid, totalEarned, totalOffered,
 <br>
 
 <% @studentsData.each do |student| %>
-  <%=student[:lastname] + "," + student[:firstname] + "," + student[:netid] + "," + student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s %><% @teams.each do |team| %><% if !student[:teams].first[:shares].empty? %><% if team != student[:teams].first[:shares].first[:name] %>0<% else%><%=(student[:teams].first[:shares].shift)[:shares]%><% end %><% else %>0<% end %><% if team != @teams.last %><%=","%><% end %><% end %>
+  <%=student[:lastname] + "," + student[:firstname] + "," + student[:netid] + "," + student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s + ","%><% @teams.each do |team| %><% if !student[:teams].first[:shares].empty? %><% if team != student[:teams].first[:shares].first[:name] %>0<% else%><%=(student[:teams].first[:shares].shift)[:shares]%><% end %><% else %>0<% end %><% if team != @teams.last %><%=","%><% end %>
+  <% end %>
   <br>
 <% end %>
