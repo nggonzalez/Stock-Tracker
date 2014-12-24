@@ -89,8 +89,64 @@ class API::MentorController < ApplicationController
       sharesData[:shares].push(teamData)
     end
 
-    puts sharesData
+    # puts sharesData
     render json: sharesData, status: :ok
+  end
+
+
+  def csvFile
+    user = get_user
+    if user.class.name == 'Fellow'
+      students = Student.order(:lastname, :firstname).all
+      @studentsData = []
+      students.each do |student|
+        if student.offers.empty?
+          next
+        end
+        studentData = {}
+        studentData[:firstname] = student.firstname
+        studentData[:lastname] = student.lastname
+        studentData[:netid] = student.netid
+        studentData[:teams] = []
+
+        teams = student.teams.order(:company_name).uniq
+        sharesData = {}
+        sharesData[:aggregateTotalShares] = 0;
+        sharesData[:aggregateEarnedShares] = 0
+        sharesData[:dailyIncrease] = 0
+        sharesData[:shares] = []
+
+        teams.each do |team|
+          teamData = {}
+          teamData[:name] = team.company_name
+          teamData[:shares] = 0
+          offers = Offer.where(student_id: student.id, team_id: team.id, signed: true).load
+          offers.each do |offer|
+            offerData = calculateEquityData(offer)
+            sharesData[:dailyIncrease] += offerData[:dailyIncrease]
+            sharesData[:aggregateEarnedShares] += offerData[:earnedShares]
+            sharesData[:aggregateTotalShares] += offer.shares
+            teamData[:shares] += offerData[:earnedShares]
+          end
+          sharesData[:shares].push(teamData)
+        end
+        studentData[:teams].push(sharesData)
+        @studentsData.push(studentData)
+        # END OF COPIED
+      end
+
+      allTeams = Team.order(:company_name).all
+      @teams = []
+
+      allTeams.each do |team|
+        @teams.push(team.company_name)
+      end
+
+
+      render "mentor/csv.html.erb"
+    else
+      render status: :unauthorized
+    end
   end
 
 end
