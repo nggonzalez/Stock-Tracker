@@ -107,6 +107,8 @@ class API::MentorController < ApplicationController
         studentData[:firstname] = student.firstname
         studentData[:lastname] = student.lastname
         studentData[:netid] = student.netid
+        currentTeamId = getCurrentTeam(student.id)
+        studentData[:lastTeam] = Team.find(currentTeamId).company_name
         studentData[:teams] = []
 
         teams = student.teams.order(:company_name).uniq
@@ -141,6 +143,7 @@ class API::MentorController < ApplicationController
       allTeams.each do |team|
         @teams.push(team.company_name)
       end
+
 
 
       render "mentor/csv.html.erb"
