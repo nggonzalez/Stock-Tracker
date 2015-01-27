@@ -1,0 +1,45 @@
+<div class="see-offers-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">{{group}}'s Open Offers</h3>
+  </div>
+  <div class="modal-body">
+    <h2>Open Offers <small>(Nullify Offer and Waive Waiting Period)</small></h2>
+    <table class="table">
+      <tr>
+        <th>Student</th>
+        <th>Shares</th>
+        <th>Offer Date</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="offer in open | orderBy: 'offerDate'">
+        <td style="width: 35%">{{offer.student}}</td>
+        <td style="width: 25%">{{offer.shares | number}}</td>
+        <td style="width: 25%">{{offer.daysSinceOffer | number}}</td>
+        <td style="width: 15%">
+          <button class="btn btn-danger" ng-click="resetOffer($index, offer)"><span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+      </tr>
+    </table>
+    <h2>Rejected Offers <small>(Waive Waiting Period)</small></h2>
+    <table class="table">
+      <tr>
+        <th>Student</th>
+        <th>Shares</th>
+        <th>Waiting Period (days)</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="offer in rejected | orderBy: '-waitingPeriod'">
+        <td style="width: 35%">{{offer.student}}</td>
+        <td style="width: 25%">{{offer.shares | number}}</td>
+        <td style="width: 25%">{{offer.waitingPeriod | number}}</td>
+        <td style="width: 15%">
+          <button class="btn btn-danger" ng-click="resetOffer($index, offer)"><span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-info" ng-click="close()">Done</button>
+  </div>
+</div>

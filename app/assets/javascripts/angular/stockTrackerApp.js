@@ -21,6 +21,11 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         url: '/offers',
         templateUrl: '/templates/offers'
       })
+      .state('faq', {
+        //controller: 'FaqCtrl',
+        url: '/faq',
+        templateUrl: '/templates/faq'
+      })
       .state('team', {
         controller: 'TeamCtrl',
         controllerAs: 'team',

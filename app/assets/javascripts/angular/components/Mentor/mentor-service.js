@@ -1,6 +1,6 @@
 var shares = angular.module('mentorService', ['ngResource']);
 shares.factory('Mentor', ['$resource', function ($resource) {
-  return $resource('/api/fellows/:type/:student', { type: '@type' }, {
+  return $resource('/api/fellows/:type/:student:team', { type: '@type' }, {
     professor: {
       method: 'GET',
       isArray: false,
@@ -13,6 +13,10 @@ shares.factory('Mentor', ['$resource', function ($resource) {
     shares: {
       method: 'GET',
       params: {type: 'shares', student: '@student'}
+    },
+    offers: {
+      method: 'GET',
+      params: {type: 'offers', team: '@team'}
     }
   });
 }]);

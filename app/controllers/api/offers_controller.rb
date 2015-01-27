@@ -1,5 +1,17 @@
 class API::OffersController < ApplicationController
-  # before_create/update_action => calc totalShares - distributed
+
+  def delete
+    user = get_user
+    if user.class.name == 'Fellow'
+      offer = Offer.find(params[:id])
+      if !offer.signed
+        offer.delete
+      end
+      head :ok
+    else
+      render json: {}, status: :unauthorized
+    end
+  end
 
   def index
     student = get_student

@@ -8,12 +8,14 @@ Rails.application.routes.draw do
     post '/offers', to: 'offers#create'
     put '/offers', to: 'offers#update'
     patch '/offers', to: 'offers#update'
+    delete '/offers/:id', to: 'offers#delete'
     get '/teams', to: 'teams#show'
     get '/teams/shares/:team', to: 'teams#shares'
     get '/fellows/prof', to: 'mentor#prof'
     get '/fellows/groups', to: 'mentor#groups'
     get '/fellows/csv', to: 'mentor#csvFile'
     get '/fellows/shares/:student', to: 'mentor#studentShares'
+    get '/fellows/offers/:team', to: 'mentor#modifiableOffers'
   end
 
   root 'main#index'
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   get '/equity', to: 'main#index', as: :home
   get '/team', to: 'main#index'
   get '/offers', to: 'main#index'
+  get '/faq', to: 'main#index'
   get '/mentor/groups', to: 'main#index', as: :mentor_groups
   get '/mentor/prof', to: 'main#index', as: :prof_view
   get "*path", to: "main#index", format: false
