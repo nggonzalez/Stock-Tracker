@@ -1,17 +1,13 @@
-var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService', 'mentorService']);
+var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService', 'mentorService', 'modalFaq']);
 modal.factory('Modal', ['$modal', function ($modal) {
   var Modal = {
-    open: function (modalTemplate, modalCtrl, teamId, employeeId) {
+    open: function (modalTemplate, modalCtrl) {
+      var args = arguments;
       var modalInstance = $modal.open({
         templateUrl: modalTemplate,
         controller: modalCtrl,
         resolve: {
-          employeeId: function() {
-            return employeeId || undefined;
-          },
-          teamId: function() {
-            return teamId;
-          }
+          args: function() { return args; }
         }
       });
 
@@ -24,130 +20,4 @@ modal.factory('Modal', ['$modal', function ($modal) {
   };
 
   return Modal;
-}]);
-
-
-modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
-  'Offers', 'employeeId', 'teamId', 'Alerts',
-  function ($scope, $modalInstance, Shares, Offers, employeeId, teamId, Alerts) {
-    // Get shares
-    Shares.getEmployeeShares({}, {employee: employeeId, team:teamId}).$promise.then(function (employee) {
-      $scope.shares = employee.offers.shares;
-      $scope.employee = employee.employee;
-      $scope.eligibleForOffer = employee.eligibleForOffer;
-      $scope.maxSharesOfferable = employee.distributableShares;
-    }, function (error) {
-      Alerts.showAlert('danger', 'Error loading employee shares.');
-    });
-
-    $scope.newOffer = false;
-    $scope.offer = {
-      team: teamId,
-      student: employeeId
-    };
-
-    $scope.toggleNewOffer = function () {
-      $scope.newOffer = !$scope.newOffer;
-    };
-
-    $scope.send = function () {
-      Offers.save({}, $scope.offer).$promise.then(function () {
-        Alerts.showAlert('success', 'Successfully sent offer.');
-      }, function (error) {
-        Alerts.showAlert('danger', 'Error sending offer.');
-      });
-      $modalInstance.close();
-    };
-
-    $scope.close = function () {
-      $modalInstance.dismiss('cancel');
-    };
-}]);
-
-
-modal.controller('SendOfferCtrl', ['$scope', '$modalInstance', 'Offers', 'Student', 'Team',
-  'teamId', 'Alerts', function ($scope, $modalInstance, Offers, Student, Team, teamId, Alerts) {
-    // Setup new offer
-    // Send it
-    Student.query({all: 'all'}).$promise.then(function (students) {
-      $scope.students = students.students;
-    }, function (error) {
-      Alerts.showAlert('danger', 'Error loading students.');
-    });
-
-    Team.shares({}, {id: teamId}).$promise.then(function (shares) {
-      $scope.maxSharesOfferable = shares.shares;
-    }, function (error) {
-      Alerts.showAlert('danger', 'Error loading maxSharesOfferable.');
-    });
-
-    $scope.offer = {
-      team: teamId
-    };
-
-    $scope.send = function () {
-      var offer = $scope.offer;
-      offer.student = offer.student.id
-      Offers.save({}, $scope.offer).$promise.then(function () {
-        Alerts.showAlert('success', 'Successfully sent offer.');
-      }, function (error) {
-        Alerts.showAlert('danger', 'Error sending offer.');
-      });
-      $modalInstance.close($scope.offer);
-    };
-
-    $scope.discard = function () {
-      $modalInstance.dismiss('cancel');
-    };
-}]);
-
-
-modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'employeeId', 'Alerts',
-  function ($scope, $modalInstance, Mentor, employeeId, Alerts) {
-    // Get shares
-    Mentor.shares({}, {student: employeeId}).$promise.then(function (student) {
-      $scope.shares = student.shares;
-      $scope.aggregateTotal = student.aggregateTotalShares;
-      $scope.aggregateEarned = student.aggregateEarnedShares;
-      $scope.student = student.student;
-      console.log(student);
-    }, function (error) {
-      Alerts.showAlert('danger', 'Error loading student shares.');
-    });
-
-    $scope.close = function () {
-      $modalInstance.dismiss('cancel');
-    };
-}]);
-
-
-modal.controller('SeeOffersCtrl', ['$scope', '$modalInstance',
-  'Mentor', 'Offers', 'teamId', 'Alerts',
-  function ($scope, $modalInstance, Mentor, Offers, teamId, Alerts) {
-    // Get shares
-    Mentor.offers({}, {team:teamId}).$promise.then(function (offers) {
-      $scope.group = offers.group;
-      $scope.open = offers.open;
-      $scope.rejected = offers.rejected;
-      console.log(offers, $scope.open, $scope.rejected)
-    }, function (error) {
-      Alerts.showAlert('danger', 'Error loading offers.');
-    });
-
-    $scope.resetOffer = function (index, offer) {
-      if(index < $scope.open.length && $scope.open[index].id == offer.id) {
-        $scope.open.splice(index, 1);
-      } else {
-        $scope.rejected.splice(index, 1);
-      }
-      Offers.delete({}, offer).$promise.then(function () {
-        Alerts.showAlert('success', 'Successfully reset the offer.');
-      }, function (error) {
-        Alerts.showAlert('danger', 'Error reseting offer.');
-      });
-    };
-
-    $scope.close = function () {
-      $modalInstance.dismiss('cancel');
-    };
 }]);

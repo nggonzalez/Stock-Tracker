@@ -32,17 +32,17 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         url: '/team',
         templateUrl: '/templates/team'
       })
-      // .state('mentor', {
-      //   controller: 'MentorCtrl',
-      //   controllerAs: 'mentor',
-      //   url: '/mentor',
-      //   templateUrl: '/templates/mentor'
-      // })
       .state('mentorGroups', {
         controller: 'GroupsCtrl',
         controllerAs: 'groups',
         url: '/mentor/groups',
         templateUrl: '/templates/mentor.groups'
+      })
+      .state('mentorFaq', {
+        controller: 'MentorFaqCtrl',
+        controllerAs: 'faqCtrl',
+        url: '/mentor/faq',
+        templateUrl: '/templates/faq'
       })
       .state('mentorProfessor', {
         controller: 'ProfessorCtrl',

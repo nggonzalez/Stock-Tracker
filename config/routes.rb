@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     get '/fellows/csv', to: 'mentor#csvFile'
     get '/fellows/shares/:student', to: 'mentor#studentShares'
     get '/fellows/offers/:team', to: 'mentor#modifiableOffers'
+    get '/faq', to: 'questions#index'
+    post '/faq', to: 'questions#create'
+    patch '/faq', to: 'questions#update'
+    delete '/faq', to: 'questions#delete'
   end
 
   root 'main#index'

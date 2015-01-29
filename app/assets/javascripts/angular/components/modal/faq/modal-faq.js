@@ -1,0 +1,1 @@
+var modalFaq = angular.module('modalFaq', ['addQuestion']);

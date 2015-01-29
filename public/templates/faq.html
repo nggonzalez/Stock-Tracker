@@ -3,10 +3,14 @@
     <p ng-repeat="question in faq">
       <a href="{{question.id}}">{{question.text}}</a>
     </p>
+    <div ng-if="admin" class="btn btn-primary" ng-click="addQuestion()"><span class="glyphicon glyphicon-plus"></span> Add Question</div>
   </div>
 
   <div class="question" ng-repeat="question in faq">
     <p class="question-text">{{question.text}}</p>
     <p class="question-answer">{{question.answer}}</p>
+    <div ng-if="admin">
+      <div class="btn btn-primary"><span class="glyphicon glyphicon-pencil" ng-click="editQuestion(question)"></span> Edit</div>
+    </div>
   </div>
 </div>

@@ -31,13 +31,21 @@
             <span class="nav-text">Team</span>
           </a>
         </li>
-      <% end %>
-      <li>
+        <li>
+
         <a ui-sref="faq">
           <span class="nav-icon glyphicon glyphicon-question-sign"></span>
           <span class="nav-text">FAQ</span>
         </a>
       </li>
+      <% elsif @user.class.name == "Fellow" %>
+        <li>
+        <a ui-sref="mentorFaq">
+          <span class="nav-icon glyphicon glyphicon-question-sign"></span>
+          <span class="nav-text">FAQ</span>
+        </a>
+      </li>
+      <% end %>
       <li>
         <a ui-sref="logout">
           <span class="nav-icon glyphicon glyphicon-log-out"></span>
