@@ -1,1 +1,1 @@
-var modalFaq = angular.module('modalFaq', ['addQuestion']);
+var modalFaq = angular.module('modalFaq', ['addQuestion', 'editQuestion']);

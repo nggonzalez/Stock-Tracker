@@ -7,9 +7,11 @@ class API::QuestionsController < ApplicationController
   end
 
   def update
-    updatedQ = request.POST['question']
-    if Question.find(updatedQ.id).present?
-      updatedQ.update!(question_params)
+    if Question.find(request.POST['id']).present?
+      question = Question.find(request.POST['id'])
+      question.question = request['question']
+      question.answer = request['answer']
+      question.save!
       head :no_content
     else
       head :unprocessable_entity
@@ -17,12 +19,11 @@ class API::QuestionsController < ApplicationController
   end
 
   def create
-    puts request.POST
     newQ = Question.new
-    newQ.question = request.POST['text']
+    newQ.question = request.POST['question']
     newQ.answer = request.POST['answer']
-    newQ.save!(question_params)
-    head :no_content
+    newQ.save!
+    render json: newQ, status: :created
   end
 
   def delete

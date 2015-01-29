@@ -1,0 +1,25 @@
+.faq-page-wrapper {
+  .questions-index {
+    margin: 20px auto 40px auto;
+  }
+
+  .question {
+    margin: 20px auto;
+
+    .question-text {
+      font-weight: bold;
+      margin: 0 auto;
+    }
+
+    .question-answer {
+      font-size: 14px;
+    }
+  }
+}
+
+.edit-question-wrapper {
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}

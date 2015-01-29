@@ -1,16 +1,20 @@
 <div class="container-fluid faq-page-wrapper">
+  <h1>CPSC 113 Frequently Asked Questions</h1>
   <div class="questions-index">
-    <p ng-repeat="question in faq">
-      <a href="{{question.id}}">{{question.text}}</a>
+    <p ng-repeat="question in questions">
+      <a href="#{{question.id}}" class="lead">{{question.question}}</a>
     </p>
     <div ng-if="admin" class="btn btn-primary" ng-click="addQuestion()"><span class="glyphicon glyphicon-plus"></span> Add Question</div>
   </div>
 
-  <div class="question" ng-repeat="question in faq">
-    <p class="question-text">{{question.text}}</p>
-    <p class="question-answer">{{question.answer}}</p>
+  <div class="question" ng-repeat="question in questions">
+    <a name="{{question.id}}"></a>
+    <p class="question-text lead">{{question.question}}</p>
+    <div class="question-answer">
+      <p ng-repeat="paragraph in question.answer">{{paragraph.p}}</p>
+    </div>
     <div ng-if="admin">
-      <div class="btn btn-primary"><span class="glyphicon glyphicon-pencil" ng-click="editQuestion(question)"></span> Edit</div>
+      <div class="btn btn-default" ng-click="editQuestion(question)"><span class="glyphicon glyphicon-pencil"></span> Edit</div>
     </div>
   </div>
 </div>

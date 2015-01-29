@@ -12,7 +12,7 @@ modal.factory('Modal', ['$modal', function ($modal) {
       });
 
       modalInstance.result.then(function (selectedItem) {
-        //
+        return selectedItem;
       }, function () {
         // $log.info('Modal dismissed at: ' + new Date());
       });

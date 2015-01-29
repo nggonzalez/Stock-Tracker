@@ -1,19 +1,20 @@
 var addFaq = angular.module('addQuestion', ['faqService', 'alertsService']);
 addFaq.controller('AddQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
-  'Alerts', function ($scope, $modalInstance, FAQ, Alerts) {
-    // Setup new offer
-    // Send it
+  'Alerts', 'args', function ($scope, $modalInstance, FAQ, Alerts, args) {
+    $scope.add = true;
+
     $scope.question = {
-      text: "",
+      question: "",
       answer: [{p: ""}]
     };
 
     $scope.save = function () {
       // console.log($scope.question.text);
-      FAQ.save({}, $scope.question).$promise.then(function () {
+      FAQ.save({}, $scope.question).$promise.then(function (question) {
         Alerts.showAlert('success', 'Successfully saved question.');
+        args[2].push(question);
       }, function (error) {
-        Alerts.showAlert('danger', 'Error sending offer.');
+        Alerts.showAlert('danger', 'Error saving question.');
       });
       $modalInstance.close($scope.question);
     };
@@ -24,9 +25,20 @@ addFaq.controller('AddQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
 
     $scope.addParagraph = function() {
       $scope.question.answer.push({p: ""});
-    }
+    };
 
     $scope.deleteParagraph = function(index) {
-      $scope.question.answer.splice(index, 1);
-    }
+      if($scope.question.answer.length > 1) {
+        $scope.question.answer.splice(index, 1);
+      }
+    };
+
+    $scope.moveParagraph = function(index, direction) {
+      var ans = $scope.question.answer;
+      if(direction == 1) { // move down one
+        ans = ans.splice(index + 1, 0, ans.splice(index, 1)[0]);
+      } else if(direction == -1) { // move up one
+        ans = ans.splice(index - 1, 0, ans.splice(index, 1)[0]);
+      }
+    };
 }]);

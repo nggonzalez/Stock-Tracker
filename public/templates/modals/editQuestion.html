@@ -1,26 +1,37 @@
-<div class="new-offer-wrapper">
+<div class="edit-question-wrapper">
   <div class="modal-header">
     <button type="button" class="close" ng-click="discard()" aria-hidden="true">&times;</button>
-    <h3 class="modal-title">Add Question to FAQ Page</h3>
+    <h3 ng-if="add" class="modal-title">Add Question to FAQ Page</h3>
+    <h3 ng-if="!add" class="modal-title">Edit Question</h3>
   </div>
   <div class="modal-body">
     <form name="newQuestionForm" class="form" novalidate>
       <div class="form-group">
-        <label for="question-text" class="control-label">Question</label>
-        <input class="form-control input-lg" type="text" ng-model="question.text" name="question-text" placeholder="Question" required>
+        <label for="question-question" class="control-label">Question</label>
+        <input class="form-control input-lg" type="text" ng-model="question.question" name="question-question" placeholder="Question" required>
       </div>
 
       <div class="form-group">
-        <label for="answer" class="control-label">Answer</label>
-        <textarea ng-repeat="paragraph in question.answer" ng-model="paragraph.p" name="answer" placeholder="Answer" class="form-control" required>
-          {{paragraph.p}}
-        </textarea>
-          <div class="btn btn-default" ng-click="addParagraph()">Add Paragaph</div>
+        <label for="answer" class="control-label">Answer</label><div class="btn btn-default pull-right" ng-click="addParagraph()"><span class="glyphicon glyphicon-plus"></span> Add Paragaph</div>
+        <div class="row" ng-repeat="paragraph in question.answer">
+          <div class="col-xs-10">
+            <textarea ng-model="paragraph.p" name="answer" placeholder="Answer" class="form-control" required>
+              {{paragraph.p}}
+            </textarea>
+          </div>
+          <div class="col-xs-2">
+            <div class="btn-group-vertical" role="group">
+              <div ng-if="!$first" class="btn btn-default" ng-click="moveParagraph($index, -1)"><span class="glyphicon glyphicon-chevron-up text-muted"></span></div>
+              <div class="btn btn-default" ng-click="deleteParagraph($index)"><span class="glyphicon glyphicon-remove text-muted"></span></div>
+              <div ng-if="!$last" class="btn btn-default" ng-click="moveParagraph($index, 1)"><span class="glyphicon glyphicon-chevron-down text-muted"></span></div>
+            </div>
+          </div>
         </div>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button class="btn btn-default" ng-click="discard()">Discard</button>
-    <button class="btn btn-info" ng-click="save()" ng-disabled="newQuestionForm.$invalid">Send</button>
+    <button class="btn btn-info" ng-click="save()" ng-disabled="newQuestionForm.$invalid">Save</button>
   </div>
 </div>
