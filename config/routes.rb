@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get '/faq', to: 'questions#index'
     post '/faq', to: 'questions#create'
     patch '/faq', to: 'questions#update'
-    delete '/faq', to: 'questions#delete'
+    delete '/faq/:id', to: 'questions#delete'
   end
 
   root 'main#index'

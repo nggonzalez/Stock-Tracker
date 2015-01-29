@@ -1,5 +1,5 @@
 var stockTrackerApp = angular.module('stockTrackerApp', ['ui.router',
-  'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'mentor',
+  'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'faq', 'mentor',
   'alertsService']);
 
 stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
@@ -22,7 +22,7 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: '/templates/offers'
       })
       .state('faq', {
-        //controller: 'FaqCtrl',
+        controller: 'FaqCtrl',
         url: '/faq',
         templateUrl: '/templates/faq'
       })

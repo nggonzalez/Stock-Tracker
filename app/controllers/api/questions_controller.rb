@@ -27,8 +27,12 @@ class API::QuestionsController < ApplicationController
   end
 
   def delete
-    Question.delete!(params[:id])
-    head :no_content
+    if Question.find(params[:id]).present?
+      Question.delete(params[:id])
+      head :no_content
+    else
+      head :unprocessable_entity
+    end
   end
 
   private

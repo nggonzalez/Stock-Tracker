@@ -13,8 +13,9 @@
     <div class="question-answer">
       <p ng-repeat="paragraph in question.answer">{{paragraph.p}}</p>
     </div>
-    <div ng-if="admin">
-      <div class="btn btn-default" ng-click="editQuestion(question)"><span class="glyphicon glyphicon-pencil"></span> Edit</div>
+    <div ng-if="admin" class="clearfix control-links">
+      <a class="text-primary pull-left" ng-click="editQuestion(question)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+      <a class="text-danger pull-left" ng-click="deleteQuestion($index, question)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
     </div>
   </div>
 </div>

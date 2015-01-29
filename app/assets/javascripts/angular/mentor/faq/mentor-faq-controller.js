@@ -15,4 +15,13 @@ mentorFaq.controller('MentorFaqCtrl', ['$scope', 'FAQ', 'Alerts', 'Modal', funct
   $scope.editQuestion = function (question) {
     Modal.open('/templates/modals/editQuestion.html', 'EditQuestionCtrl', question);
   };
+
+  $scope.deleteQuestion = function(index, question) {
+    FAQ.delete({}, {id: question.id}).$promise.then(function () {
+      Alerts.showAlert('success', 'Successfully deleted question.');
+      $scope.questions.splice(index, 1);
+    }, function () {
+      Alerts.showAlert('danger', 'Error deleting question.');
+    });
+  };
 }]);
