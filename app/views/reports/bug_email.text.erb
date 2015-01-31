@@ -1,0 +1,12 @@
+Bug Details:
+State:  <%= @error_details[:state] %>
+Status: <%= @error_details[:errorCode] %>
+Model:  <%= @error_details[:model] %>
+Action: <%= @error_details[:action] %>
+
+
+Submitted Feedback:
+<%= @user_feedback %>
+
+
+Reported by: <%= @user.firstname %> <%= @user.lastname %> (<%= @user.email %>)

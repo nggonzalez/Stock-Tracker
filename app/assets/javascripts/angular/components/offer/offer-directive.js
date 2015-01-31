@@ -1,6 +1,6 @@
-var offerDirective = angular.module('offerDirective', ['offersService', 'alertsService']);
+var offerDirective = angular.module('offerDirective', ['offersService', 'alertsService', 'errorsService']);
 
-offerDirective.directive('offer', ['Offers', 'Alerts', function (Offers, Alerts) {
+offerDirective.directive('offer', ['Offers', 'Alerts', 'Error', function (Offers, Alerts, Error) {
   return {
     restrict: 'E',
     replace: true,
@@ -16,8 +16,8 @@ offerDirective.directive('offer', ['Offers', 'Alerts', function (Offers, Alerts)
         scope.offerData.dateSigned = new Date();
         Offers.update({}, scope.offerData).$promise.then(function () {
           Alerts.showAlert('success', 'Successfully accepted offer.');
-        }, function () {
-          Alerts.showAlert('danger', 'Error recording offer acceptance.');
+        }, function (error) {
+          Alerts.showAlert('danger', Error.createMessage(error.status, 'offer', 'accept'));
         });
       };
       scope.decline = function() {
@@ -26,8 +26,8 @@ offerDirective.directive('offer', ['Offers', 'Alerts', function (Offers, Alerts)
         scope.offerData.dateSigned = new Date();
         Offers.update({}, scope.offerData).$promise.then(function () {
           Alerts.showAlert('success', 'Successfully declined offer.');
-        }, function () {
-          Alerts.showAlert('danger', 'Error recording offer rejection.');
+        }, function (error) {
+          Alerts.showAlert('danger', Error.createMessage(error.status, 'offer', 'decline'));
         });
       };
     }

@@ -1,6 +1,6 @@
 modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
-  'Offers', 'args', 'Alerts',
-  function ($scope, $modalInstance, Shares, Offers, args, Alerts) {
+  'Offers', 'args', 'Alerts', 'Error',
+  function ($scope, $modalInstance, Shares, Offers, args, Alerts, Error) {
     // Get shares
     var employeeId = args[3];
     var teamId = args[2];
@@ -10,7 +10,7 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
       $scope.eligibleForOffer = employee.eligibleForOffer;
       $scope.maxSharesOfferable = employee.distributableShares;
     }, function (error) {
-      Alerts.showAlert('danger', 'Error loading employee shares.');
+      Alerts.showAlert('danger', Error.createMessage(error.status, 'shares', 'load'));
     });
 
     $scope.newOffer = false;
@@ -27,7 +27,7 @@ modal.controller('SeeSharesCtrl', ['$scope', '$modalInstance', 'Shares',
       Offers.save({}, $scope.offer).$promise.then(function () {
         Alerts.showAlert('success', 'Successfully sent offer.');
       }, function (error) {
-        Alerts.showAlert('danger', 'Error sending offer.');
+        Alerts.showAlert('danger', Error.createMessage(error.status, 'offer', 'send new'));
       });
       $modalInstance.close();
     };

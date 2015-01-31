@@ -1,4 +1,4 @@
-var addFaq = angular.module('editQuestion', ['faqService', 'alertsService']);
+var addFaq = angular.module('editQuestion', ['faqService', 'alertsService', 'errorsService']);
 addFaq.controller('EditQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
   'Alerts', 'args', function ($scope, $modalInstance, FAQ, Alerts, args) {
     // Setup new offer
@@ -8,9 +8,9 @@ addFaq.controller('EditQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
     $scope.save = function () {
       // console.log($scope.question.text);
       FAQ.update({}, $scope.question).$promise.then(function () {
-        Alerts.showAlert('success', 'Successfully saved question.');
+        Alerts.showAlert('success', 'Successfully updated question.');
       }, function (error) {
-        Alerts.showAlert('danger', 'Error saving question.');
+        Alerts.showAlert('danger', Error.createMessage(error.status, 'question', 'update'));
       });
       $modalInstance.close($scope.question);
     };

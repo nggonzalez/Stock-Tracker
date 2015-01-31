@@ -1,5 +1,5 @@
-var equity = angular.module('equity', ['nvd3ChartDirectives', 'sharesService', 'alertsService']);
-equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', function ($scope, Shares, Alerts) {
+var equity = angular.module('equity', ['nvd3ChartDirectives', 'sharesService', 'alertsService', 'errorsService']);
+equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', 'Errors', function ($scope, Shares, Alerts, Errors) {
   $scope.xAxisTickFormatFunction = function(){
     return function(d) {
       var startDate = new Date(2014, 9, 27);
@@ -46,7 +46,7 @@ equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', function ($scope,
     $scope.companies = companyArray;
 
   }, function (error) {
-    Alerts.showAlert('danger', 'Error loading equity data.');
+    Alerts.showAlert('danger', Errors.createMessage(error.status, 'shares', 'load'));
   });
 
 }]);

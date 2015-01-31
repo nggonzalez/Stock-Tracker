@@ -1,7 +1,7 @@
 
 modal.controller('SeeOffersCtrl', ['$scope', '$modalInstance',
-  'Mentor', 'Offers', 'args', 'Alerts',
-  function ($scope, $modalInstance, Mentor, Offers, args, Alerts) {
+  'Mentor', 'Offers', 'args', 'Alerts', 'Error',
+  function ($scope, $modalInstance, Mentor, Offers, args, Alerts, Error) {
     // Get shares
     console.log(args);
     var teamId = args[2];
@@ -11,7 +11,7 @@ modal.controller('SeeOffersCtrl', ['$scope', '$modalInstance',
       $scope.rejected = offers.rejected;
       console.log(offers, $scope.open, $scope.rejected)
     }, function (error) {
-      Alerts.showAlert('danger', 'Error loading offers.');
+      Alerts.showAlert('danger', Error.createMessage(error.status, 'offers', 'load open/rejected'));
     });
 
     $scope.resetOffer = function (index, offer) {
@@ -23,7 +23,7 @@ modal.controller('SeeOffersCtrl', ['$scope', '$modalInstance',
       Offers.delete({}, offer).$promise.then(function () {
         Alerts.showAlert('success', 'Successfully reset the offer.');
       }, function (error) {
-        Alerts.showAlert('danger', 'Error reseting offer.');
+        Alerts.showAlert('danger', Error.createMessage(error.status, 'offer', 'reset'));
       });
     };
 

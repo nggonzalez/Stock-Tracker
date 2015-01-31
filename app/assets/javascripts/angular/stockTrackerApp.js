@@ -1,6 +1,6 @@
 var stockTrackerApp = angular.module('stockTrackerApp', ['ui.router',
   'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'faq', 'mentor',
-  'alertsService']);
+  'alertsService', 'reportDirective']);
 
 stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
   '$locationProvider',

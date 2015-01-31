@@ -1,6 +1,6 @@
-var addFaq = angular.module('addQuestion', ['faqService', 'alertsService']);
+var addFaq = angular.module('addQuestion', ['faqService', 'alertsService', 'errorsService']);
 addFaq.controller('AddQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
-  'Alerts', 'args', function ($scope, $modalInstance, FAQ, Alerts, args) {
+  'Alerts', 'args', 'Error', function ($scope, $modalInstance, FAQ, Alerts, args, Error) {
     $scope.add = true;
 
     $scope.question = {
@@ -14,7 +14,7 @@ addFaq.controller('AddQuestionCtrl', ['$scope', '$modalInstance', 'FAQ',
         Alerts.showAlert('success', 'Successfully saved question.');
         args[2].push(question);
       }, function (error) {
-        Alerts.showAlert('danger', 'Error saving question.');
+        Alerts.showAlert('danger', Error.createMessage(error.status, 'question', 'save'));
       });
       $modalInstance.close($scope.question);
     };

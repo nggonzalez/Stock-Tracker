@@ -1,10 +1,9 @@
-var groups = angular.module('groups', ['mentorService', 'alertsService', 'modalService']);
-groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', function ($scope, Mentor, Alerts, Modal) {
+var groups = angular.module('groups', ['mentorService', 'alertsService', 'modalService', 'errorsService']);
+groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error', function ($scope, Mentor, Alerts, Modal, Error) {
   Mentor.groups({}, {}).$promise.then(function (groups) {
     $scope.groups = groups.mentor;
-    console.log(groups);
   }, function (error) {
-    Alerts.showAlert('danger', 'Error loading groups.');
+    Alerts.showAlert('danger', Error.createMessage(error.status, 'mentor\'s teams', 'load'));
   });
 
   $scope.seeShares = function (student) {

@@ -38,10 +38,11 @@ class API::QuestionsController < ApplicationController
   private
 
   def checkForFellow
-    user = get_user
-    if user.class.name != 'Fellow'
-      render json: {}, status: :unauthorized
-    end
+    render json: {}, status: :unauthorized
+    # user = get_user
+    # if user.class.name != 'Fellow'
+    #   render json: {}, status: :unauthorized
+    # end
   end
 
   def question_params

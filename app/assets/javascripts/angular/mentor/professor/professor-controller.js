@@ -1,9 +1,9 @@
-var professor = angular.module('professor', ['mentorService', 'alertsService', 'modalService']);
-professor.controller('ProfessorCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', function ($scope, Mentor, Alerts, Modal) {
+var professor = angular.module('professor', ['mentorService', 'alertsService', 'modalService', 'errorsService']);
+professor.controller('ProfessorCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error', function ($scope, Mentor, Alerts, Modal, Error) {
   Mentor.professor({}, {}).$promise.then(function (students) {
     $scope.students = students.mentor;
   }, function (error) {
-    Alerts.showAlert('danger', 'Error loading student data.');
+    Alerts.showAlert('danger', Error.createMessage(status, 'professor view data', 'load'));
   });
 
   $scope.seeShares = function (student) {

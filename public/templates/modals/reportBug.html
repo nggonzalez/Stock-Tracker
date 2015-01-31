@@ -1,0 +1,18 @@
+<div class="report-bug-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="discard()" aria-hidden="true">&times;</button>
+    <h3 class="modal-title">Report Error</h3>
+  </div>
+  <div class="modal-body">
+    <form name="feedback" class="form" novalidate>
+      <div class="form-group">
+        <label for="feedback" class="control-label">(Optional) Feedback</label>
+        <textarea ng-model="feedback.text" name="feedback" placeholder="Any useful information or feedback." class="form-control"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default" ng-click="discard()">Cancel</button>
+    <button class="btn btn-info" ng-click="sendReport()">Send</button>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService', 'mentorService', 'modalFaq']);
+var modal = angular.module('modalService', ['sharesService', 'offersService', 'studentService', 'alertsService', 'teamService', 'mentorService', 'modalFaq', 'errorsService', 'reportModal']);
 modal.factory('Modal', ['$modal', function ($modal) {
   var Modal = {
     open: function (modalTemplate, modalCtrl) {

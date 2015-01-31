@@ -1,11 +1,10 @@
-var mentorFaq = angular.module('mentorFaq', ['faqService', 'alertsService', 'modalService']);
-mentorFaq.controller('MentorFaqCtrl', ['$scope', 'FAQ', 'Alerts', 'Modal', function($scope, FAQ, Alerts, Modal) {
+var mentorFaq = angular.module('mentorFaq', ['faqService', 'alertsService', 'modalService', 'errorsService']);
+mentorFaq.controller('MentorFaqCtrl', ['$scope', 'FAQ', 'Alerts', 'Modal', 'Error', function($scope, FAQ, Alerts, Modal, Error) {
   $scope.admin = true;
   FAQ.get({}, {}).$promise.then(function (questions) {
     $scope.questions = questions.faqs;
-    // console.log(questions);
   }, function (error) {
-    Alerts.showAlert('danger', 'Error loading FAQ.');
+    Alerts.showAlert('danger', Error.createMessage(error.status, 'questions', 'load'));
   });
 
   $scope.addQuestion = function () {
@@ -18,10 +17,10 @@ mentorFaq.controller('MentorFaqCtrl', ['$scope', 'FAQ', 'Alerts', 'Modal', funct
 
   $scope.deleteQuestion = function(index, question) {
     FAQ.delete({}, {id: question.id}).$promise.then(function () {
-      Alerts.showAlert('success', 'Successfully deleted question.');
+      Alerts.showAlert('success', 'Successfully deleted question:\n' + question.question);
       $scope.questions.splice(index, 1);
-    }, function () {
-      Alerts.showAlert('danger', 'Error deleting question.');
+    }, function (error) {
+      Alerts.showAlert('danger', Error.createMessage(error.status, 'question', 'delete'));
     });
   };
 }]);

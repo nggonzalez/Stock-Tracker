@@ -1,5 +1,5 @@
-modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'args', 'Alerts',
-  function ($scope, $modalInstance, Mentor, args, Alerts) {
+modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'args', 'Alerts', 'Error',
+  function ($scope, $modalInstance, Mentor, args, Alerts, Error) {
     // Get shares
     var employeeId = args[3];
     Mentor.shares({}, {student: employeeId}).$promise.then(function (student) {
@@ -7,9 +7,8 @@ modal.controller('StudentSharesCtrl', ['$scope', '$modalInstance', 'Mentor', 'ar
       $scope.aggregateTotal = student.aggregateTotalShares;
       $scope.aggregateEarned = student.aggregateEarnedShares;
       $scope.student = student.student;
-      console.log(student);
     }, function (error) {
-      Alerts.showAlert('danger', 'Error loading student shares.');
+      Alerts.showAlert('danger', Error.createMessage(error.status, 'student shares', 'load'));
     });
 
     $scope.close = function () {

@@ -62,7 +62,7 @@
   </div>
   <div class="content-wrapper">
     <div class="container-fluid" ng-show="alert">
-      <alert ng-show="alert.alert.type" type="{{alert.alert.type}}" close="alert.closeAlert()">{{alert.alert.msg}}</alert>
+      <alert ng-show="alert.alert.type" type="{{alert.alert.type}}" close="alert.closeAlert()">{{alert.alert.msg}} <report ng-if="alert.alert.type == 'danger'"></report></alert>
     </div>
     <%= yield %>
   </div>

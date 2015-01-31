@@ -6,20 +6,20 @@ class OfferUpdates < ActionMailer::Base
     @recruit = recruit
     @team = team
     mail( :to => email,
-    :subject => '[CPSC 112] New Offer' )
+    :subject => '[CPSC 113] New Offer' )
   end
 
   def offer_accepted_email(recruit, team, email)
     @recruit = recruit
     @team = team
     mail( :to => email,
-    :subject => '[CPSC 112] Offer Accepted' )
+    :subject => '[CPSC 113] Offer Accepted' )
   end
 
   def offer_rejected_email(recruit, team, email)
     @recruit = recruit
     @team = team
     mail( :to => email,
-    :subject => '[CPSC 112] Offer Rejected' )
+    :subject => '[CPSC 113] Offer Rejected' )
   end
 end
