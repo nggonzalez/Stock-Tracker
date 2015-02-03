@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129004121) do
+ActiveRecord::Schema.define(version: 20150203185245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20150129004121) do
     t.string  "lastname",                  null: false
     t.boolean "professor", default: false
     t.string  "email",                     null: false
+  end
+
+  create_table "investments", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "team_id"
+    t.decimal  "stock_value"
+    t.decimal  "investment"
+    t.datetime "investment_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "mentors", id: false, force: true do |t|
@@ -59,10 +69,12 @@ ActiveRecord::Schema.define(version: 20150129004121) do
 
   create_table "students", force: true do |t|
     t.string  "netid"
-    t.string  "firstname",                 null: false
-    t.boolean "admin",     default: false
-    t.string  "lastname",                  null: false
-    t.string  "email",                     null: false
+    t.string  "firstname",                         null: false
+    t.boolean "admin",             default: false
+    t.string  "lastname",                          null: false
+    t.string  "email",                             null: false
+    t.decimal "investable_shares"
+    t.decimal "invested_shares"
   end
 
   create_table "students_teams", id: false, force: true do |t|
@@ -78,6 +90,17 @@ ActiveRecord::Schema.define(version: 20150129004121) do
     t.datetime "updated_at"
     t.string   "company_name"
     t.integer  "held_shares",        default: 0
+  end
+
+  create_table "valuations", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "valuation_round"
+    t.decimal  "grade"
+    t.decimal  "previous_round_investments"
+    t.decimal  "total_investments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "value"
   end
 
 end
