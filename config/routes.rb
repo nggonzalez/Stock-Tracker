@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     patch '/faq', to: 'questions#update'
     delete '/faq/:id', to: 'questions#delete'
     post '/report/bug', to: 'reports#bug'
+
+    get '/investments', to: 'investment#index'
+    post '/investments', to: 'investment#invest'
   end
 
   root 'main#index'

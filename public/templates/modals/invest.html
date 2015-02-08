@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="discard()" aria-hidden="true">&times;</button>
+  <h3 class="modal-title">New Investment</h3>
+</div>
+<div class="modal-body">
+  <form name="newInvestmentForm" novalidate>
+    <p class="lead text-center">{{companyData.company_name}}<br>Value: {{companyData.value}} ({{companyData.change}})</p>
+    <alert type="danger" ng-if="(newInvestmentForm.shares.$error.max || newInvestmentForm.shares.$error.pattern)">
+      The number of dollars being invested must be between 0 and {{investableDollars}}.
+    </alert>
+    <div class="form-group">
+      <input type="number" name="shares" step="0.01" placeholder="Investment in Dollars (Ex: 1052.46)" class="form-control input-lg" ng-model="investment.dollars" ng-pattern="/^[0-9]\d*(\.\d{1,2})?$/" max="{{investableDollars}}" required>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" ng-click="discard()">Discard</button>
+  <button class="btn btn-info" ng-click="confirm()" ng-disabled="newInvestmentForm.$invalid">Invest</button>
+</div>

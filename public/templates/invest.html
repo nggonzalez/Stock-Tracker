@@ -1,0 +1,29 @@
+<div class="container-fluid invest-wrapper">
+  <p class="shares lead">
+    <b>{{student.firstname}} {{student.lastname}}</b><br/>
+    Investable Funds: {{student.investable_shares - student.invested_shares | number}}<br/>
+    Invested Funds: {{student.invested_shares | number}}
+  </p>
+  <h1>Invest</h1>
+  <table class="table table-hover">
+    <tr>
+      <th>Company</th>
+      <th>CEO</th>
+      <th>Value</th>
+      <th>Investment</th>
+      <th></th>
+    </tr>
+
+    <tr ng-repeat="team in teams | orderBy: ['company_name']">
+      <td>{{team.company_name}}</td>
+      <td>{{team.ceo}}</td>
+      <td>{{team.value | number}} ({{team.change | number}})</td>
+      <td>{{team.currentInvestment}}</td>
+      <td>
+        <button ng-click="createInvestment(team)" class="btn btn-default invest">
+          <span class="glyphicon glyphicon-usd"></span> Invest
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -61,6 +61,7 @@ class API::SharesController < ApplicationController
     sharesData[:dailyIncrease] = 0
     sharesData[:daysRemaining] = (due_date - Date.current).to_i;
     sharesData[:shares] = []
+    sharesData[:maxOffer] = -1
 
     shares.each do |share|
       singleShareData = calculateEquityData(share)

@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <h1>Valuations</h1>
+  <tabset>
+    <tab ng-repeat="valuation in valuations">
+      <tab-heading>Round {{valuation.round}}</tab-heading>
+      <div class="btn pull-right" ng-if="$last" ng-class="{'btn-danger': !live, 'btn-success': live}"><span ng-if="!live">Not </span>Live</div>
+      <table class="table table-hover">
+        <tr>
+          <th>Company</th>
+          <th>Previous Round Investment</th>
+          <th>Total Investment</th>
+          <th>Grade</th>
+          <th>New Value</th>
+        </tr>
+
+        <tr ng-repeat="team in teams | orderBy: ['company_name']">
+          <td>{{team.company_name}}</td>
+          <td>{{team.ceo}}</td>
+          <td>{{team.value | number}} ({{team.change | number}})</td>
+          <td>{{team.currentInvestment}}</td>
+          <td>
+            <button ng-click="createInvestment(team)" class="btn btn-default invest">
+              <span class="glyphicon glyphicon-usd"></span> Invest
+            </button>
+          </td>
+        </tr>
+      </table>
+    </tab>
+    <tab select="newValuationRound()">
+      <tab-heading><span class="glyphicon glyphicon-plus"></span> New Valuation Round</tab-heading>
+    </tab>
+  </tabset>
+</div>

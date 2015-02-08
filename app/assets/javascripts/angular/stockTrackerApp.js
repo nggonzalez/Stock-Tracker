@@ -1,6 +1,6 @@
 var stockTrackerApp = angular.module('stockTrackerApp', ['ui.router',
   'ui.bootstrap', 'app', 'equity', 'offers', 'team', 'logout', 'faq', 'mentor',
-  'alertsService', 'reportDirective']);
+  'invest', 'alertsService', 'reportDirective']);
 
 stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
   '$locationProvider',
@@ -32,6 +32,12 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         url: '/team',
         templateUrl: '/templates/team'
       })
+      .state('invest', {
+        controller: 'InvestCtrl',
+        controllerAs: 'invest',
+        url: '/invest',
+        templateUrl: '/templates/invest'
+      })
       .state('mentorGroups', {
         controller: 'GroupsCtrl',
         controllerAs: 'groups',
@@ -43,6 +49,11 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         controllerAs: 'faqCtrl',
         url: '/mentor/faq',
         templateUrl: '/templates/faq'
+      })
+      .state('mentorValuation', {
+        controller: 'MentorValuationCtrl',
+        url: '/mentor/valuation',
+        templateUrl: '/templates/mentor.valuation'
       })
       .state('mentorProfessor', {
         controller: 'ProfessorCtrl',
