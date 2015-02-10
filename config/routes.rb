@@ -24,6 +24,10 @@ Rails.application.routes.draw do
 
     get '/investments', to: 'investment#index'
     post '/investments', to: 'investment#invest'
+
+    get '/valuation', to: 'valuation#index'
+    post '/valuation/save', to: 'valuation#save'
+    post '/valuation/live', to: 'valuation#live'
   end
 
   root 'main#index'

@@ -47,6 +47,11 @@ class ApplicationController < ActionController::Base
     nil
   end
 
+  def mentor_check
+    user = get_user
+    render json: {}, status: :unauthorized unless user.class.name == "Fellow"
+  end
+
   # hack for skip_before_filter with CAS
   # overwrite this method (with 'true') in any controller you want to skip CAS authentication
   def skip_login?

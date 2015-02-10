@@ -1,33 +1,37 @@
-<div class="container-fluid">
+<div class="container-fluid valuation-wrapper">
   <h1>Valuations</h1>
   <tabset>
-    <tab ng-repeat="valuation in valuations">
-      <tab-heading>Round {{valuation.round}}</tab-heading>
-      <div class="btn pull-right" ng-if="$last" ng-class="{'btn-danger': !live, 'btn-success': live}"><span ng-if="!live">Not </span>Live</div>
+    <tab ng-repeat="valuations in valuationRounds | orderBy: ['round']" active="valuations.active">
+      <tab-heading>Round {{valuations.round}}</tab-heading>
+      <div class="btn pull-right" ng-class="{'btn-danger': !valuations.live, 'btn-success': valuations.live}" ng-disabled="newValuationForm.$invalid || valuations.live" ng-if="$last" ng-click="makeValuationsLive(valuations)"><span ng-if="!valuations.live">Not </span>Live</div>
+      <div class="btn pull-right btn-default" ng-if="$last && !valuations.live" ng-click="saveValuations(valuations)" ng-disabled="newValuationForm.$invalid"><span class="glyphicon glyphicon-save"></span> Save</div>
+      <form name="newValuationForm" class="form" novalidate>
       <table class="table table-hover">
         <tr>
           <th>Company</th>
-          <th>Previous Round Investment</th>
-          <th>Total Investment</th>
+          <th>CEO</th>
+          <th ng-if="valuations.live">Previous Round Investment</th>
+          <th ng-if="valuations.live">Total Investment</th>
           <th>Grade</th>
-          <th>New Value</th>
+          <th ng-if="valuations.live">New Value</th>
         </tr>
 
-        <tr ng-repeat="team in teams | orderBy: ['company_name']">
+        <tr ng-repeat="team in valuations.valuations | orderBy: ['company_name']">
           <td>{{team.company_name}}</td>
           <td>{{team.ceo}}</td>
-          <td>{{team.value | number}} ({{team.change | number}})</td>
-          <td>{{team.currentInvestment}}</td>
-          <td>
-            <button ng-click="createInvestment(team)" class="btn btn-default invest">
-              <span class="glyphicon glyphicon-usd"></span> Invest
-            </button>
+          <td ng-if="valuations.live">{{team.previousRoundInvestment}}</td>
+          <td ng-if="valuations.live">{{team.currentInvestment}}</td>
+          <td ng-if="!valuations.live">
+              <input type="number" name="student" ng-model="valuation.grade" placeholder="Grade (Ex: 100)" class="form-control input" max="100" ng-pattern="/^[0-9]\d*(\.\d{1,2})?$/" step="0.01" required>
           </td>
+          <td ng-if="valuations.live">{{team.grade | number}}</td>
+          <td ng-if="valuations.live">{{team.value | number}} ({{team.change | number}})</td>
         </tr>
       </table>
+      </form>
     </tab>
-    <tab select="newValuationRound()">
-      <tab-heading><span class="glyphicon glyphicon-plus"></span> New Valuation Round</tab-heading>
+    <tab ng-click="newValuationRound()" ng-if="!pending" active="false">
+      <tab-heading><span class="glyphicon glyphicon-plus"></span></tab-heading>
     </tab>
   </tabset>
 </div>

@@ -157,8 +157,6 @@ class API::MentorController < ApplicationController
         @teams.push(team.company_name)
       end
 
-
-
       render "mentor/csv.html.erb"
     else
       render status: :unauthorized
