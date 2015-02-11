@@ -4,7 +4,6 @@ equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', 'Error', function
     return function(d) {
       var startDate = new Date(2014, 9, 27);
       if(d % 1 === 0) {
-        console.log(d);
         return d3.time.format('%x')(new Date(startDate.setDate(startDate.getDate() + d)));//uncomment for date format
       }
       return;
@@ -13,7 +12,6 @@ equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', 'Error', function
 
   Shares.get().$promise.then(function (sharesData) {
     $scope.sharesData = sharesData;
-    console.log(sharesData.formattedEquity);
     var shares = sharesData.shares,
       sharesLength = shares.length,
       companies = {},
