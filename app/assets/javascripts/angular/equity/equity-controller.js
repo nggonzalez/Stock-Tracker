@@ -13,6 +13,7 @@ equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', 'Error', function
 
   Shares.get().$promise.then(function (sharesData) {
     $scope.sharesData = sharesData;
+    console.log(sharesData.formattedEquity);
     var shares = sharesData.shares,
       sharesLength = shares.length,
       companies = {},

@@ -23,7 +23,11 @@ class API::SharesController < ApplicationController
 
 
       startingDate = Time.at(share.date_signed).to_date
-      endDate = Date.current + 1.day
+      if Date.current <= due_date
+        endDate = Date.current + 1.day
+      else
+        endDate = due_date + 1.day
+      end
       if Time.at(share.end_date).to_date != due_date
         endDate = Time.at(share.end_date).to_date
       end

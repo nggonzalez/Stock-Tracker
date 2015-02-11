@@ -11,7 +11,7 @@
     <div class="form-group">
       <input type="number" name="shares" step="1" placeholder="Number Of Shares" class="form-control input-lg text-center" ng-model="investment.shares" ng-pattern="/^[0-9]\d*$/" max="{{maxShares}}" required>
     </div>
-    <p class="lead text-center" ng-if="investment.shares > 0">Dollar Value: {{investment.shares * companyData.value | number}}</p>
+    <p class="lead text-center" ng-if="investment.shares >= 0">Dollar Value: {{investment.shares * companyData.value | number}}</p>
   </form>
 </div>
 <div class="modal-footer">
