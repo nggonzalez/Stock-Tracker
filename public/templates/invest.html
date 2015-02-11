@@ -17,7 +17,7 @@
     <tr ng-repeat="team in teams | orderBy: ['company_name']">
       <td>{{team.company_name}}</td>
       <td>{{team.ceo}}</td>
-      <td>{{team.value | number}} ({{team.change | number}})</td>
+      <td>{{team.value | number}} <span ng-class="{'text-danger': team.change < 0, 'text-success': team.change > 0}">(<span ng-class="{'glyphicon-arrow-down': team.change < 0, 'glyphicon-arrow-up': team.change > 0}" class="glyphicon"></span>{{team.change | number}})</span></td>
       <td>{{team.currentInvestment}}</td>
       <td>
         <button ng-click="createInvestment(team)" class="btn btn-default invest">

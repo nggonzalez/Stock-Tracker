@@ -10,7 +10,7 @@ class API::InvestmentController < ApplicationController
       formattedValuation[:team_id] = team.id
       formattedValuation[:ceo] = Student.where(netid: team.ceo_id).select("CONCAT_WS(' ', firstname, lastname) as name").first.name
       formattedValuation[:value] = valuation.value
-      formattedValuation[:change] = 0
+      formattedValuation[:change] = (valuation.value - Valuation.where(team_id: valuation.team_id, valuation_round: valuation.valuation_round - 1).first.value)
       formattedValuation[:currentInvestment] = 0
       Investment.where(team_id: team.id).load.each do |investment|
         formattedValuation[:currentInvestment] += investment.investment

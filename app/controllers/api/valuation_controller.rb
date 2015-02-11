@@ -93,6 +93,9 @@ private
     formattedValuation[:grade] = valuation.grade
     formattedValuation[:value] = valuation.value
     formattedValuation[:change] = 0
+    if round != 0
+      formattedValuation[:change] = (valuation.value - Valuation.where(team_id: valuation.team_id, valuation_round: round - 1).first.value)
+    end
     formattedValuation[:currentInvestment] = 0
     formattedValuation[:previousRoundInvestment] = 0
     Investment.where(team_id: team.id).where("round < #{round}").order(:round).load.each do |investment|
