@@ -22,8 +22,8 @@
         <tr ng-repeat="team in valuations.valuations | orderBy: ['company_name']">
           <td>{{team.company_name}}</td>
           <td>{{team.ceo}}</td>
-          <td ng-if="valuations.live">{{team.previousRoundInvestment}}</td>
-          <td ng-if="valuations.live">{{team.currentInvestment}}</td>
+          <td ng-if="valuations.live">{{team.previousRoundInvestment | number}}</td>
+          <td ng-if="valuations.live">{{team.currentInvestment | number}}</td>
           <td ng-if="!valuations.live">
               <input type="number" name="student" ng-model="team.grade" placeholder="Grade (Ex: 100)" class="form-control input" max="100" ng-pattern="/^[0-9]\d*(\.\d{1,2})?$/" step="0.01" required>
           </td>
