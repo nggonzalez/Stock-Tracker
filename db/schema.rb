@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150208031640) do
+ActiveRecord::Schema.define(version: 20150211032800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150208031640) do
   create_table "investments", force: true do |t|
     t.integer  "student_id"
     t.integer  "team_id"
-    t.decimal  "stock_value"
+    t.integer  "round"
     t.decimal  "investment"
     t.datetime "investment_date"
     t.datetime "created_at"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 20150208031640) do
     t.integer  "team_id"
     t.integer  "valuation_round"
     t.decimal  "grade"
-    t.decimal  "previous_round_investments"
-    t.decimal  "total_investments"
+    t.decimal  "previous_round_investments", default: 0.0
+    t.decimal  "total_investments",          default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "value"

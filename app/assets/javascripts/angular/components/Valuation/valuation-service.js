@@ -3,11 +3,15 @@ valuation.factory('Valuation', ['$resource', function ($resource) {
   return $resource('/api/valuation/:action', {}, {
     save: {
       method: 'POST',
-      params: {type: 'save'}
+      params: {action: 'save'}
     },
     live: {
       method: 'POST',
-      params: {type: 'live'}
+      params: {action: 'live'}
+    },
+    update: {
+      method: 'POST',
+      params: {action: 'update'}
     }
     // shares: {
     //   method: 'GET',

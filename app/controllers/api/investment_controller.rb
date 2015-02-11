@@ -1,7 +1,7 @@
 class API::InvestmentController < ApplicationController
   def index
     student = get_user
-    valuations = Valuation.includes(:team).where(valuation_round: Valuation.maximum("valuation_round")).load
+    valuations = Valuation.includes(:team).where(valuation_round: Valuation.where(live: true).maximum("valuation_round")).load
     formattedValuationsArray = []
     valuations.each do |valuation|
       formattedValuation = {}
@@ -28,7 +28,7 @@ class API::InvestmentController < ApplicationController
     investment.student_id = student.id
     investment.team_id = request.POST['team_id']
     investment.investment = request.POST['dollars']
-    investment.stock_value = Valuation.where(team_id: request.POST['team_id'], valuation_round: Valuation.maximum("valuation_round")).first.value
+    investment.round = Valuation.where(live: true).maximum("valuation_round")
     investment.save!
 
     student.invested_shares += investment.investment

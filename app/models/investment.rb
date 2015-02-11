@@ -3,7 +3,7 @@ class Investment < ActiveRecord::Base
   belongs_to :student
   belongs_to :team
 
-  validates :stock_value, numericality: { only_integer: false }
+  validates :round, numericality: { only_integer: true }
   validates :investment, numericality: { only_integer: false }
   validates :student_id, numericality: { only_integer: true }
   validates :team_id, numericality: { only_integer: true }

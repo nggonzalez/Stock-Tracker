@@ -5,6 +5,9 @@
       <tab-heading>Round {{valuations.round}}</tab-heading>
       <div class="btn pull-right" ng-class="{'btn-danger': !valuations.live, 'btn-success': valuations.live}" ng-disabled="newValuationForm.$invalid || valuations.live" ng-if="$last" ng-click="makeValuationsLive(valuations)"><span ng-if="!valuations.live">Not </span>Live</div>
       <div class="btn pull-right btn-default" ng-if="$last && !valuations.live" ng-click="saveValuations(valuations)" ng-disabled="newValuationForm.$invalid"><span class="glyphicon glyphicon-save"></span> Save</div>
+
+      <div class="btn pull-right" ng-class="{'btn-danger': !valuations.live, 'btn-success': valuations.live}" ng-if="$last && !valuations.live" ng-click="allHundreds(valuations)">100s</div>
+
       <form name="newValuationForm" class="form" novalidate>
       <table class="table table-hover">
         <tr>
@@ -22,7 +25,7 @@
           <td ng-if="valuations.live">{{team.previousRoundInvestment}}</td>
           <td ng-if="valuations.live">{{team.currentInvestment}}</td>
           <td ng-if="!valuations.live">
-              <input type="number" name="student" ng-model="valuation.grade" placeholder="Grade (Ex: 100)" class="form-control input" max="100" ng-pattern="/^[0-9]\d*(\.\d{1,2})?$/" step="0.01" required>
+              <input type="number" name="student" ng-model="team.grade" placeholder="Grade (Ex: 100)" class="form-control input" max="100" ng-pattern="/^[0-9]\d*(\.\d{1,2})?$/" step="0.01" required>
           </td>
           <td ng-if="valuations.live">{{team.grade | number}}</td>
           <td ng-if="valuations.live">{{team.value | number}} ({{team.change | number}})</td>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     get '/valuation', to: 'valuation#index'
     post '/valuation/save', to: 'valuation#save'
+    post '/valuation/update', to: 'valuation#update'
     post '/valuation/live', to: 'valuation#live'
   end
 
