@@ -7,6 +7,7 @@ newInvestment.controller('NewInvestmentCtrl', ['$scope', 'args', 'Investment',
 
     $scope.investableDollars = args[3].investable_shares - args[3].invested_shares;
     $scope.companyData = args[2];
+    $scope.maxShares = Math.floor($scope.investableDollars/$scope.companyData.value);
 
     $scope.discard = function () {
       $modalInstance.dismiss('cancel');
@@ -14,9 +15,10 @@ newInvestment.controller('NewInvestmentCtrl', ['$scope', 'args', 'Investment',
 
     $scope.confirm = function () {
       Investment.save({}, $scope.investment).$promise.then(function (investment) {
-        Alerts.showAlert('success', 'Successfully invested $' + $scope.investment.dollars + ' in ' + args[2].company_name + '.');
-        args[2].currentInvestment += $scope.investment.dollars;
-        args[3].invested_shares += $scope.investment.dollars;
+        Alerts.showAlert('success', 'Successfully purchased ' + $scope.investment.shares + ' shares ($' + ($scope.investment.shares * $scope.companyData.value) + ') in ' + args[2].company_name + '.');
+        args[2].currentInvestmentDollars = parseFloat(args[2].currentInvestmentDollars, 10) +  $scope.investment.shares * $scope.companyData.value;
+        args[2].currentInvestmentShares += $scope.investment.shares;
+        args[3].invested_shares = parseFloat(args[3].invested_shares, 10) + $scope.investment.shares * $scope.companyData.value;
       }, function (error) {
         Alerts.showAlert('danger', Error.createMessage(error.status, 'investment', 'save'));
       });

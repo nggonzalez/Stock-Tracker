@@ -18,7 +18,7 @@
       <td>{{team.company_name}}</td>
       <td>{{team.ceo}}</td>
       <td>{{team.value | number}} <span ng-class="{'text-danger': team.change < 0, 'text-success': team.change > 0}">(<span ng-class="{'glyphicon-arrow-down': team.change < 0, 'glyphicon-arrow-up': team.change > 0}" class="glyphicon"></span>{{team.change | number}})</span></td>
-      <td>{{team.currentInvestment}}</td>
+      <td>${{team.currentInvestmentDollars | number}} ({{team.currentInvestmentShares | number}} shares)</td>
       <td>
         <button ng-click="createInvestment(team)" class="btn btn-default invest">
           <span class="glyphicon glyphicon-usd"></span> Invest
