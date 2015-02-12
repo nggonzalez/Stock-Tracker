@@ -16,14 +16,14 @@ end
 class InvestmentValidator
   def initialize(investment)
     @investment = investment
-    @team = Team.find(@investment.team_id)
-    @student = Student.find(@investment.student_id)
+    @team = Team.where(id: @investment.team_id).first
+    @student = Student.where(id: @investment.student_id).first
   end
 
   def validate
     if @team.blank? || @student.blank?
       @investment.errors[:base] << "Team or student does not exist"
-    elsif @student.investable_shares - @student.invested_shares < @investment.investment
+    elsif @student.investable_dollars - @student.invested_dollars < @investment.investment
       @investment.errors[:base] << "Insufficient shares"
     end
 

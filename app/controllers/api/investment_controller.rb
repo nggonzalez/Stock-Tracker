@@ -13,7 +13,7 @@ class API::InvestmentController < ApplicationController
       formattedValuation[:change] = (valuation.value - Valuation.where(team_id: valuation.team_id, valuation_round: valuation.valuation_round - 1).first.value)
       formattedValuation[:currentInvestmentDollars] = 0
       formattedValuation[:currentInvestmentShares] = 0
-      Investment.where(team_id: team.id).load.each do |investment|
+      Investment.where(team_id: team.id, student_id: student.id).load.each do |investment|
         formattedValuation[:currentInvestmentDollars] += investment.investment
         formattedValuation[:currentInvestmentShares] += investment.shares
       end
@@ -35,7 +35,7 @@ class API::InvestmentController < ApplicationController
     investment.round = Valuation.where(live: true).maximum("valuation_round")
     investment.save!
 
-    student.invested_shares += investment.investment
+    student.invested_dollars += investment.investment
     student.save!
 
     head :no_content
