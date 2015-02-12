@@ -9,7 +9,7 @@ namespace :insert do
     s.netid = "ngg23"
     s.save!
 
-    startDate = Date.new(2014, 10, 27)
+    startDate = Date.new(2015, 2, 12)
 
     t = Team.first
 
@@ -29,7 +29,7 @@ namespace :insert do
     o.date_signed = startDate
     o.student_id = s.id
     o.team_id = t.id
-    o.end_date = Date.new(2014, 12, 11)
+    o.end_date = Date.new(2015, 4, 30)
     o.save!
   end
 end

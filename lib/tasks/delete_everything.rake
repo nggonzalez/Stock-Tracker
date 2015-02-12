@@ -7,5 +7,8 @@ namespace :delete do
     Offer.delete_all
     Mentor.delete_all
     Fellow.delete_all
+    Investment.delete_all
+    Valuation.delete_all
+    Question.delete_all
   end
 end

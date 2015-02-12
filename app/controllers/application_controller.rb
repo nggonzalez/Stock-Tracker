@@ -59,11 +59,11 @@ class ApplicationController < ActionController::Base
   end
 
   def due_date
-    return Date.new(2014, 12, 11)
+    return Date.new(2015, 4, 30)
   end
 
   def start_date
-    return Date.new(2014, 10, 27)
+    return Date.new(2015, 2, 12)
   end
 
   def eligible_for_offer(lastOffer)
@@ -118,12 +118,22 @@ class ApplicationController < ActionController::Base
     singleShareData[:totalShares] = share.shares
     singleShareData[:earnedShares] = 0
 
-    if share.end_date.to_date == due_date
-      singleShareData[:daysVested] = (due_date - Time.at(share.date_signed).to_date).to_i
-    elsif share.end_date.to_date < share.cliff_date.to_date
-      return singleShareData
+    if Date.current < due_date
+      if share.end_date.to_date == due_date
+        singleShareData[:daysVested] = (Date.current - Time.at(share.date_signed).to_date).to_i
+      elsif share.end_date.to_date < share.cliff_date.to_date
+        return singleShareData
+      else
+        singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
+      end
     else
-      singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
+      if share.end_date.to_date == due_date
+        singleShareData[:daysVested] = (due_date - Time.at(share.date_signed).to_date).to_i
+      elsif share.end_date.to_date < share.cliff_date.to_date
+        return singleShareData
+      else
+        singleShareData[:daysVested] = (Time.at(share.end_date).to_date - Time.at(share.date_signed).to_date).to_i
+      end
     end
 
     if Time.at(share.offer_date).to_date < due_date && Time.at(share.date_signed).to_date < due_date

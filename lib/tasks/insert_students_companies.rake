@@ -2,7 +2,9 @@
 namespace :insert do
   desc 'Insert students and companies into the database.'
   task :students_teams => :environment do
-    doc = Nokogiri::XML(File.open("#{Rails.root}/db/result.xml"))
+    doc = Nokogiri::XML(File.open("#{Rails.root}/db/result.xml")) do |config|
+      config.strict.noblanks
+    end
     doc.root.elements.each do |node|
       if node.node_name.eql? 'Student'
         s = Student.new
@@ -30,7 +32,7 @@ namespace :insert do
         ceo.admin = true
         ceo.save!
 
-        startDate = Date.new(2014, 10, 27)
+        startDate = Date.new(2015, 2, 12)
         ceoOffer = Offer.new
         ceoOffer.shares = 1000000
         ceoOffer.answered = true
@@ -41,7 +43,7 @@ namespace :insert do
         ceoOffer.cliff_date = startDate
         ceoOffer.created_at = startDate
         ceoOffer.date_signed = startDate
-        ceoOffer.end_date = Date.new(2014, 12, 11)
+        ceoOffer.end_date = Date.new(2015, 4, 30)
         ceoOffer.save!
 
         t.total_shares += 1000000
@@ -72,7 +74,7 @@ namespace :insert do
           o.answered = true
           o.signed = true
           o.date_signed = startDate
-          o.end_date = Date.new(2014, 12, 11)
+          o.end_date = Date.new(2015, 4, 30)
           o.student_id = employeeData.id
           o.team_id = t.id
           o.save!

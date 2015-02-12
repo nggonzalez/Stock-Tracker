@@ -2,7 +2,7 @@ var equity = angular.module('equity', ['nvd3ChartDirectives', 'sharesService', '
 equity.controller('EquityCtrl', ['$scope', 'Shares', 'Alerts', 'Error', function ($scope, Shares, Alerts, Errors) {
   $scope.xAxisTickFormatFunction = function(){
     return function(d) {
-      var startDate = new Date(2014, 9, 27);
+      var startDate = new Date(2015, 1, 12);
       if(d % 1 === 0) {
         return d3.time.format('%x')(new Date(startDate.setDate(startDate.getDate() + d)));//uncomment for date format
       }

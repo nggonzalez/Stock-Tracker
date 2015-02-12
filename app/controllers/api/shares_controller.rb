@@ -3,8 +3,8 @@ class API::SharesController < ApplicationController
     student = get_student
     shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).all
     sharesData = {}
-    sharesData[:maxOffer] = 0;
-    sharesData[:aggregateTotalShares] = 0;
+    sharesData[:maxOffer] = 0
+    sharesData[:aggregateTotalShares] = 0
     sharesData[:aggregateEarnedShares] = 0
     sharesData[:dailyIncrease] = 0
     sharesData[:daysRemaining] = (due_date - Date.current).to_i;

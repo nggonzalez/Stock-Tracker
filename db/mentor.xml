@@ -1,57 +1,165 @@
 <root>
   <Professor email="daniel.abadi@yale.edu" firstname="Daniel" lastname="Abadi" netid="dja2" />
+  <Professor email="kyle.jensen@yale.edu" firstname="Kyle" lastname="Jensen" netid="klj39" />
 
   <Fellow email="nicholas.gonzalez@yale.edu" firstname="Nicholas" lastname="Gonzalez" netid="ngg23">
-    <Mentor email="benjamin.rodriquez-vars@yale.edu" />
-    <Mentor email="kaity.hsieh@yale.edu" />
-    <Mentor email="ragini.luthra@yale.edu" />
-    <Mentor email="wissem.gamra@yale.edu" />
-    <Mentor email="timur.guler@yale.edu" />
-  </Fellow>
-
-  <Fellow email="hongda.xiao@yale.edu" firstname="Hongda" lastname="Xiao" netid="hx38">
-    <Mentor email="efstathios.zlatis@yale.edu" />
-    <Mentor email="grace.jansen@yale.edu" />
-    <Mentor email="sean.hamlin@yale.edu" />
-    <Mentor email="tristan.sechrest@yale.edu" />
-    <Mentor email="timur.guler@yale.edu" />
-  </Fellow>
-
-  <Fellow email="john.maheswaran@yale.edu" firstname="John" lastname="Maheswaran" netid="jrm95">
-    <Mentor email="daniel.shao@yale.edu" />
-    <Mentor email="michael.lebwohl@yale.edu" />
-    <Mentor email="nicole.cai@yale.edu" />
-    <Mentor email="david.hobbs@yale.edu" />
-    <Mentor email="alexander.mendelsohn@yale.edu" />
-  </Fellow>
-
-  <Fellow email="joshua.lockerman@yale.edu" firstname="Josh" lastname="Lockerman" netid="jzl6">
-    <Mentor email="daniel.bond@yale.edu" />
-    <Mentor email="jessica.leao@yale.edu" />
-    <Mentor email="patrick.buehler@yale.edu" />
-    <Mentor email="luc.ryan-schreiber@yale.edu" />
-    <Mentor email="katherine.lin@yale.edu" />
-  </Fellow>
-
-  <Fellow email="kun.ren@yale.edu" firstname="Kun" lastname="Ren" netid="kr358">
-    <Mentor email="davis.nguyen@yale.edu" />
-    <Mentor email="mahrukh.shahid@yale.edu" />
-    <Mentor email="yumiko.nakamura@yale.edu" />
-    <Mentor email="jessica.e.lee@yale.edu" />
-  </Fellow>
-
-  <Fellow email="mark.santolucito@yale.edu" firstname="Mark" lastname="Santolucito" netid="mps57">
-    <Mentor email="francesca.casalino@yale.edu" />
-    <Mentor email="julie.chang@yale.edu" />
-    <Mentor email="mark.fedronic@yale.edu" />
-    <Mentor email="tiffany.oche@yale.edu" />
-    <Mentor email="jack.weinberger@yale.edu" />
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
   </Fellow>
 
   <Fellow email="faiaz.khan@yale.edu" firstname="Rafi" lastname="Khan" netid="fak23">
-    <Mentor email="erika.hairston@yale.edu" />
-    <Mentor email="joseph.lanzone@yale.edu" />
-    <Mentor email="karen.tian@yale.edu" />
-    <Mentor email="abdel.morsy@yale.edu" />
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+
+  <Fellow email="xiao.shi@yale.edu" firstname="Xiao" lastname="Shi" netid="xs66">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+
+  <Fellow email="david.t.johnson@yale.edu" firstname="David" lastname="Johnson" netid="dj262">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+
+  <Fellow email="william.xu@yale.edu" firstname="William" lastname="Xu" netid="wwx2">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="michele.carpenter@yale.edu" firstname="Michele" lastname="Carpenter" netid="mc2694">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="robert.dietz@yale.edu" firstname="Robert" lastname="Dietz" netid="rd25">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="shannan.foley@yale.edu" firstname="Shannan" lastname="Foley" netid="sjw38">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="hanna.german@yale.edu" firstname="Hanna" lastname="German" netid="hg232">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="m.hahn@yale.edu" firstname="Mary" lastname="Hahn" netid="mh483">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="susan.hurlburt@yale.edu" firstname="Susan" lastname="Hurlburt" netid="sh623">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="daniel.jackowitz@yale.edu" firstname="Daniel" lastname="Jackowitz" netid="dj258">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="jennifer.mcfadden@yale.edu" firstname="Jennifer" lastname="McFadden" netid="jhm43">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
+  </Fellow>
+  <Fellow email="ben.myers@yale.edu" firstname="Benjamin" lastname="Myers" netid="bm62">
+    <Mentor email="mary.farner@yale.edu" />
+    <Mentor email="jason.brooks@yale.edu" />
+    <Mentor email="albert.shin@yale.edu" />
+    <Mentor email="lawrence.tenn@yale.edu" />
+    <Mentor email="gabriel.reynoso-palley@yale.edu" />
+    <Mentor email="mavilamarina.miller@yale.edu" />
+    <Mentor email="thomas.kilmer@yale.edu" />
+    <Mentor email="eric.ho@yale.edu" />
+    <Mentor email="anthony.fumagalli@yale.edu" />
   </Fellow>
 </root>
+
+
