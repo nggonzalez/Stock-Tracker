@@ -5,6 +5,6 @@
   </head>
   <body>
     <h1><%= @team.company_name %> has sent an offer to <%= @recruit.name %>.</h1>
-    <p><%= @recruit.name %>, please respond to the offer within 48 hours. After 48 hours, the offer will be marked as expired and <%= @team.company_name %> will be unable to send new offers to you for a 2 week period.</p>
+    <p><%= @recruit.name %>, please respond <a href="cs113stocktracker.herokuapp.com">online</a> to the offer within 48 hours. After 48 hours, the offer will be marked as expired and <%= @team.company_name %> will be unable to send new offers to you for a 2 week period.</p>
   </body>
 </html>
