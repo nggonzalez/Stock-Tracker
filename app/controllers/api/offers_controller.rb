@@ -5,6 +5,11 @@ class API::OffersController < ApplicationController
     if user.class.name == 'Fellow'
       offer = Offer.find(params[:id])
       if !offer.signed
+        if offer.answered
+          team = Team.where(id: offer.team_id).first
+          team.held_shares -= offer.shares
+          team.save!
+        end
         offer.delete
       end
       head :ok
