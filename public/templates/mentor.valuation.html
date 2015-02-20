@@ -16,7 +16,7 @@
           <th ng-if="valuations.live">Previous Round Investment</th>
           <th ng-if="valuations.live">Total Investment</th>
           <th>Grade</th>
-          <th ng-if="valuations.live">New Value</th>
+          <th ng-if="valuations.live">Price Per Share</th>
         </tr>
 
         <tr ng-repeat="team in valuations.valuations | orderBy: ['company_name']">
