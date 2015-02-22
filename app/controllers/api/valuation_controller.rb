@@ -54,6 +54,7 @@ class API::ValuationController < ApplicationController
     valuations = request.POST['valuations']
     valuations.each do |val|
       valuation = Valuation.find(val['id'])
+      previousValue = Valuation.where(team_id: valuation['team_id'], valuation_round: round-1).first.value
       valuation.grade = val['grade']
       valuation.live = true
       Investment.where(team_id: valuation['team_id']).where("round < #{round}").order(:round).load.each do |investment|
@@ -64,22 +65,12 @@ class API::ValuationController < ApplicationController
           end
         end
       end
-      valuation.value = 0.5 * val['grade'] + 0.5 * valuation.previous_round_investments
+      valuation.value = previousValue + ((val['grade'] - 80) * 0.001)/20 +  ((0.001/200) * valuation.previous_round_investments)
       valuation.save!
     end
     self.index
   end
 
-
-# t.integer  "team_id"
-#     t.integer  "valuation_round"
-#     t.decimal  "grade"
-#     t.decimal  "previous_round_investments"
-#     t.decimal  "total_investments"
-#     t.datetime "created_at"
-#     t.datetime "updated_at"
-#     t.decimal  "value"
-#     t.boolean  "live"
 
 private
 
