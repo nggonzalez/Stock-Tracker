@@ -1,4 +1,3 @@
-
 namespace :insert do
   desc 'Insert test employee into the database.'
   task :test_employee => :environment do

@@ -1,4 +1,3 @@
-
 namespace :insert do
   desc 'Insert students and companies into the database.'
   task :students_teams => :environment do

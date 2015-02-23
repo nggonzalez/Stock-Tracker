@@ -9,7 +9,7 @@ namespace :insert do
       valuation.grade = 100
       valuation.previous_round_investments = 0
       valuation.total_investments = 0
-      valuation.value = 10000
+      valuation.value = 0.001
       valuation.live = true
       valuation.save!
     end
