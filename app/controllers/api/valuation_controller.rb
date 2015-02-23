@@ -69,7 +69,7 @@ class API::ValuationController < ApplicationController
       valuation.save!
     end
     students = Student.all
-    student.each do |student|
+    students.each do |student|
       student.investments_value = calculateAllInvestmentsValue(student.id)
       student.save!
     end
