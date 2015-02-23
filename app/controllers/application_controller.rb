@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
   end
 
   def get_user
-    @user = get_fellow || get_student
-    # @user = get_student
+    # @user = get_fellow || get_student
+    @user = get_student
     if !@user
       redirect_to :root
       return false
@@ -151,6 +151,32 @@ class ApplicationController < ActionController::Base
     singleShareData[:dailyIncrease] = dailyShareIncrease
 
     return singleShareData
+  end
+
+  def calculateTeamInvestmentsValue(student_id, team_id, round, round_value)
+    investmentData = {}
+    investmentData[:round] = round
+    investmentData[:sharePrice] = round_value
+    investmentData[:team_id] = team_id
+    investmentData[:company_name] = Team.where(id: team_id).first.company_name
+    investmentData[:dollarValue] = 0
+    investments = Investment.where(student_id: student_id, team_id: team_id).where("round <= #{round}").load
+    investments.each do |investment|
+      investmentData[:dollarValue] += investment.shares * round_value
+    end
+    investmentData
+  end
+
+  def calculateAllInvestmentsValue(student_id)
+    currentTeam = getCurrentTeam(student_id)
+    teams = Team.all
+    round = Valuation.where(live: true).maximum("valuation_round")
+    investmentsValue = 0
+    teams.each do |team|
+      round_value = Valuation.where(team_id: team.id, valuation_round: round).first.value
+      investmentsValue += calculateTeamInvestmentsValue(student_id, team.id, round, round_value)[:dollarValue]
+    end
+    investmentsValue
   end
 
 end

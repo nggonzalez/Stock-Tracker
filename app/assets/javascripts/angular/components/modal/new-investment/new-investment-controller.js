@@ -19,6 +19,7 @@ newInvestment.controller('NewInvestmentCtrl', ['$scope', 'args', 'Investment',
         args[2].currentInvestmentDollars = parseFloat(args[2].currentInvestmentDollars, 10) +  $scope.investment.shares * $scope.companyData.value;
         args[2].currentInvestmentShares += $scope.investment.shares;
         args[3].invested_dollars = parseFloat(args[3].invested_dollars, 10) + $scope.investment.shares * $scope.companyData.value;
+        args[3].investments_value = parseFloat(args[3].investments_value, 10) + $scope.investment.shares * $scope.companyData.value;
       }, function (error) {
         Alerts.showAlert('danger', Error.createMessage(error.status, 'investment', 'save'));
       });

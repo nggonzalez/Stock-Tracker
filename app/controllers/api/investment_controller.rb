@@ -1,6 +1,7 @@
 class API::InvestmentController < ApplicationController
   def index
     student = get_user
+    rank = Student.where("investments_value > #{student.investments_value}").count() + 1
     valuations = Valuation.includes(:team).where(valuation_round: Valuation.where(live: true).maximum("valuation_round")).load
     formattedValuationsArray = []
     valuations.each do |valuation|
@@ -22,7 +23,7 @@ class API::InvestmentController < ApplicationController
       end
       formattedValuationsArray.push(formattedValuation)
     end
-    render json: {student: student, investment: formattedValuationsArray}, status: :ok
+    render json: {student: student, rank: rank, investment: formattedValuationsArray}, status: :ok
   end
 
   def invest
@@ -44,6 +45,7 @@ class API::InvestmentController < ApplicationController
     investment.save!
 
     student.invested_dollars += investment.investment
+    student.investments_value = calculateAllInvestmentsValue(student.id)
     student.save!
 
     head :no_content

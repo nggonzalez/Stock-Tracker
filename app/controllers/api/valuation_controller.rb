@@ -68,6 +68,11 @@ class API::ValuationController < ApplicationController
       valuation.value = previousValue + ((val['grade'] - 80) * 0.001)/20 +  ((0.001/200) * valuation.previous_round_investments)
       valuation.save!
     end
+    students = Student.all
+    student.each do |student|
+      student.investments_value = calculateAllInvestmentsValue(student.id)
+      student.save!
+    end
     self.index
   end
 

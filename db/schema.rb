@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212183741) do
+ActiveRecord::Schema.define(version: 20150223043503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150212183741) do
     t.string  "email",                              null: false
     t.decimal "investable_dollars", default: 0.0
     t.decimal "invested_dollars",   default: 0.0
+    t.decimal "investments_value",  default: 0.0
   end
 
   create_table "students_teams", id: false, force: true do |t|
