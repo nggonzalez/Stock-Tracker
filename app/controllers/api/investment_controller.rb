@@ -29,6 +29,11 @@ class API::InvestmentController < ApplicationController
     # create a new entry in the table
     # update student values
     student = get_user
+    team = getCurrentTeam(student.id)
+    if team == request.POST['team_id']
+      render json: {}, status: :bad_request
+      return false
+    end
     round = Valuation.where(live: true).maximum("valuation_round")
     investment = Investment.new
     investment.student_id = student.id

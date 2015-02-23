@@ -9,6 +9,7 @@ errors.factory('Error', ['$state', function ($state) {
   };
 
   var errorTypes = {
+    400: 'Bad Request. You cannot invest in your own team.',
     401: 'Unauthorized. If you think this is a mistake, please report the error.',
     404: 'Not Found.',
     422: 'Unprocessable Entity. Check that you have entered all valid entries into the form.',
