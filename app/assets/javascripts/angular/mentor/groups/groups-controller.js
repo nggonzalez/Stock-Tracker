@@ -12,7 +12,6 @@ groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error',
     }
     Student.drop({}, {id: student.id}).$promise.then(function (data) {
       Alerts.showAlert('success', 'Successfully dropped ' + student.firstname + ' ' + student.lastname  + ' from the class.');
-      console.log(groupIndex, employeeIndex, $scope.groups[groupIndex].employees[employeeIndex]);
       $scope.groups[groupIndex].employees.splice(employeeIndex, 1);
     }, function (error) {
       Alerts.showAlert('danger', Error.createMessage(error.status, 'student', 'drop'));

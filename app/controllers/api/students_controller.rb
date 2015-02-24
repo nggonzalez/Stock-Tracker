@@ -26,8 +26,8 @@ class API::StudentsController < ApplicationController
       end
       team.shares_distributed -= (offerData[:totalShares] - offerData[:earnedShares])
       team.save!
-      offer.destroy
     end
+    Offer.where(student_id: student.id).destroy_all
     student = Student.destroy(student)
     head :no_content
   end
