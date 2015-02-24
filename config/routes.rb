@@ -2,24 +2,31 @@ Rails.application.routes.draw do
   namespace :api, path: '/api' do # constraints: {subdomain: 'api'} do
     get '/student/all', to: 'students#index'
     get '/student', to: 'students#show'
+    delete '/student/:id', to: 'students#drop'
+
     get '/shares/:employee/:team', to: 'shares#employeeShares'
     get '/shares', to: 'shares#show'
+
     get '/offers', to: 'offers#index'
     post '/offers', to: 'offers#create'
     put '/offers', to: 'offers#update'
     patch '/offers', to: 'offers#update'
     delete '/offers/:id', to: 'offers#delete'
+
     get '/teams', to: 'teams#show'
     get '/teams/shares/:team', to: 'teams#shares'
+
     get '/fellows/prof', to: 'mentor#prof'
     get '/fellows/groups', to: 'mentor#groups'
     get '/fellows/csv', to: 'mentor#csvFile'
     get '/fellows/shares/:student', to: 'mentor#studentShares'
     get '/fellows/offers/:team', to: 'mentor#modifiableOffers'
+
     get '/faq', to: 'questions#index'
     post '/faq', to: 'questions#create'
     patch '/faq', to: 'questions#update'
     delete '/faq/:id', to: 'questions#delete'
+
     post '/report/bug', to: 'reports#bug'
 
     get '/investments', to: 'investment#index'

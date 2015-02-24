@@ -30,5 +30,9 @@ namespace :insert do
     o.team_id = t.id
     o.end_date = Date.new(2015, 4, 30)
     o.save!
+
+    t.total_shares += 300000
+    t.shares_distributed += 300000
+    t.save!
   end
 end
