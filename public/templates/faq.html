@@ -7,7 +7,7 @@
     <div ng-if="admin" class="btn btn-primary" ng-click="addQuestion()"><span class="glyphicon glyphicon-plus"></span> Add Question</div>
   </div>
 
-  <div class="question" ng-repeat="question in questions">
+  <div class="question" ng-repeat="question in questions | orderBy: ['question']">
     <a name="{{question.id}}"></a>
     <p class="question-text lead">{{question.question}}</p>
     <div class="question-answer">
