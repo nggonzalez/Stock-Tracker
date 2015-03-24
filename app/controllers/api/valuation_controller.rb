@@ -71,6 +71,7 @@ class API::ValuationController < ApplicationController
     students = Student.all
     students.each do |student|
       student.investments_value = calculateAllInvestmentsValue(student.id)
+      student.investable_dollars += 50 - (student.investable_dollars - student.invested_dollars)
       student.save!
     end
     self.index
