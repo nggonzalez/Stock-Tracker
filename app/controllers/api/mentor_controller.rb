@@ -34,6 +34,8 @@ class API::MentorController < ApplicationController
         studentData[:name] = student.firstname + ' ' + student.lastname
         studentData[:id] = student.id
         studentData[:netid] = student.netid
+        studentData[:investedDollars] = student.invested_dollars
+        studentData[:investableDollars] = student.investable_dollars
 
         company = Team.where(id: currentTeamId).first
         studentData[:currentCompany] = company.company_name.truncate(20, separator: /\s|\:|\-/)
