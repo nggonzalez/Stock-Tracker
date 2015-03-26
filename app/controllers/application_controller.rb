@@ -169,7 +169,7 @@ class ApplicationController < ActionController::Base
 
   def calculateAllInvestmentsValue(student_id)
     currentTeam = getCurrentTeam(student_id)
-    teams = Team.all
+    teams = Team.where("teams.dissolved = false").all
     round = Valuation.where(live: true).maximum("valuation_round")
     investmentsValue = 0
     teams.each do |team|

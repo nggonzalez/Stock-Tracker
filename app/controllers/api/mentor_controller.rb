@@ -5,6 +5,9 @@ class API::MentorController < ApplicationController
       teams = user.teams
       groups = []
       teams.each do |team|
+        if(team.dissolved == true)
+          next
+        end
         group = {}
         group[:teamId] = team.id
         group[:name] = team.company_name

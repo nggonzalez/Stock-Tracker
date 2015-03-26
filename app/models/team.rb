@@ -4,5 +4,4 @@ class Team < ActiveRecord::Base
   has_many :employees
   has_many :students, :through => :employees
 
-  default_scope where(:dissolved => false)
 end
