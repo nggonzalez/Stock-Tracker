@@ -2,7 +2,7 @@ class API::InvestmentController < ApplicationController
   def index
     student = get_user
     rank = Student.where("investments_value > #{student.investments_value}").count() + 1
-    valuations = Valuation.includes(:team).where(valuation_round: Valuation.where(live: true).maximum("valuation_round")).load
+    valuations = Valuation.includes(:team).where("teams.dissolved = false").where(valuation_round: Valuation.where(live: true).maximum("valuation_round")).load
     formattedValuationsArray = []
     valuations.each do |valuation|
       formattedValuation = {}

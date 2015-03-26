@@ -1,5 +1,5 @@
-var groups = angular.module('groups', ['mentorService', 'alertsService', 'modalService', 'errorsService', 'studentService']);
-groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error', 'Student', function ($scope, Mentor, Alerts, Modal, Error, Student) {
+var groups = angular.module('groups', ['mentorService', 'alertsService', 'modalService', 'errorsService', 'studentService', 'teamService']);
+groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error', 'Student', 'Team', function ($scope, Mentor, Alerts, Modal, Error, Student, Team) {
   Mentor.groups({}, {}).$promise.then(function (groups) {
     $scope.groups = groups.mentor;
   }, function (error) {
@@ -15,6 +15,20 @@ groups.controller('GroupsCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'Error',
       $scope.groups[groupIndex].employees.splice(employeeIndex, 1);
     }, function (error) {
       Alerts.showAlert('danger', Error.createMessage(error.status, 'student', 'drop'));
+    });
+  };
+
+  $scope.dissolveTeam = function dissolveTeam(groupIndex) {
+    var team = $scope.groups[groupIndex];
+    console.log(team);
+    if(!confirm("Are you sure you want to dissolve " + team.name + "? This action cannot be undone.")) {
+      return;
+    }
+    Team.dissolve({}, {id: team.teamId}).$promise.then(function (data) {
+      Alerts.showAlert('success', 'Successfully dissolved ' + team.name + '.');
+      $scope.groups.splice(groupIndex, 1);
+    }, function (error) {
+      Alerts.showAlert('danger', Error.createMessage(error.status, 'team', 'dissolve'));
     });
   };
 

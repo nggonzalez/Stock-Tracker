@@ -3,17 +3,17 @@ namespace :insert do
   desc 'Insert test employee into the database.'
   task :test_offers => :environment do
     s = Student.where(netid: "ngg23").first
-    t = 271
+    t = Team.first.id
 
     startDate = Date.new(2014, 10, 27)
 
     for i in 0..1
         o = Offer.new
-        o.shares = 300000
+        o.shares = 30000
         o.cliff_date = Date.current + 14.days
         o.offer_date = Date.current
         o.created_at = startDate
-        o.answered = true
+        o.answered = false
         o.signed = false
         o.date_signed = startDate
         o.student_id = s.id

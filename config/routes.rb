@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
     get '/teams', to: 'teams#show'
     get '/teams/shares/:team', to: 'teams#shares'
+    delete '/teams/dissolve/:team', to: 'teams#dissolve'
 
     get '/fellows/prof', to: 'mentor#prof'
     get '/fellows/groups', to: 'mentor#groups'

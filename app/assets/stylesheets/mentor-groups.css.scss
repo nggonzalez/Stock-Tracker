@@ -2,4 +2,12 @@
   .table th, .table td {
     border-top: none;
   }
+
+  .accordion-toggle:hover {
+    text-decoration: none;
+  }
+
+  a.dissolve {
+    cursor: pointer;
+  }
 }

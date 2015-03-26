@@ -1,4 +1,7 @@
 class API::TeamsController < ApplicationController
+  before_action :mentor_check, only: [:dissolve]
+
+
   def show
     student = get_student
     currentCompanyId = getCurrentTeam(student.id)
@@ -79,5 +82,12 @@ class API::TeamsController < ApplicationController
   def shares
     team = Team.where(id: params[:team]).first
     render json: {shares: calculateDistributableShares(team)}, status: :ok
+  end
+
+  def dissolve
+    team = Team.where(id: params[:team]).first
+    team.dissolved = true
+    team.save!
+    head :no_content
   end
 end

@@ -2,7 +2,7 @@ class API::ValuationController < ApplicationController
   before_action :mentor_check
 
   def index
-    valuations = Valuation.includes(:team).order(valuation_round: :desc).load
+    valuations = Valuation.includes(:team).where("teams.dissolved = false").order(valuation_round: :desc).load
     formattedValuationObjectArray = []
     formattedValuationObject = {}
     valuations.each do |valuation|

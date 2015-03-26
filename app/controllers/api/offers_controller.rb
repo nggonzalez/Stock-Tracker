@@ -22,9 +22,14 @@ class API::OffersController < ApplicationController
     student = get_student
     if student.admin
       currentTeamId = getCurrentTeam(student.id)
-      offers = Offer.includes(:team).where(team_id: currentTeamId).load
+      offers = nil
+      Team.unscoped do
+        offers = Offer.includes(:team).where(team_id: currentTeamId).load
+      end
     else
-      offers = Offer.includes(:team).where(student_id: student.id).load
+      Team.unscoped do
+        offers = Offer.includes(:team).where(student_id: student.id).load
+      end
     end
     offerArray = []
     offers.each do |offer|
@@ -57,7 +62,7 @@ class API::OffersController < ApplicationController
     end
 
     if Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).present?
-      offer = Offer.includes(:team).where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
+      offer = Offer.where(student_id: request.POST[:student], team_id: request.POST[:company], shares: request.POST[:shares]).last
       offerWasSignedButNotAnswered = offer.signed && !offer.answered;
 
       offer.update!(offer_params)
@@ -66,7 +71,7 @@ class API::OffersController < ApplicationController
       offer.date_signed = Date.current
       offer.save!
 
-      team = offer.team
+      team = Team.unscoped.where(id: offer.team_id).first
       if request.POST[:signed] && !offerWasSignedButNotAnswered
         team.shares_distributed += offer.shares
         # If new team

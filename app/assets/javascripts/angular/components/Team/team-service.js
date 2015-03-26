@@ -7,6 +7,10 @@ team.factory('Team', ['$resource', function ($resource) {
     shares: {
       method: 'GET',
       params: {type: 'shares', id: '@id'}
+    },
+    dissolve: {
+      method: 'DELETE',
+      params: {type: 'dissolve', id: '@id'}
     }
   });
 }]);

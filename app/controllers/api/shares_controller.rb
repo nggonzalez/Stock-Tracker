@@ -1,7 +1,10 @@
 class API::SharesController < ApplicationController
   def show
     student = get_student
-    shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).all
+    shares = nil
+    Team.unscoped do
+      shares = Offer.includes(:team).where(student_id: student.id, answered: true, signed: true).all
+    end
     sharesData = {}
     sharesData[:maxOffer] = 0
     sharesData[:aggregateTotalShares] = 0
