@@ -22,12 +22,13 @@ class API::MentorController < ApplicationController
 
   def prof
     user = get_user
-    if user.class.name == 'Fellow' && user.professor
+    if user.class.name == 'Fellow'
     # if user.class.name == 'Fellow'
       # Get all students and there team
       # For each student, calculate equity
-      students = Student.all
+      students = Student.order(investments_value: :desc).all
       studentsData = []
+      rank = 1
       students.each do |student|
         if student.offers.empty?
           next
@@ -39,6 +40,9 @@ class API::MentorController < ApplicationController
         studentData[:netid] = student.netid
         studentData[:investedDollars] = student.invested_dollars
         studentData[:investableDollars] = student.investable_dollars
+        studentData[:investmentsValue] = student.investments_value
+        studentData[:rank] = rank
+        rank = rank + 1
 
         company = Team.where(id: currentTeamId).first
         studentData[:currentCompany] = company.company_name.truncate(20, separator: /\s|\:|\-/)

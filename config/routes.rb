@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   get '/offers', to: 'main#index'
   get '/faq', to: 'main#index'
   get '/mentor/groups', to: 'main#index', as: :mentor_groups
-  get '/mentor/prof', to: 'main#index', as: :prof_view
+  get '/mentor/all', to: 'main#index', as: :prof_view
   get "*path", to: "main#index", format: false
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

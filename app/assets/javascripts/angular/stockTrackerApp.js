@@ -58,7 +58,7 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
       .state('mentorProfessor', {
         controller: 'ProfessorCtrl',
         controllerAs: 'prof',
-        url: '/mentor/prof',
+        url: '/mentor/all',
         templateUrl: '/templates/mentor.prof'
       });
 

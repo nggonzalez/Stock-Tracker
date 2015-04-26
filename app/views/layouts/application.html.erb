@@ -47,6 +47,13 @@
       </li>
       <% elsif @user.class.name == "Fellow" %>
         <li>
+          <a ui-sref="mentorProfessor">
+            <span class="nav-icon glyphicon glyphicon-user"></span>
+            <span class="nav-text">Students</span>
+          </a>
+        </li>
+
+        <li>
           <a ui-sref="mentorGroups">
             <span class="nav-icon flaticon-team"></span>
             <span class="nav-text">Groups</span>

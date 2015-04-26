@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h1>All Students</h1>
+  <h1>All Students <div class="btn btn-default" ng-show="!rankSorting" ng-click="sortByRank()">Sort By Rank</div><div class="btn btn-default" ng-show="rankSorting" ng-click="defaultSort()">Sort By Default</div></h1>
   <table class="table table-hover">
     <tr>
       <th>Student</th>
@@ -9,10 +9,12 @@
       <th>Aggregate Earned Shares</th>
       <th>Aggregate Total Shares</th>
       <th>Investments</th>
+      <th>Investments Value</th>
+      <th>Rank</th>
       <th></th>
     </tr>
 
-    <tr ng-repeat="student in students | orderBy: ['currentCompany', '-earnedEquity']">
+    <tr ng-repeat="student in students | orderBy: sort">
       <td>{{student.name}}</td>
       <td>{{student.netid}}</td>
       <td>{{student.currentCompany}}</td>
@@ -20,6 +22,8 @@
       <td>{{student.earnedEquity | number}}</td>
       <td>{{student.totalEquity | number}}</td>
       <td>{{student.investedDollars | number}} / {{student.investableDollars | number}}</td>
+      <td>{{student.investmentsValue | number}}</td>
+      <td>{{student.rank | number}}</td>
       <td>
         <button ng-click="seeShares(student)" class="btn btn-default see-shares">
           <span class="glyphicon glyphicon-eye-open"></span> See Shares
