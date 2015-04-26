@@ -11,6 +11,7 @@ professor.controller('ProfessorCtrl', ['$scope', 'Mentor', 'Alerts', 'Modal', 'E
   };
 
   $scope.sort = ['currentCompany', '-earnedEquity', 'rank'];
+  $scope.rankSorting = false;
 
   $scope.sortByRank = function() {
     $scope.sort = ['rank'];
