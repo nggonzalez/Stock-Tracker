@@ -1,12 +1,20 @@
 
-lastname, firstname, netid, finalTeam, totalEarned, totalOffered,
+lastname, firstname, netid, finalTeam, totalEarned, totalOffered, investmentsValue, investedDollars, investableDollars,
 <% @teams.each do |team| %>
-  <%=team%><% if team != @teams.last %><%=","%><% end %>
+  <%=team%>, JoinDate<% if team != @teams.last %><%=","%><% end %>
 <% end %>
 <br>
 
 <% @studentsData.each do |student| %>
-  <%=student[:lastname] + "," + student[:firstname] + "," + student[:netid] + "," + student[:lastTeam] + "," + student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s + ","%><% @teams.each do |team| %><% if !student[:teams].first[:shares].empty? %><% if team != student[:teams].first[:shares].first[:name] %>0<% else%><%=(student[:teams].first[:shares].shift)[:shares]%><% end %><% else %>0<% end %><% if team != @teams.last %><%=","%><% end %>
+  <%=student[:lastname] + "," + student[:firstname] + "," + student[:netid] + "," + student[:lastTeam] + "," + student[:investmentsValue].to_s + "," + student[:investedDollars].to_s + "," + student[:investableDollars].to_s + "," + student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s + ","%><% @teams.each do |team| %>
+      <% if !student[:teams].first[:shares].empty? %>
+        <% if team != student[:teams].first[:shares].first[:name] %>0, N/A
+        <% else%><%=(student[:teams].first[:shares].first)[:shares]%>, [<% (student[:teams].first[:shares].first)[:joinDates].each do |joinDate| %> <%= joinDate.to_s %> <% if joinDate != (student[:teams].first[:shares].first)[:joinDates].last %><%=","%><%end%>]<%end%>
+          <% (student[:teams].first[:shares].shift) %>
+        <% end %>
+      <% else %>0, N/A
+      <% end %>
+      <% if team != @teams.last %><%=","%><% end %>
   <% end %>
   <br>
 <% end %>

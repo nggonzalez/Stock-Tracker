@@ -60,6 +60,11 @@ stockTrackerApp.config(['$stateProvider', '$urlRouterProvider',
         controllerAs: 'prof',
         url: '/mentor/all',
         templateUrl: '/templates/mentor.prof'
+      })
+      .state('mentorCSV', {
+        controller: 'MentorCSVCtrl',
+        url: '/mentor/csv',
+        templateUrl: '/templates/mentor.csv'
       });
 
     $locationProvider.html5Mode(true); // Allows # routing

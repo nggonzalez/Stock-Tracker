@@ -129,6 +129,12 @@ class API::MentorController < ApplicationController
         studentData[:firstname] = student.firstname
         studentData[:lastname] = student.lastname
         studentData[:netid] = student.netid
+        studentData[:investmentsValue] = student.investments_value.round(4)
+        studentData[:investedDollars] = student.invested_dollars.round(4)
+        studentData[:investableDollars] = student.investable_dollars.round(4)
+
+
+
         currentTeamId = getCurrentTeam(student.id)
         studentData[:lastTeam] = Team.find(currentTeamId).company_name
         studentData[:teams] = []
@@ -143,6 +149,11 @@ class API::MentorController < ApplicationController
         teams.each do |team|
           teamData = {}
           teamData[:name] = team.company_name
+          employeeJoinDates = Employee.where(student_id: student.id, team_id: team.id).load
+          teamData[:joinDates] = []
+          employeeJoinDates.each do |joinDate|
+            teamData[:joinDates].push(joinDate.created_at)
+          end
           teamData[:shares] = 0
           offers = Offer.where(student_id: student.id, team_id: team.id, signed: true).load
           offers.each do |offer|
@@ -166,7 +177,7 @@ class API::MentorController < ApplicationController
         @teams.push(team.company_name)
       end
 
-      render "mentor/csv.html.erb"
+      send_data makeCSV(@teams, @studentsData),  :filename => 'cs113.csv'
     else
       render status: :unauthorized
     end
@@ -184,6 +195,51 @@ def prepare_modifiable_offer(offer)
   o[:offerDate] = offer.offer_date
   o[:daysSinceOffer] = (Date.current - (offer.offer_date).to_date).to_i
   return o
+end
+
+def makeCSV(teams, studentsData)
+  csv = ""
+  csv += "lastname, firstname, netid, finalTeam, totalEarned, totalOffered, investmentsValue, investedDollars, investableDollars,"
+
+  teams.each do |team|
+    csv += team +', JoinDate'
+    if team != teams.last
+      csv += ","
+    end
+  end
+  csv+="\n"
+
+  studentsData.each do |student|
+    csv += student[:lastname] + "," + student[:firstname] + "," + student[:netid] + ","
+    csv += student[:lastTeam] + "," + student[:investmentsValue].to_s + ","
+    csv += student[:investedDollars].to_s + "," + student[:investableDollars].to_s + ","
+    csv += student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s + ","
+    teams.each do |team|
+      if !student[:teams].first[:shares].empty?
+        if team != student[:teams].first[:shares].first[:name]
+          csv += "0, N/A"
+        else
+          csv += student[:teams].first[:shares].first[:shares].round(4).to_s + ","
+          csv += "["
+          student[:teams].first[:shares].first[:joinDates].each do |joinDate|
+            csv += joinDate.to_s
+            if joinDate != student[:teams].first[:shares].first[:joinDates].last
+              csv += ","
+            end
+          end
+          csv += "]"
+          student[:teams].first[:shares].shift
+        end
+      else
+        csv += "0, N/A"
+      end
+      if team != teams.last
+        csv += ","
+      end
+    end
+    csv += "\n"
+  end
+  csv
 end
 
 end
