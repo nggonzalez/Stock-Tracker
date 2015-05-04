@@ -211,9 +211,10 @@ def makeCSV(teams, studentsData)
 
   studentsData.each do |student|
     csv += student[:lastname] + "," + student[:firstname] + "," + student[:netid] + ","
-    csv += student[:lastTeam] + "," + student[:investmentsValue].to_s + ","
-    csv += student[:investedDollars].to_s + "," + student[:investableDollars].to_s + ","
+    csv += student[:lastTeam] + ","
     csv += student[:teams].first[:aggregateEarnedShares].to_s + "," + student[:teams].first[:aggregateTotalShares].to_s + ","
+    csv += student[:investmentsValue].to_s + ","
+    csv += student[:investedDollars].to_s + "," + student[:investableDollars].to_s + ","
     teams.each do |team|
       if !student[:teams].first[:shares].empty?
         if team != student[:teams].first[:shares].first[:name]
